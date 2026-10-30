@@ -111,22 +111,19 @@ def coach_do_time(team_id):
         dados = buscar(f"/v2/team?id={team_id}&q=roster")
     except Exception as e:
         print(f"Aviso: não consegui ler a comissão do time {team_id}: {e}", file=sys.stderr)
-        debug = SAIDA.parent / "debug"
-        debug.mkdir(exist_ok=True)
-        (debug / f"roster_{team_id}_erro.txt").write_text(repr(e), encoding="utf-8")
         _coaches[team_id] = ""
         return ""
-    staff = dados.get("staff") or []
+    if isinstance(dados, dict) and dados.get("segments"):
+        dados = dados["segments"][0]
+    # o VLR lista a comissão junto com os jogadores; o papel diz quem é quem
+    pessoas = [p for k in ("staff", "active") for p in (dados.get(k) or [])]
     def papel(p):
         return (p.get("role") or "").lower()
-    escolhido = (next((p for p in staff if "head coach" in papel(p)), None)
-                 or next((p for p in staff if "coach" in papel(p) and "assistant" not in papel(p)), None)
-                 or next((p for p in staff if "coach" in papel(p)), None))
+    escolhido = (next((p for p in pessoas if "head coach" in papel(p)), None)
+                 or next((p for p in pessoas if papel(p).startswith("coach")), None)
+                 or next((p for p in pessoas if "coach" in papel(p) and "assistant" not in papel(p)
+                          and "performance" not in papel(p)), None))
     _coaches[team_id] = (escolhido or {}).get("alias", "")
-    if not _coaches[team_id]:
-        debug = SAIDA.parent / "debug"
-        debug.mkdir(exist_ok=True)
-        (debug / f"roster_{team_id}.json").write_text(json.dumps(dados, ensure_ascii=False, indent=1), encoding="utf-8")
     return _coaches[team_id]
 
 

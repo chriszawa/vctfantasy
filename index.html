@@ -160,6 +160,92 @@ p{max-width:70ch}
   h1{font-size:27px}
 }
 .view{display:none}.view.on{display:block}
+
+/* ---- campo e cartas ---- */
+.lineup-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:start}
+.field{--cw:168px;position:relative;display:grid;justify-content:center;align-items:center;
+  grid-template-columns:repeat(3,var(--cw));grid-template-areas:". duel ." "ini flex ctrl" ". sent .";
+  gap:18px 34px;padding:46px 28px;border:1px solid var(--line);overflow:hidden;
+  background:
+    linear-gradient(transparent 49.6%, #ffffff10 49.6% 50.4%, transparent 50.4%),
+    radial-gradient(circle at 50% 50%, transparent 0 92px, #ffffff12 92px 94px, transparent 94px),
+    repeating-linear-gradient(0deg, #ffffff06 0 1px, transparent 1px 44px),
+    repeating-linear-gradient(90deg, #ffffff06 0 1px, transparent 1px 44px),
+    linear-gradient(180deg,#1a1520 0%, #121c26 48%, #0f1d22 100%)}
+.field::before,.field::after{position:absolute;left:16px;font-family:var(--f-display);font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:#ffffff40}
+.field::before{content:"Ataque · entrada";top:14px}
+.field::after{content:"Defesa · âncora";bottom:14px}
+.slot-duel{grid-area:duel}.slot-ini{grid-area:ini}.slot-ctrl{grid-area:ctrl}.slot-flex{grid-area:flex}.slot-sent{grid-area:sent}
+
+.pcard{--rc:var(--muted);position:relative;width:var(--cw);aspect-ratio:3/4.15;display:flex;flex-direction:column;cursor:pointer;
+  background:linear-gradient(160deg,color-mix(in srgb,var(--rc) 26%,#1d2b38) 0%,#16222e 55%,#111a23 100%);
+  border:1px solid color-mix(in srgb,var(--rc) 55%,transparent);padding:12px 12px 10px;text-align:left;color:var(--text);
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));transition:transform .15s}
+.pcard:hover{transform:translateY(-3px)}
+.pcard:focus-visible{outline:2px solid var(--rc)}
+.pcard.Duelista{--rc:#ff8a5c}.pcard.Iniciador{--rc:#7cc4ff}.pcard.Controlador{--rc:#b49cff}.pcard.Sentinela{--rc:#3ddc97}.pcard.Flex{--rc:var(--gold)}.pcard.Coach{--rc:var(--red)}
+.pcard.cap{box-shadow:inset 0 0 0 2px var(--red)}
+.pc-top{display:flex;flex-direction:column;gap:3px}
+.pc-pts{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.pc-pts small{display:block;font-size:10px;letter-spacing:.14em;color:var(--muted);font-weight:600;margin-top:3px}
+.pc-role{order:-1;font-family:var(--f-display);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--rc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-avatar{width:58px;height:58px;margin:8px auto 6px;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:20px;
+  background:color-mix(in srgb,var(--rc) 22%,#0f1923);color:var(--rc);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.pc-name{font-family:var(--f-display);font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.03em;text-align:center;line-height:1.1;overflow-wrap:anywhere}
+.pc-team{font-size:12px;color:var(--muted);text-align:center;margin-top:2px}
+.pc-stats{margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #ffffff18;padding-top:7px;text-align:center}
+.pc-stats b{display:block;font-family:var(--f-display);font-size:14px;font-variant-numeric:tabular-nums}
+.pc-stats span{font-size:9.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.pc-cap{position:absolute;right:8px;bottom:58px;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:#0f1923;color:var(--muted);
+  font-family:var(--f-display);font-weight:700;font-size:12px;cursor:pointer;display:grid;place-items:center;padding:0}
+.pcard.cap .pc-cap{background:var(--red);border-color:var(--red);color:#fff}
+.pcard.empty{background:repeating-linear-gradient(135deg,#ffffff05 0 8px,transparent 8px 16px),#121c26;border-style:dashed;align-items:center;justify-content:center;gap:6px}
+.pc-plus{width:42px;height:42px;display:grid;place-items:center;border:1px dashed var(--rc);color:var(--rc);font-size:24px;font-family:var(--f-display)}
+.pc-hint{font-size:11.5px;color:var(--muted);text-align:center;max-width:16ch}
+.pc-empty-role{font-family:var(--f-display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--rc)}
+
+.bench{display:flex;flex-direction:column;gap:14px}
+.bench .val-big{font-family:var(--f-display);font-size:44px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+.bench-coach{display:flex;justify-content:center}
+.bench-coach .pcard{--cw:180px}
+.rules-mini ul{margin:0;padding-left:18px;color:var(--muted);font-size:13.5px;display:grid;gap:5px}
+.rules-mini b{color:var(--text)}
+
+/* prévia no início */
+.home-team-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
+.home-total{font-family:var(--f-display);font-size:34px;font-weight:700;font-variant-numeric:tabular-nums}
+.home-team-body{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+.field.mini{--cw:112px;gap:10px 18px;padding:30px 16px;flex:1 1 420px}
+.field.mini .pcard{padding:8px 8px 7px}
+.field.mini .pc-pts{font-size:20px}.field.mini .pc-pts small{display:none}.field.mini .pc-role{font-size:9px}.field.mini .pc-avatar{width:36px;height:36px;font-size:13px;margin:4px auto}
+.field.mini .pc-name{font-size:12.5px}.field.mini .pc-team{font-size:10.5px}
+.field.mini .pc-stats,.field.mini .pc-cap{display:none}
+.field.mini::before,.field.mini::after{font-size:9.5px}
+.home-coach .pcard{--cw:130px}
+.home-coach .pc-stats{display:none}
+
+/* seletor */
+.picker{position:fixed;inset:0;background:#05090dcc;display:grid;place-items:center;padding:16px;z-index:50}
+.picker[hidden]{display:none}
+.picker-box{width:min(560px,100%);max-height:min(720px,100%);display:flex;flex-direction:column;gap:10px;background:var(--panel);border:1px solid var(--line);padding:18px}
+.picker-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.picker-search{background:var(--bg);border:1px solid var(--line);padding:10px}
+.picker-list{overflow-y:auto;display:flex;flex-direction:column;min-height:120px}
+.pick-row{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:10px 8px;border:0;border-bottom:1px solid #22313e;background:none;text-align:left;cursor:pointer;color:var(--text)}
+.pick-row:hover:not(:disabled){background:var(--panel-2)}
+.pick-row.sel{background:var(--red-dim)}
+.pick-row:disabled{opacity:.4;cursor:not-allowed}
+.pick-row .pts{font-family:var(--f-display);font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;grid-row:span 2}
+.pick-row .sub{font-size:12.5px;color:var(--muted)}
+.picker-foot{display:flex;justify-content:flex-end}
+
+@media (max-width:1100px){.lineup-layout{grid-template-columns:1fr}.bench{flex-direction:row;flex-wrap:wrap}.bench>*{flex:1 1 240px}}
+@media (max-width:640px){
+  .field{--cw:31vw;gap:10px 8px;padding:34px 6px}
+  .pcard{padding:8px}.pc-pts{font-size:20px}.pc-avatar{width:34px;height:34px;font-size:12px}
+  .pc-name{font-size:12.5px}.pc-stats b{font-size:12px}.pc-stats span{font-size:8px}.pc-cap{bottom:48px;width:22px;height:22px}
+  .field.mini{--cw:27vw}
+}
 </style>
 </head>
 <body>
@@ -184,7 +270,18 @@ p{max-width:70ch}
         <div><div class="eyebrow">VCT Americas · Rodada de teste</div><h1>Painel da rodada</h1></div>
         <span class="chip test" id="data-chip">Dados de teste</span>
       </div>
-      <div class="grid tiles" id="tiles"></div>
+      <div class="home-team panel">
+        <div class="home-team-head">
+          <div><h2 style="margin:0">Seu time na rodada</h2><div class="muted" id="home-team-note" style="font-size:13.5px"></div></div>
+          <div style="text-align:right"><div class="eyebrow">Pontuação</div><div class="home-total" id="home-total">0,00</div></div>
+        </div>
+        <div class="home-team-body">
+          <div class="field mini" id="home-field"></div>
+          <div class="home-coach" id="home-coach"></div>
+        </div>
+        <a class="btn ghost" href="#escalacao" style="text-decoration:none;display:inline-block;margin-top:14px">Editar escalação</a>
+      </div>
+      <div class="grid tiles" id="tiles" style="margin-top:16px"></div>
       <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:16px">
         <div class="panel"><h2>Top 5 da rodada</h2><ol class="top5" id="top5"></ol></div>
         <div class="panel"><h2>Coaches</h2><ol class="top5" id="topc"></ol></div>
@@ -195,13 +292,31 @@ p{max-width:70ch}
     <section class="view" id="v-escalacao">
       <div class="top">
         <div><div class="eyebrow">Monte seu time</div><h1>Escalação</h1></div>
-        <button class="btn ghost" id="auto">Escalar os melhores</button>
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn ghost" id="clear-lineup" type="button">Limpar</button>
+          <button class="btn" id="auto" type="button">Escalar os melhores</button>
+        </div>
       </div>
-      <p class="muted">Um jogador por função, um flex de qualquer função e um coach. O capitão pontua 1,5x. Quem jogou mais de uma série na semana pontua pela média delas. O limite de 2 jogadores por time ainda não está ativo.</p>
-      <div class="pitch" id="pitch"></div>
-      <div class="panel total">
-        <div><div class="eyebrow">Pontuação do time</div><div class="val" id="team-total">0,00</div></div>
-        <div class="muted" id="team-note"></div>
+      <div class="lineup-layout">
+        <div class="field" id="field"></div>
+        <aside class="bench">
+          <div class="panel">
+            <div class="eyebrow">Pontuação do time</div>
+            <div class="val-big" id="team-total">0,00</div>
+            <div class="muted" id="team-note" style="font-size:13.5px"></div>
+          </div>
+          <div class="bench-coach" id="bench-coach"></div>
+          <div class="panel rules-mini">
+            <h2>Como funciona</h2>
+            <ul>
+              <li>Toque numa carta para escolher o jogador daquela função.</li>
+              <li>O <b>Flex</b> aceita qualquer função.</li>
+              <li>O <b>capitão</b> pontua 1,5x. Use o botão C na carta.</li>
+              <li>No máximo <b>2 jogadores do mesmo time</b>.</li>
+              <li>Quem jogou duas séries na semana pontua pela média delas.</li>
+            </ul>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -331,6 +446,18 @@ p{max-width:70ch}
       </div>
     </section>
   </main>
+  <div class="picker" id="picker" hidden>
+    <div class="picker-box" role="dialog" aria-modal="true" aria-labelledby="picker-title">
+      <div class="picker-head">
+        <div><div class="eyebrow" id="picker-eyebrow">Escolher</div><h2 id="picker-title" style="margin:2px 0 0">Duelista</h2></div>
+        <button class="btn ghost" id="picker-close" type="button">Fechar</button>
+      </div>
+      <label for="picker-search" class="muted" style="font-size:12px">Buscar jogador ou time</label>
+      <input id="picker-search" class="picker-search" placeholder="ex.: aspas, LOUD" autocomplete="off">
+      <div class="picker-list" id="picker-list"></div>
+      <div class="picker-foot"><button class="btn ghost" id="picker-remove" type="button">Deixar vazio</button></div>
+    </div>
+  </div>
 </div>
 
 <script>
@@ -423,7 +550,7 @@ function compute(){
       [["team1",teams[0]],["team2",teams[1]]].forEach(([side,team]) => {
         m.players[side].forEach(p => {
           const j = acc[p.name] ||= {name:p.name, team, maps:[], kills:0, rounds:0, agents:[]};
-          j.maps.push({map:m.map_name, agent:p.agent, ...mapPoints(p)});
+          j.maps.push({map:m.map_name, agent:p.agent, acs:num(p.acs), k:num(p.kills), d:num(p.deaths), a:num(p.assists), ...mapPoints(p)});
           j.kills += num(p.kills); j.rounds += rounds; j.agents.push(p.agent);
         });
       });
@@ -528,52 +655,145 @@ $("tbody").addEventListener("keydown", e => { if(e.key==="Enter"){ const tr=e.ta
 
 // ------------------------------------------------------------------ escalação
 const SLOTS = ["Duelista","Iniciador","Controlador","Sentinela","Flex","Coach"];
+const PLAYER_SLOTS = SLOTS.slice(0,5);
+const SLOT_AREA = {Duelista:"slot-duel",Iniciador:"slot-ini",Controlador:"slot-ctrl",Sentinela:"slot-sent",Flex:"slot-flex"};
+const SLOT_HINT = {Duelista:"abre o round", Iniciador:"gera informação", Controlador:"smokes e ritmo", Sentinela:"segura o bomb", Flex:"qualquer função", Coach:"média do time"};
+const MAX_POR_TIME = 2;
+let pickerSlot = null;
+let canSave = false;
+let SAVED_LINEUP = null;
+try{ SAVED_LINEUP = JSON.parse(localStorage.getItem("fvct-lineup")||"null"); }catch(e){}
+
 function pool(slot){
   if(slot==="Coach") return STATE.coaches;
   if(slot==="Flex") return STATE.players;
   return STATE.players.filter(p=>p.role===slot);
 }
 function findById(id){ return STATE.players.find(p=>p.id===id) || STATE.coaches.find(c=>c.id===id); }
-function renderPitch(){
-  // limpa escolhas que não existem mais
-  SLOTS.forEach(s => { if(lineup[s] && !findById(lineup[s])) lineup[s]=null; });
-  const used = SLOTS.filter(s=>s!=="Coach").map(s=>lineup[s]).filter(Boolean);
-  let total = 0;
-  $("pitch").innerHTML = SLOTS.map(s => {
-    const sel = lineup[s] ? findById(lineup[s]) : null;
-    const isCap = sel && lineup.cap===s && s!=="Coach";
-    const pts = sel ? sel.final*(isCap?R.cap:1) : 0; total += pts;
-    const opts = pool(s).filter(p => p.id===lineup[s] || !used.includes(p.id))
-      .map(p=>`<option value="${esc(p.id)}"${p.id===lineup[s]?' selected':''}>${esc(s==="Coach"?p.name+" ("+p.team+")":p.name)}${s==="Flex"?' ('+p.role+')':''} · ${fmt(p.final)}</option>`).join("");
-    return `<div class="slot${isCap?' cap':''}">
-      <div class="slot-role">${s}</div>
-      <label class="muted" for="sel-${s}" style="font-size:12px">Escolher</label>
-      <select id="sel-${s}" data-slot="${s}"><option value="">Vazio</option>${opts}</select>
-      <div class="pts">${sel?fmt(pts):"–"}${isCap?'<small>capitão</small>':''}</div>
-      ${s!=="Coach" && sel ? `<button class="cap-btn" type="button" data-cap="${s}">${isCap?'Capitão':'Tornar capitão'}</button>`:''}
-    </div>`;
-  }).join("");
-  $("team-total").textContent = fmt(total);
-  const filled = SLOTS.filter(s=>lineup[s]).length;
-  $("team-note").textContent = filled<6 ? `${filled} de 6 posições preenchidas` : (lineup.cap ? "Time completo" : "Time completo. Escolha um capitão.");
+function teamCount(team, exceptSlot){
+  return PLAYER_SLOTS.filter(s => s!==exceptSlot && lineup[s] && findById(lineup[s])?.team===team).length;
 }
-$("pitch").addEventListener("change", e => {
-  const s = e.target.dataset.slot; if(!s) return;
-  lineup[s] = e.target.value || null; if(!lineup[s] && lineup.cap===s) lineup.cap=null; renderPitch();
+function slotPoints(s){
+  const sel = lineup[s] ? findById(lineup[s]) : null;
+  if(!sel) return 0;
+  return sel.final * (lineup.cap===s && s!=="Coach" ? R.cap : 1);
+}
+function teamTotal(){ return SLOTS.reduce((t,s)=>t+slotPoints(s),0); }
+function initials(n){ const w = String(n).replace(/[^\p{L}\p{N} ]/gu,"").trim(); return (w.length<=3 ? w : w.slice(0,2)).toUpperCase(); }
+function cardStats(p){
+  const maps = (p.entries||[]).flatMap(e=>e.maps||[]);
+  if(!maps.length) return null;
+  const acs = maps.reduce((t,m)=>t+m.acs,0)/maps.length;
+  const k = maps.reduce((t,m)=>t+m.k,0), d = maps.reduce((t,m)=>t+m.d,0), a = maps.reduce((t,m)=>t+m.a,0);
+  return {acs:Math.round(acs), kda:`${k}/${d}/${a}`, maps:maps.length};
+}
+function cardHTML(s, opts={}){
+  const sel = lineup[s] ? findById(lineup[s]) : null;
+  const area = SLOT_AREA[s] || "";
+  const tag = opts.static ? "div" : "div";
+  const open = opts.static ? `onclick="location.hash='escalacao'"` : `data-open="${s}" tabindex="0" role="button" aria-label="Escolher ${s}"`;
+  if(!sel){
+    return `<${tag} class="pcard empty ${s} ${area}" ${open}>
+      <div class="pc-plus">+</div><div class="pc-empty-role">${s}</div><div class="pc-hint">${SLOT_HINT[s]}</div></${tag}>`;
+  }
+  const isCap = lineup.cap===s && s!=="Coach";
+  const pts = slotPoints(s);
+  const st = s==="Coach" ? null : cardStats(sel);
+  const label = s==="Flex" ? "Flex · "+sel.role : s;
+  const sub = s==="Coach" ? esc(sel.team) : esc(sel.team) + (sel.entries.length>1 ? " · 2 séries" : "");
+  return `<${tag} class="pcard ${s} ${area}${isCap?' cap':''}" ${open}>
+    <div class="pc-top"><div class="pc-pts">${fmt(pts)}<small>${isCap?'CAPITÃO 1,5x':'PONTOS'}</small></div><div class="pc-role">${label}</div></div>
+    <div class="pc-avatar">${esc(initials(sel.name))}</div>
+    <div class="pc-name">${esc(sel.name)}</div>
+    <div class="pc-team">${sub}</div>
+    ${st ? `<div class="pc-stats"><div><b>${st.acs}</b><span>ACS</span></div><div><b>${st.kda}</b><span>K/D/A</span></div><div><b>${st.maps}</b><span>Mapas</span></div></div>`
+         : (s==="Coach" ? `<div class="pc-stats"><div style="grid-column:span 3"><b>${sel.entries.map(e=>e.score).join(" · ")}</b><span>Séries</span></div></div>` : "")}
+    ${s!=="Coach" && !opts.static ? `<button class="pc-cap" type="button" data-cap="${s}" title="${isCap?'Capitão':'Tornar capitão'}" aria-label="Tornar ${esc(sel.name)} capitão">C</button>` : ""}
+  </${tag}>`;
+}
+function renderPitch(){
+  SLOTS.forEach(s => { if(lineup[s] && !findById(lineup[s])) lineup[s]=null; });
+  if(lineup.cap && !lineup[lineup.cap]) lineup.cap = null;
+  $("field").innerHTML = PLAYER_SLOTS.map(s=>cardHTML(s)).join("");
+  $("bench-coach").innerHTML = cardHTML("Coach");
+  $("home-field").innerHTML = PLAYER_SLOTS.map(s=>cardHTML(s,{static:true})).join("");
+  $("home-coach").innerHTML = cardHTML("Coach",{static:true});
+  const total = fmt(teamTotal());
+  $("team-total").textContent = total; $("home-total").textContent = total;
+  const filled = SLOTS.filter(s=>lineup[s]).length;
+  const note = filled<6 ? `${filled} de 6 posições preenchidas` : (lineup.cap ? `Time completo · capitão: ${findById(lineup[lineup.cap]).name}` : "Time completo. Escolha um capitão.");
+  $("team-note").textContent = note; $("home-team-note").textContent = note;
+  if(canSave){ try{ localStorage.setItem("fvct-lineup", JSON.stringify(lineup)); }catch(e){} }
+}
+
+// seletor
+function openPicker(s){
+  pickerSlot = s;
+  $("picker-eyebrow").textContent = s==="Coach" ? "Escolher coach" : "Escolher jogador";
+  $("picker-title").textContent = s + " · " + SLOT_HINT[s];
+  $("picker-search").value = "";
+  renderPicker();
+  $("picker").hidden = false;
+  setTimeout(()=>$("picker-search").focus(), 30);
+}
+function closePicker(){ $("picker").hidden = true; const s = pickerSlot; pickerSlot = null; const c = document.querySelector(`[data-open="${s}"]`); if(c) c.focus(); }
+function renderPicker(){
+  const s = pickerSlot; if(!s) return;
+  const q = $("picker-search").value.trim().toLowerCase();
+  const usedElsewhere = new Set(PLAYER_SLOTS.filter(x=>x!==s).map(x=>lineup[x]).filter(Boolean));
+  const list = pool(s).filter(p => !q || p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q));
+  $("picker-list").innerHTML = list.map(p => {
+    let why = "";
+    if(s!=="Coach"){
+      if(usedElsewhere.has(p.id)) why = "já está no time";
+      else if(teamCount(p.team, s) >= MAX_POR_TIME) why = `limite de ${MAX_POR_TIME} do ${p.team}`;
+    }
+    const series = p.entries.map(e=>`vs ${e.opp} ${e.score}`).join(" · ");
+    return `<button class="pick-row${p.id===lineup[s]?' sel':''}" type="button" data-pick="${esc(p.id)}" ${why?'disabled':''}>
+      <span><b>${esc(p.name)}</b>${s!=="Coach"?`<span class="role ${p.role}">${p.role}</span>`:''}</span>
+      <span class="pts">${fmt(p.final)}</span>
+      <span class="sub">${esc(p.team)} · ${esc(series)}${why?' · '+why:''}</span>
+    </button>`;
+  }).join("") || `<p class="muted" style="padding:10px">Nenhum jogador encontrado.</p>`;
+}
+$("picker-search").addEventListener("input", renderPicker);
+$("picker-close").addEventListener("click", closePicker);
+$("picker").addEventListener("click", e => { if(e.target.id==="picker") closePicker(); });
+document.addEventListener("keydown", e => { if(e.key==="Escape" && !$("picker").hidden) closePicker(); });
+$("picker-list").addEventListener("click", e => {
+  const b = e.target.closest("[data-pick]"); if(!b || b.disabled) return;
+  lineup[pickerSlot] = b.dataset.pick; renderPitch(); closePicker();
 });
-$("pitch").addEventListener("click", e => {
-  const s = e.target.dataset.cap; if(!s) return; lineup.cap = lineup.cap===s ? null : s; renderPitch();
+$("picker-remove").addEventListener("click", () => {
+  if(lineup.cap===pickerSlot) lineup.cap=null;
+  lineup[pickerSlot] = null; renderPitch(); closePicker();
 });
-$("auto").addEventListener("click", () => {
-  lineup = {cap:null}; const taken = new Set();
+
+function onFieldClick(e){
+  const cap = e.target.closest("[data-cap]");
+  if(cap){ e.stopPropagation(); const s = cap.dataset.cap; lineup.cap = lineup.cap===s ? null : s; renderPitch(); return; }
+  const c = e.target.closest("[data-open]"); if(c) openPicker(c.dataset.open);
+}
+function onFieldKey(e){
+  if((e.key==="Enter"||e.key===" ") && e.target.matches("[data-open]")){ e.preventDefault(); openPicker(e.target.dataset.open); }
+}
+["field","bench-coach"].forEach(id => { $(id).addEventListener("click", onFieldClick); $(id).addEventListener("keydown", onFieldKey); });
+
+function autoLineup(){
+  lineup = {cap:null};
+  const taken = new Set(), perTeam = {};
   ["Duelista","Iniciador","Controlador","Sentinela","Flex"].forEach(s => {
-    const best = pool(s).find(p=>!taken.has(p.id)); lineup[s] = best?best.id:null; if(best) taken.add(best.id);
+    const best = pool(s).find(p => !taken.has(p.id) && (perTeam[p.team]||0) < MAX_POR_TIME);
+    lineup[s] = best ? best.id : null;
+    if(best){ taken.add(best.id); perTeam[best.team] = (perTeam[best.team]||0)+1; }
   });
   lineup.Coach = STATE.coaches[0]?.id || null;
-  const ranked = ["Duelista","Iniciador","Controlador","Sentinela","Flex"].filter(s=>lineup[s]).sort((a,b)=>findById(lineup[b]).final-findById(lineup[a]).final);
+  const ranked = PLAYER_SLOTS.filter(s=>lineup[s]).sort((a,b)=>findById(lineup[b]).final-findById(lineup[a]).final);
   lineup.cap = ranked[0] || null;
   renderPitch();
-});
+}
+$("auto").addEventListener("click", autoLineup);
+$("clear-lineup").addEventListener("click", () => { lineup = {cap:null}; renderPitch(); });
 
 // ------------------------------------------------------------------ regras
 const RULE_IDS = Object.keys(DEFAULT_RULES);
@@ -698,6 +918,9 @@ function route(){
 window.addEventListener("hashchange", route);
 
 async function loadPublished(){
+  try{ await loadPublishedInner(); } finally { canSave = true; restoreOrAuto(); }
+}
+async function loadPublishedInner(){
   // No GitHub Pages, o workflow "Coletar rodada" salva a rodada em data/rodada.json
   try{
     const r = await fetch("data/rodada.json", {cache:"no-store"});
@@ -711,10 +934,15 @@ async function loadPublished(){
     $("pub-info").innerHTML = `<div style="font-family:var(--f-display);font-size:20px;color:var(--text);text-transform:uppercase;letter-spacing:.04em">${esc(d.rotulo||"Rodada")}</div>
       <div style="margin-top:6px">${list.length} séries${quando?" · coletada em "+esc(quando):""}</div>
       <div style="margin-top:10px;font-size:13.5px">${list.map(x=>esc(x.teams[0].name)+" "+esc(x.teams[0].score??"")+" x "+esc(x.teams[1].score??"")+" "+esc(x.teams[1].name)).join("<br>")}</div>`;
-    renderAll(); $("auto").click();
+    renderAll();
   }catch(e){}
 }
-fillRules(); renderAll(); $("auto").click(); route(); loadPublished();
+function restoreOrAuto(){
+  const saved = SAVED_LINEUP;
+  if(canSave && saved && SLOTS.some(s=>saved[s] && findById(saved[s]))){ lineup = {...saved}; renderPitch(); return; }
+  autoLineup();
+}
+fillRules(); renderAll(); restoreOrAuto(); route(); loadPublished();
 </script>
 </body>
 </html>
