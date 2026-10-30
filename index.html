@@ -9,7 +9,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* layout: sidebar fixa à esquerda + área de trabalho; cortes angulares nos cantos como na UI do Valorant */
+  /* layout: menu lateral fixo + área de trabalho em janelas; cortes angulares como na UI do Valorant */
   --bg:#0f1923;
   --panel:#16222e;
   --panel-2:#1d2b38;
@@ -21,6 +21,7 @@
   --good:#3ddc97;
   --bad:#ff6b6b;
   --gold:#f2c94c;
+  --c-due:#ff8a5c; --c-ini:#7cc4ff; --c-con:#b49cff; --c-sen:#3ddc97; --c-flex:#f2c94c; --c-coach:#ff4655;
   --f-display:"Chakra Petch", "Arial Narrow", sans-serif;
   --f-body:"Barlow", "Segoe UI", system-ui, sans-serif;
   --cut:12px;
@@ -29,20 +30,20 @@
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
 body{background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:15px;line-height:1.45}
-button,input,select,textarea{font:inherit;color:inherit}
+button,input,select{font:inherit;color:inherit}
+a{color:inherit}
 :focus-visible{outline:2px solid var(--red);outline-offset:2px}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
 .app{display:grid;grid-template-columns:232px 1fr;min-height:100%}
 .side{background:#0b131b;border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;gap:24px;position:sticky;top:0;height:100vh}
-.logo{font-family:var(--f-display);font-weight:700;font-size:22px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:10px;padding:0 8px}
+.logo{font-family:var(--f-display);font-weight:700;font-size:22px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:10px;padding:0 8px;text-decoration:none}
 .logo b{display:inline-block;width:26px;height:26px;background:var(--red);clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%)}
 .logo span{color:var(--red)}
 nav{display:flex;flex-direction:column;gap:4px}
-nav a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 12px;color:var(--muted);text-decoration:none;font-family:var(--f-display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13.5px;border-left:3px solid transparent}
+nav a{display:flex;align-items:center;gap:10px;padding:11px 12px;color:var(--muted);text-decoration:none;font-family:var(--f-display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13.5px;border-left:3px solid transparent}
 nav a:hover{color:var(--text);background:var(--panel)}
 nav a.on{color:var(--text);background:var(--panel);border-left-color:var(--red)}
-nav a small{font-family:var(--f-body);font-size:10.5px;letter-spacing:.04em;color:var(--muted);border:1px solid var(--line);padding:1px 6px;text-transform:none}
 .side-foot{margin-top:auto;font-size:12px;color:var(--muted);padding:0 8px}
 
 main{padding:26px 32px 48px;min-width:0}
@@ -51,118 +52,52 @@ main{padding:26px 32px 48px;min-width:0}
 h1{font-family:var(--f-display);font-weight:700;font-size:34px;line-height:1.05;text-transform:uppercase;letter-spacing:.03em;margin:4px 0 0;text-wrap:balance}
 h2{font-family:var(--f-display);font-weight:600;font-size:17px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 12px}
 .chip{display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
-.chip.test{border-color:var(--gold);color:var(--gold)}
-
 .panel{background:var(--panel);border:1px solid var(--line);padding:18px;clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,0 100%)}
-.grid{display:grid;gap:16px}
-.tiles{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
-.tile .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.tile .val{font-family:var(--f-display);font-size:30px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
-.tile .sub{font-size:13px;color:var(--muted)}
-
-.btn{background:var(--red);color:#fff;border:0;padding:10px 16px;font-family:var(--f-display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;cursor:pointer;clip-path:polygon(0 0,100% 0,100% 70%,calc(100% - 9px) 100%,0 100%)}
+.muted{color:var(--muted)}
+.neg{color:var(--bad)}
+.btn{background:var(--red);color:#fff;border:0;padding:10px 16px;font-family:var(--f-display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;cursor:pointer;text-decoration:none;display:inline-block;clip-path:polygon(0 0,100% 0,100% 70%,calc(100% - 9px) 100%,0 100%)}
 .btn:hover{filter:brightness(1.1)}
 .btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);clip-path:none}
 .btn.ghost:hover{border-color:var(--red)}
-
-/* tabela de pontuação */
-.tbl-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
-th{font-family:var(--f-display);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
-th.l,td.l{text-align:left}
-td{padding:10px;text-align:right;border-bottom:1px solid #22313e;white-space:nowrap}
-tbody tr.row{cursor:pointer}
-tbody tr.row:hover{background:var(--panel-2)}
-tr.row.open{background:var(--panel-2)}
-td.final{font-family:var(--f-display);font-weight:700;font-size:17px}
-.pos{color:var(--muted);width:28px}
-.name{font-weight:600}
-.team{color:var(--muted);font-size:13px}
-.mult.up{color:var(--good)}
-.neg{color:var(--bad)}
-.role{font-size:10.5px;padding:1px 6px;border:1px solid var(--line);margin-left:6px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);vertical-align:2px}
-.role.Duelista{border-color:#ff8a5c;color:#ff8a5c}
-.role.Iniciador{border-color:#7cc4ff;color:#7cc4ff}
-.role.Controlador{border-color:#b49cff;color:#b49cff}
-.role.Sentinela{border-color:#3ddc97;color:#3ddc97}
-.role.Flex{border-color:var(--gold);color:var(--gold)}
-tr.detail td{padding:0;background:#121d27;white-space:normal}
-.breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding:14px}
-.bk{border:1px solid var(--line);padding:12px}
-.bk h3{margin:0 0 8px;font-family:var(--f-display);font-size:14px;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between}
-.bk dl{display:grid;grid-template-columns:1fr auto auto;gap:3px 12px;margin:0;font-size:13.5px}
-.bk dt{color:var(--muted);text-align:left;justify-self:start}
-.bk dd{margin:0;text-align:right}
-.bk .tot{border-top:1px solid var(--line);padding-top:6px;margin-top:4px;font-weight:600}
-.formula{font-size:13.5px;color:var(--muted);padding:0 14px 14px}
-.formula b{color:var(--text)}
-
-.layout-score{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
-.rules label{display:grid;grid-template-columns:1fr 84px;align-items:center;gap:10px;font-size:13.5px;padding:5px 0}
-.rules input{width:84px;background:var(--bg);border:1px solid var(--line);padding:6px 8px;text-align:right}
-.rules h3{font-family:var(--f-display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin:14px 0 4px}
-.rules h3:first-of-type{margin-top:0}
-.rules .row-btns{display:flex;gap:8px;margin-top:14px}
-
-.series-bar{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
-.series{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);padding:10px 14px}
-.series .sc{font-family:var(--f-display);font-weight:700;font-size:20px}
-.series .w{color:var(--text)} .series .lz{color:var(--muted)}
-.series .maps{font-size:12.5px;color:var(--muted)}
-
-/* escalação */
-.pitch{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
-.slot{background:var(--panel);border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:10px;clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,0 100%);position:relative}
-.slot.cap{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
-.slot .slot-role{font-family:var(--f-display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.slot select{background:var(--bg);border:1px solid var(--line);padding:8px}
-.slot .pts{font-family:var(--f-display);font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
-.slot .pts small{font-size:13px;color:var(--muted);font-weight:500;margin-left:4px}
-.slot .cap-btn{background:none;border:1px solid var(--line);padding:5px 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;color:var(--muted)}
-.slot.cap .cap-btn{background:var(--red);border-color:var(--red);color:#fff}
-.total{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
-.total .val{font-family:var(--f-display);font-size:42px;font-weight:700}
-
-textarea{width:100%;min-height:220px;background:var(--bg);border:1px solid var(--line);padding:12px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
-.msg{font-size:14px;margin-top:10px}
-.msg.ok{color:var(--good)} .msg.err{color:var(--bad)}
-.steps{margin:0;padding-left:20px;color:var(--muted);font-size:14px;max-width:70ch}
-.steps code,p code{background:var(--bg);border:1px solid var(--line);padding:1px 5px;font-size:12.5px;color:var(--text)}
-p{max-width:70ch}
-.muted{color:var(--muted)}
-.soon{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-.soon .panel p{margin:6px 0 0;color:var(--muted);font-size:14px}
-.top5 li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #22313e}
-.top5{list-style:none;margin:0;padding:0;font-variant-numeric:tabular-nums}
-.top5 b{font-family:var(--f-display)}
-
-.api-form{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-top:14px}
-.api-form label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
-.api-form input{background:var(--bg);border:1px solid var(--line);padding:9px 10px;min-width:220px;text-transform:none;letter-spacing:0;font-size:14px;color:var(--text)}
-.chip.ok{border-color:var(--good);color:var(--good)} .chip.err{border-color:var(--bad);color:var(--bad)}
-.mgroup{margin-top:16px}
-.mgroup-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:6px}
-.mgroup-h b{font-family:var(--f-display);letter-spacing:.08em;text-transform:uppercase;font-size:13px}
-.mrow{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:14px}
-.mrow input{accent-color:var(--red);width:16px;height:16px}
-.mrow .sc{font-family:var(--f-display);font-weight:700;color:var(--muted)}
-.mrow.na{opacity:.45}
-.link-btn{background:none;border:0;color:var(--red);cursor:pointer;font-size:13px;padding:2px 0}
-@media (max-width:960px){.layout-score{grid-template-columns:1fr}}
-@media (max-width:760px){
-  .app{grid-template-columns:1fr}
-  .side{position:static;height:auto;padding:14px;gap:12px}
-  nav{flex-direction:row;overflow-x:auto}
-  nav a{white-space:nowrap;border-left:0;border-bottom:3px solid transparent}
-  nav a.on{border-bottom-color:var(--red)}
-  .side-foot{display:none}
-  main{padding:20px 16px 40px}
-  h1{font-size:27px}
-}
+.btn.small{padding:6px 10px;font-size:12px}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.role{font-size:10.5px;padding:1px 6px;border:1px solid var(--line);margin-left:6px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);vertical-align:2px;white-space:nowrap}
+.role.Duelista{border-color:var(--c-due);color:var(--c-due)}
+.role.Iniciador{border-color:var(--c-ini);color:var(--c-ini)}
+.role.Controlador{border-color:var(--c-con);color:var(--c-con)}
+.role.Sentinela{border-color:var(--c-sen);color:var(--c-sen)}
+.role.Flex{border-color:var(--c-flex);color:var(--c-flex)}
 .view{display:none}.view.on{display:block}
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:flex-end}
+.filters label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.filters select,.filters input{background:var(--bg);border:1px solid var(--line);padding:8px 10px;min-width:150px;text-transform:none;letter-spacing:0;font-size:14px;color:var(--text)}
+.empty-state{padding:30px;text-align:center;color:var(--muted)}
 
-/* ---- campo e cartas ---- */
-.lineup-layout{display:grid;grid-template-columns:minmax(0,1fr) 280px;gap:18px;align-items:start}
+/* ---- janelas do início ---- */
+.windows{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.win{display:flex;flex-direction:column;gap:12px;min-height:260px}
+.win-head{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.win-head h2{margin:0;display:flex;align-items:center;gap:10px}
+.win-head h2 i{width:10px;height:10px;background:var(--red);display:inline-block;clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%)}
+.win-foot{margin-top:auto}
+.mini-lineup{display:grid;gap:6px}
+.mini-slot{display:grid;grid-template-columns:96px 1fr auto;gap:10px;align-items:center;padding:7px 10px;background:var(--bg);border-left:3px solid var(--rc,var(--line))}
+.mini-slot .r{font-family:var(--f-display);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--rc)}
+.mini-slot .n{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mini-slot .n.vazio{color:var(--muted);font-weight:400}
+.mini-slot .p{font-family:var(--f-display);font-weight:700;font-variant-numeric:tabular-nums}
+.big-num{font-family:var(--f-display);font-weight:700;font-size:34px;line-height:1;font-variant-numeric:tabular-nums}
+.kv{display:flex;gap:22px;flex-wrap:wrap}
+.kv .lbl{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.list{list-style:none;margin:0;padding:0;font-variant-numeric:tabular-nums}
+.list li{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #22313e;align-items:center}
+.list li:last-child{border-bottom:0}
+.list b{font-family:var(--f-display)}
+.sub-h{font-family:var(--f-display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:2px 0 4px}
+.win-cards{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+
+/* ---- campo e cartas de escalação ---- */
+.lineup-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px;align-items:start}
 .field{--cw:168px;position:relative;display:grid;justify-content:center;align-items:center;
   grid-template-columns:repeat(3,var(--cw));grid-template-areas:". duel ." "ini flex ctrl" ". sent .";
   gap:18px 34px;padding:46px 28px;border:1px solid var(--line);overflow:hidden;
@@ -176,115 +111,218 @@ p{max-width:70ch}
 .field::before{content:"Ataque · entrada";top:14px}
 .field::after{content:"Defesa · âncora";bottom:14px}
 .slot-duel{grid-area:duel}.slot-ini{grid-area:ini}.slot-ctrl{grid-area:ctrl}.slot-flex{grid-area:flex}.slot-sent{grid-area:sent}
-
-.pcard{--rc:var(--muted);position:relative;width:var(--cw);aspect-ratio:3/4.15;display:flex;flex-direction:column;cursor:pointer;
+.pcard{--rc:var(--muted);position:relative;width:var(--cw);aspect-ratio:3/4.3;display:flex;flex-direction:column;cursor:pointer;
   background:linear-gradient(160deg,color-mix(in srgb,var(--rc) 26%,#1d2b38) 0%,#16222e 55%,#111a23 100%);
-  border:1px solid color-mix(in srgb,var(--rc) 55%,transparent);padding:12px 12px 10px;text-align:left;color:var(--text);
+  border:1px solid color-mix(in srgb,var(--rc) 55%,transparent);padding:12px 12px 10px;color:var(--text);
   clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));transition:transform .15s}
 .pcard:hover{transform:translateY(-3px)}
 .pcard:focus-visible{outline:2px solid var(--rc)}
-.pcard.Duelista{--rc:#ff8a5c}.pcard.Iniciador{--rc:#7cc4ff}.pcard.Controlador{--rc:#b49cff}.pcard.Sentinela{--rc:#3ddc97}.pcard.Flex{--rc:var(--gold)}.pcard.Coach{--rc:var(--red)}
+.pcard.Duelista{--rc:var(--c-due)}.pcard.Iniciador{--rc:var(--c-ini)}.pcard.Controlador{--rc:var(--c-con)}.pcard.Sentinela{--rc:var(--c-sen)}.pcard.Flex{--rc:var(--c-flex)}.pcard.Coach{--rc:var(--c-coach)}
 .pcard.cap{box-shadow:inset 0 0 0 2px var(--red)}
-.pc-top{display:flex;flex-direction:column;gap:3px}
-.pc-pts{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+.pc-role{font-family:var(--f-display);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--rc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-pts{font-family:var(--f-display);font-weight:700;font-size:30px;line-height:1;font-variant-numeric:tabular-nums;margin-top:3px}
 .pc-pts small{display:block;font-size:10px;letter-spacing:.14em;color:var(--muted);font-weight:600;margin-top:3px}
-.pc-role{order:-1;font-family:var(--f-display);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--rc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.pc-avatar{width:58px;height:58px;margin:8px auto 6px;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:20px;
+.pc-avatar{width:54px;height:54px;margin:6px auto 5px;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:19px;
   background:color-mix(in srgb,var(--rc) 22%,#0f1923);color:var(--rc);clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
 .pc-name{font-family:var(--f-display);font-weight:700;font-size:17px;text-transform:uppercase;letter-spacing:.03em;text-align:center;line-height:1.1;overflow-wrap:anywhere}
 .pc-team{font-size:12px;color:var(--muted);text-align:center;margin-top:2px}
 .pc-stats{margin-top:auto;display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid #ffffff18;padding-top:7px;text-align:center}
 .pc-stats b{display:block;font-family:var(--f-display);font-size:14px;font-variant-numeric:tabular-nums}
 .pc-stats span{font-size:9.5px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
-.pc-cap{position:absolute;right:8px;bottom:58px;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:#0f1923;color:var(--muted);
+.pc-cap{position:absolute;right:8px;top:8px;width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:#0f1923;color:var(--muted);
   font-family:var(--f-display);font-weight:700;font-size:12px;cursor:pointer;display:grid;place-items:center;padding:0}
 .pcard.cap .pc-cap{background:var(--red);border-color:var(--red);color:#fff}
 .pcard.empty{background:repeating-linear-gradient(135deg,#ffffff05 0 8px,transparent 8px 16px),#121c26;border-style:dashed;align-items:center;justify-content:center;gap:6px}
 .pc-plus{width:42px;height:42px;display:grid;place-items:center;border:1px dashed var(--rc);color:var(--rc);font-size:24px;font-family:var(--f-display)}
 .pc-hint{font-size:11.5px;color:var(--muted);text-align:center;max-width:16ch}
 .pc-empty-role{font-family:var(--f-display);font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--rc)}
-
 .bench{display:flex;flex-direction:column;gap:14px}
 .bench .val-big{font-family:var(--f-display);font-size:44px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.1}
+.budget{margin-top:12px;display:grid;gap:6px;font-size:13.5px}
+.budget .bar{height:6px;background:var(--bg);position:relative;overflow:hidden}
+.budget .bar i{position:absolute;inset:0 auto 0 0;background:var(--red)}
+.budget .row{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
 .bench-coach{display:flex;justify-content:center}
 .bench-coach .pcard{--cw:180px}
 .rules-mini ul{margin:0;padding-left:18px;color:var(--muted);font-size:13.5px;display:grid;gap:5px}
 .rules-mini b{color:var(--text)}
 
-/* prévia no início */
-.home-team-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:14px}
-.home-total{font-family:var(--f-display);font-size:34px;font-weight:700;font-variant-numeric:tabular-nums}
-.home-team-body{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
-.field.mini{--cw:112px;gap:10px 18px;padding:30px 16px;flex:1 1 420px}
-.field.mini .pcard{padding:8px 8px 7px}
-.field.mini .pc-pts{font-size:20px}.field.mini .pc-pts small{display:none}.field.mini .pc-role{font-size:9px}.field.mini .pc-avatar{width:36px;height:36px;font-size:13px;margin:4px auto}
-.field.mini .pc-name{font-size:12.5px}.field.mini .pc-team{font-size:10.5px}
-.field.mini .pc-stats,.field.mini .pc-cap{display:none}
-.field.mini::before,.field.mini::after{font-size:9.5px}
-.home-coach .pcard{--cw:130px}
-.home-coach .pc-stats{display:none}
-
-/* seletor */
+/* ---- seletor ---- */
 .picker{position:fixed;inset:0;background:#05090dcc;display:grid;place-items:center;padding:16px;z-index:50}
 .picker[hidden]{display:none}
-.picker-box{width:min(560px,100%);max-height:min(720px,100%);display:flex;flex-direction:column;gap:10px;background:var(--panel);border:1px solid var(--line);padding:18px}
+.picker-box{width:min(600px,100%);max-height:min(760px,100%);display:flex;flex-direction:column;gap:10px;background:var(--panel);border:1px solid var(--line);padding:18px}
 .picker-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .picker-search{background:var(--bg);border:1px solid var(--line);padding:10px}
 .picker-list{overflow-y:auto;display:flex;flex-direction:column;min-height:120px}
-.pick-row{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:10px 8px;border:0;border-bottom:1px solid #22313e;background:none;text-align:left;cursor:pointer;color:var(--text)}
+.pick-row{display:grid;grid-template-columns:1fr auto auto;gap:3px 14px;align-items:center;padding:10px 8px;border:0;border-bottom:1px solid #22313e;background:none;text-align:left;cursor:pointer;color:var(--text)}
 .pick-row:hover:not(:disabled){background:var(--panel-2)}
 .pick-row.sel{background:var(--red-dim)}
 .pick-row:disabled{opacity:.4;cursor:not-allowed}
-.pick-row .pts{font-family:var(--f-display);font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;grid-row:span 2}
+.pick-row .pts,.pick-row .price{font-family:var(--f-display);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums;grid-row:span 2;text-align:right}
+.pick-row .price{color:var(--gold)}
 .pick-row .sub{font-size:12.5px;color:var(--muted)}
+.pick-row .lbl{display:block;font-size:9.5px;letter-spacing:.12em;color:var(--muted);font-weight:600}
 .picker-foot{display:flex;justify-content:flex-end}
 
-@media (max-width:1100px){.lineup-layout{grid-template-columns:1fr}.bench{flex-direction:row;flex-wrap:wrap}.bench>*{flex:1 1 240px}}
+/* ---- tabelas ---- */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-display);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th.l,td.l{text-align:left}
+th[data-sort]{cursor:pointer}
+th[data-sort]:hover,th.sorted{color:var(--text)}
+td{padding:10px;text-align:right;border-bottom:1px solid #22313e;white-space:nowrap}
+tbody tr.row{cursor:pointer}
+tbody tr.row:hover{background:var(--panel-2)}
+tr.row.open{background:var(--panel-2)}
+td.final{font-family:var(--f-display);font-weight:700;font-size:17px}
+td.price{font-family:var(--f-display);font-weight:700;color:var(--gold)}
+.pos{color:var(--muted);width:28px}
+.name{font-weight:600}
+.team{color:var(--muted);font-size:13px}
+.mult.up{color:var(--good)}
+tr.detail td{padding:0;background:#121d27;white-space:normal}
+.breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding:14px}
+.bk{border:1px solid var(--line);padding:12px}
+.bk h3{margin:0 0 8px;font-family:var(--f-display);font-size:14px;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between}
+.bk dl{display:grid;grid-template-columns:1fr auto auto;gap:3px 12px;margin:0;font-size:13.5px}
+.bk dt{color:var(--muted)}
+.bk dd{margin:0;text-align:right}
+.bk .tot{border-top:1px solid var(--line);padding-top:6px;margin-top:4px;font-weight:600}
+.formula{font-size:13.5px;color:var(--muted);padding:0 14px 14px}
+.formula b{color:var(--text)}
+.series-bar{display:flex;flex-wrap:wrap;gap:10px;margin:0 0 16px}
+.series{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);padding:10px 14px}
+.series .sc{font-family:var(--f-display);font-weight:700;font-size:20px}
+.series .w{color:var(--text)} .series .lz{color:var(--muted)}
+.series .maps{font-size:12.5px;color:var(--muted)}
+.in-team{color:var(--good);font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+details.rules-box{margin-top:16px}
+details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spacing:.08em;text-transform:uppercase;font-size:14px;color:var(--muted)}
+.rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:4px 24px;margin-top:12px}
+.rules-grid label{display:grid;grid-template-columns:1fr 80px;align-items:center;gap:10px;font-size:13.5px;padding:4px 0}
+.rules-grid input{background:var(--bg);border:1px solid var(--line);padding:6px 8px;text-align:right;width:80px}
+
+/* ---- cartas estilo FIFA ---- */
+.card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:18px}
+.fcard{--t1:#9aa4ad;--t2:#2a333c;--tx:#ece8e1;position:relative;aspect-ratio:3/4.35;cursor:pointer;border:0;padding:0;background:none;color:var(--tx);text-align:left;transition:transform .15s;width:100%}
+.fcard:hover{transform:translateY(-4px)}
+.fcard .shape{position:absolute;inset:0;padding:14px 14px 12px;display:flex;flex-direction:column;
+  background:linear-gradient(165deg,var(--t1) 0%,color-mix(in srgb,var(--t1) 45%,var(--t2)) 34%,var(--t2) 70%,#0c1117 100%);
+  clip-path:polygon(50% 0,100% 7%,100% 88%,50% 100%,0 88%,0 7%)}
+.fcard .shape::after{content:"";position:absolute;inset:3px;clip-path:inherit;border:0;pointer-events:none;
+  background:linear-gradient(115deg,transparent 30%,#ffffff1c 45%,transparent 60%)}
+.fcard.bronze{--t1:#c08457;--t2:#3b2416}
+.fcard.prata{--t1:#c9d1d9;--t2:#3a4550}
+.fcard.ouro{--t1:#f1c95b;--t2:#5a420f}
+.fcard.icone{--t1:#ff4655;--t2:#3a0b1c}
+.fc-top{display:flex;justify-content:space-between;align-items:flex-start;padding-top:8px}
+.fc-ovr{font-family:var(--f-display);font-weight:700;font-size:40px;line-height:.9;text-shadow:0 2px 10px #0008}
+.fc-pos{font-family:var(--f-display);font-weight:700;font-size:13px;letter-spacing:.12em;margin-top:2px}
+.fc-tag{font-family:var(--f-display);font-weight:700;font-size:12px;letter-spacing:.08em;background:#0007;padding:2px 6px;text-align:center}
+.fc-face{width:64px;height:64px;margin:2px auto 0;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:22px;
+  background:#0c111788;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
+.fc-name{font-family:var(--f-display);font-weight:700;font-size:18px;text-transform:uppercase;text-align:center;letter-spacing:.04em;margin-top:6px;
+  border-bottom:1px solid #ffffff30;padding-bottom:4px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.fc-attrs{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px;margin-top:6px;font-variant-numeric:tabular-nums}
+.fc-attrs div{display:flex;gap:6px;align-items:baseline;font-size:13px}
+.fc-attrs b{font-family:var(--f-display);font-size:15px;min-width:20px}
+.fc-attrs span{font-size:11px;letter-spacing:.08em;opacity:.8}
+.fc-foot{margin-top:auto;text-align:center;font-size:11px;letter-spacing:.1em;opacity:.75;padding-bottom:10px;text-transform:uppercase}
+.fcard.prov .fc-foot::after{content:" · provisória"}
+.card-detail{display:grid;grid-template-columns:230px 1fr;gap:22px;align-items:start}
+.attr-bars{display:grid;gap:8px}
+.attr-bar{display:grid;grid-template-columns:120px 1fr 34px;gap:10px;align-items:center;font-size:13.5px}
+.attr-bar .b{height:8px;background:var(--bg);position:relative}
+.attr-bar .b i{position:absolute;inset:0 auto 0 0}
+.attr-bar b{font-family:var(--f-display);text-align:right}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:8px;margin-top:14px}
+.stat-grid div{background:var(--bg);padding:8px 10px}
+.stat-grid span{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.stat-grid b{font-family:var(--f-display);font-size:17px;font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted);margin-bottom:14px}
+.legend i{display:inline-block;width:10px;height:10px;margin-right:6px;vertical-align:0}
+
+.matches{display:grid;gap:8px}
+.match{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center;background:var(--bg);padding:10px 14px}
+.match .t2{text-align:right}
+.match .vs{font-family:var(--f-display);color:var(--muted);text-align:center;font-size:12px}
+.match .vs b{display:block;color:var(--text);font-size:13px}
+
+@media (max-width:1100px){
+  .lineup-layout{grid-template-columns:1fr}.bench{flex-direction:row;flex-wrap:wrap}.bench>*{flex:1 1 240px}
+  .windows{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  .app{grid-template-columns:1fr}
+  .side{position:static;height:auto;padding:14px;gap:12px}
+  nav{flex-direction:row;overflow-x:auto}
+  nav a{white-space:nowrap;border-left:0;border-bottom:3px solid transparent}
+  nav a.on{border-bottom-color:var(--red)}
+  .side-foot{display:none}
+  main{padding:20px 16px 40px}
+  h1{font-size:27px}
+  .card-detail{grid-template-columns:1fr}
+  .card-detail .fcard{max-width:230px;margin:0 auto}
+}
 @media (max-width:640px){
   .field{--cw:31vw;gap:10px 8px;padding:34px 6px}
   .pcard{padding:8px}.pc-pts{font-size:20px}.pc-avatar{width:34px;height:34px;font-size:12px}
-  .pc-name{font-size:12.5px}.pc-stats b{font-size:12px}.pc-stats span{font-size:8px}.pc-cap{bottom:48px;width:22px;height:22px}
-  .field.mini{--cw:27vw}
+  .pc-name{font-size:12.5px}.pc-stats b{font-size:12px}.pc-stats span{font-size:8px}.pc-cap{width:22px;height:22px}
+  .card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .fc-ovr{font-size:30px}.fc-face{width:44px;height:44px;font-size:15px}.fc-name{font-size:14px}.fc-attrs b{font-size:13px}.fc-attrs span{font-size:9.5px}
 }
 </style>
 </head>
 <body>
 <div class="app">
   <aside class="side">
-    <div class="logo"><b></b>Fantasy<span>VCT</span></div>
+    <a class="logo" href="#inicio"><b></b>Fantasy<span>VCT</span></a>
     <nav id="nav">
       <a href="#inicio" data-v="inicio">Início</a>
       <a href="#escalacao" data-v="escalacao">Escalação</a>
+      <a href="#mercado" data-v="mercado">Mercado</a>
+      <a href="#cartas" data-v="cartas">Cartas</a>
+      <a href="#stats" data-v="stats">Stats e partidas</a>
       <a href="#pontuacao" data-v="pontuacao">Pontuação</a>
-      <a href="#importar" data-v="importar">Atualizar rodada</a>
-      <a href="#mercado" data-v="mercado">Mercado <small>em breve</small></a>
-      <a href="#cartas" data-v="cartas">Cartas <small>em breve</small></a>
     </nav>
-    <div class="side-foot">MVP de teste do sistema de pontuação. Dados: VLR.gg via vlrggapi.</div>
+    <div class="side-foot" id="side-foot">Dados: VLR.gg</div>
   </aside>
 
   <main>
     <!-- INÍCIO -->
     <section class="view" id="v-inicio">
       <div class="top">
-        <div><div class="eyebrow">VCT Americas</div><h1>Painel da rodada</h1></div>
-        <span class="chip test" id="data-chip">Dados de teste</span>
+        <div><div class="eyebrow">VCT Americas</div><h1>Painel</h1></div>
+        <span class="chip" id="data-chip">Carregando...</span>
       </div>
-      <div class="home-team panel">
-        <div class="home-team-head">
-          <div><h2 style="margin:0">Seu time na rodada</h2><div class="muted" id="home-team-note" style="font-size:13.5px"></div></div>
-          <div style="text-align:right"><div class="eyebrow">Pontuação</div><div class="home-total" id="home-total">0,00</div></div>
+      <div class="windows">
+        <div class="panel win">
+          <div class="win-head"><h2><i></i>Escalação</h2><a class="btn small ghost" href="#escalacao">Abrir</a></div>
+          <div class="kv">
+            <div><div class="lbl">Pontos</div><div class="big-num" id="w-total">0,00</div></div>
+            <div><div class="lbl">Patrimônio</div><div class="big-num" style="color:var(--gold)" id="w-budget">C$ 80,00</div></div>
+          </div>
+          <div class="mini-lineup" id="w-lineup"></div>
         </div>
-        <div class="home-team-body">
-          <div class="field mini" id="home-field"></div>
-          <div class="home-coach" id="home-coach"></div>
+        <div class="panel win">
+          <div class="win-head"><h2><i></i>Mercado</h2><a class="btn small ghost" href="#mercado">Abrir</a></div>
+          <div class="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+            <div><div class="sub-h">Mais caros</div><ul class="list" id="w-caros"></ul></div>
+            <div><div class="sub-h">Custo-benefício da rodada</div><ul class="list" id="w-custo"></ul></div>
+          </div>
         </div>
-        <a class="btn ghost" href="#escalacao" style="text-decoration:none;display:inline-block;margin-top:14px">Editar escalação</a>
-      </div>
-      <div class="grid tiles" id="tiles" style="margin-top:16px"></div>
-      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:16px">
-        <div class="panel"><h2>Top 5 da rodada</h2><ol class="top5" id="top5"></ol></div>
-        <div class="panel"><h2>Coaches</h2><ol class="top5" id="topc"></ol></div>
+        <div class="panel win">
+          <div class="win-head"><h2><i></i>Cartas</h2><a class="btn small ghost" href="#cartas">Abrir</a></div>
+          <div class="win-cards" id="w-cartas"></div>
+        </div>
+        <div class="panel win">
+          <div class="win-head"><h2><i></i>Stats e partidas</h2><a class="btn small ghost" href="#stats">Abrir</a></div>
+          <div class="sub-h">Próximas partidas</div>
+          <div id="w-proximas"></div>
+          <div class="sub-h" style="margin-top:8px">Destaques da rodada</div>
+          <ul class="list" id="w-destaques"></ul>
+        </div>
       </div>
     </section>
 
@@ -292,10 +330,7 @@ p{max-width:70ch}
     <section class="view" id="v-escalacao">
       <div class="top">
         <div><div class="eyebrow">Monte seu time</div><h1>Escalação</h1></div>
-        <div style="display:flex;gap:8px;flex-wrap:wrap">
-          <button class="btn ghost" id="clear-lineup" type="button">Limpar</button>
-          <button class="btn" id="auto" type="button">Escalar os melhores</button>
-        </div>
+        <button class="btn ghost" id="clear-lineup" type="button">Limpar time</button>
       </div>
       <div class="lineup-layout">
         <div class="field" id="field"></div>
@@ -304,19 +339,92 @@ p{max-width:70ch}
             <div class="eyebrow">Pontuação do time</div>
             <div class="val-big" id="team-total">0,00</div>
             <div class="muted" id="team-note" style="font-size:13.5px"></div>
+            <div class="budget">
+              <div class="row"><span class="muted">Gasto</span><b id="b-gasto">C$ 0,00</b></div>
+              <div class="bar"><i id="b-bar" style="width:0"></i></div>
+              <div class="row"><span class="muted">Restante</span><b id="b-rest" style="color:var(--gold)">C$ 80,00</b></div>
+            </div>
           </div>
           <div class="bench-coach" id="bench-coach"></div>
           <div class="panel rules-mini">
             <h2>Como funciona</h2>
             <ul>
               <li>Toque numa carta para escolher o jogador daquela função.</li>
+              <li>Você tem <b>C$ 80</b> para 5 jogadores e 1 coach.</li>
               <li>O <b>Flex</b> aceita qualquer função.</li>
-              <li>O <b>capitão</b> pontua 1,5x. Use o botão C na carta.</li>
+              <li>O <b>capitão</b> pontua 1,5x: botão C na carta.</li>
               <li>No máximo <b>2 jogadores do mesmo time</b>.</li>
-              <li>Quem jogou duas séries na semana pontua pela média delas.</li>
             </ul>
           </div>
         </aside>
+      </div>
+    </section>
+
+    <!-- MERCADO -->
+    <section class="view" id="v-mercado">
+      <div class="top">
+        <div><div class="eyebrow">Preço pelo overall da carta</div><h1>Mercado</h1></div>
+        <div class="chip" id="m-budget" style="color:var(--gold);border-color:var(--gold)">Restante C$ 80,00</div>
+      </div>
+      <div class="filters">
+        <label for="m-role">Função<select id="m-role"><option value="">Todas</option><option>Duelista</option><option>Iniciador</option><option>Controlador</option><option>Sentinela</option><option>Flex</option><option value="Coach">Coaches</option></select></label>
+        <label for="m-team">Time<select id="m-team"><option value="">Todos</option></select></label>
+        <label for="m-q">Buscar<input id="m-q" placeholder="nome do jogador"></label>
+      </div>
+      <div class="panel" style="padding:4px 0 0">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th class="l">Jogador</th>
+              <th data-sort="ovr">Overall</th><th data-sort="price">Preço</th>
+              <th data-sort="pts">Pontos rodada</th><th data-sort="ppc">Pontos por C$</th><th></th>
+            </tr></thead>
+            <tbody id="m-body"></tbody>
+          </table>
+        </div>
+      </div>
+      <p class="muted" style="font-size:13px">Preço inicial = 4 + 0,017 × (overall − 60)². A valorização rodada a rodada entra quando houver mais de uma rodada coletada.</p>
+    </section>
+
+    <!-- CARTAS -->
+    <section class="view" id="v-cartas">
+      <div class="top">
+        <div><div class="eyebrow" id="c-eyebrow">Temporada 2026</div><h1>Cartas</h1></div>
+      </div>
+      <div class="legend">
+        <span><i style="background:#c08457"></i>Bronze · até 69</span>
+        <span><i style="background:#c9d1d9"></i>Prata · 70 a 79</span>
+        <span><i style="background:#f1c95b"></i>Ouro · 80 a 89</span>
+        <span><i style="background:#ff4655"></i>Ícone · 90+</span>
+      </div>
+      <div class="filters">
+        <label for="c-role">Função<select id="c-role"><option value="">Todas</option><option>Duelista</option><option>Iniciador</option><option>Controlador</option><option>Sentinela</option><option>Flex</option></select></label>
+        <label for="c-team">Time<select id="c-team"><option value="">Todos</option></select></label>
+        <label for="c-sort">Ordenar por<select id="c-sort"><option value="ovr">Overall</option><option value="MIR">Mira</option><option value="DAN">Dano</option><option value="IMP">Impacto</option><option value="ENT">Entrada</option><option value="SUP">Suporte</option><option value="CON">Consistência</option><option value="SOB">Sobrevivência</option><option value="CLU">Clutch</option></select></label>
+        <label for="c-q">Buscar<input id="c-q" placeholder="nome do jogador"></label>
+      </div>
+      <div class="card-grid" id="c-grid"></div>
+    </section>
+
+    <!-- STATS -->
+    <section class="view" id="v-stats">
+      <div class="top"><div><div class="eyebrow">VCT Americas</div><h1>Stats e partidas</h1></div></div>
+      <div class="panel" style="margin-bottom:16px">
+        <h2>Próximas partidas</h2>
+        <div id="s-proximas"></div>
+      </div>
+      <div class="panel" style="padding:18px 0 0">
+        <h2 style="padding:0 18px">Temporada 2026 · por jogador</h2>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr id="s-head">
+              <th class="l">Jogador</th>
+              <th data-s="rounds">Rounds</th><th data-s="acs">ACS</th><th data-s="adr">ADR</th><th data-s="kast">KAST</th>
+              <th data-s="kpr">K/rd</th><th data-s="apr">A/rd</th><th data-s="fkpr">FK/rd</th><th data-s="fdpr">FD/rd</th><th data-s="hs">HS%</th><th data-s="clp">Clutch</th>
+            </tr></thead>
+            <tbody id="s-body"></tbody>
+          </table>
+        </div>
       </div>
     </section>
 
@@ -326,23 +434,21 @@ p{max-width:70ch}
         <div><div class="eyebrow">Média da série × multiplicadores</div><h1>Pontuação da rodada</h1></div>
       </div>
       <div class="series-bar" id="series-bar"></div>
-      <div class="layout-score">
-        <div class="panel" style="padding:6px 0 0">
-          <div class="tbl-wrap">
-            <table>
-              <thead><tr>
-                <th class="l">#</th><th class="l">Jogador</th><th class="l">Séries</th>
-                <th>Média</th><th>Kills/rd</th><th>× Kill</th><th>× Série</th><th>Final</th>
-              </tr></thead>
-              <tbody id="tbody"></tbody>
-            </table>
-          </div>
-          <p class="muted" style="padding:10px 14px;margin:0;font-size:13px">Clique num jogador para ver a conta de cada mapa.</p>
+      <div class="panel" style="padding:6px 0 0">
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr>
+              <th class="l">#</th><th class="l">Jogador</th><th class="l">Séries</th>
+              <th>Média</th><th>Kills/rd</th><th>× Kill</th><th>× Série</th><th>Final</th>
+            </tr></thead>
+            <tbody id="tbody"></tbody>
+          </table>
         </div>
-        <form class="panel rules" id="rules" onsubmit="return false">
-          <h2>Regras</h2>
-          <p class="muted" style="font-size:13px;margin:0 0 8px">Mude um valor e a tabela recalcula na hora.</p>
-          <h3>Por mapa</h3>
+        <p class="muted" style="padding:10px 14px;margin:0;font-size:13px">Clique num jogador para ver a conta de cada mapa. Quem jogou duas séries na semana pontua pela média delas.</p>
+      </div>
+      <details class="rules-box panel">
+        <summary>Regras de pontuação</summary>
+        <form class="rules-grid" id="rules" onsubmit="return false">
           <label for="r-acs">ACS dividido por <input id="r-acs" type="number" step="1"></label>
           <label for="r-d">Morte <input id="r-d" type="number" step="0.1"></label>
           <label for="r-a">Assistência <input id="r-a" type="number" step="0.1"></label>
@@ -354,187 +460,194 @@ p{max-width:70ch}
           <label for="r-adr1b">Bônus faixa 1 <input id="r-adr1b" type="number" step="0.5"></label>
           <label for="r-adr2">ADR faixa 2 <input id="r-adr2" type="number" step="5"></label>
           <label for="r-adr2b">Bônus faixa 2 <input id="r-adr2b" type="number" step="0.5"></label>
-          <h3>Multiplicador de kill</h3>
           <label for="r-k1">Kills/round faixa 1 <input id="r-k1" type="number" step="0.05"></label>
           <label for="r-k1m">Mult. faixa 1 <input id="r-k1m" type="number" step="0.05"></label>
           <label for="r-k2">Kills/round faixa 2 <input id="r-k2" type="number" step="0.05"></label>
           <label for="r-k2m">Mult. faixa 2 <input id="r-k2m" type="number" step="0.05"></label>
-          <h3>Multiplicador da série (Bo3)</h3>
-          <label for="r-s20">2-0 <input id="r-s20" type="number" step="0.05"></label>
-          <label for="r-s21">2-1 <input id="r-s21" type="number" step="0.05"></label>
-          <label for="r-s12">1-2 <input id="r-s12" type="number" step="0.05"></label>
-          <label for="r-s02">0-2 <input id="r-s02" type="number" step="0.05"></label>
-          <h3>Escalação</h3>
+          <label for="r-s20">Série 2-0 <input id="r-s20" type="number" step="0.05"></label>
+          <label for="r-s21">Série 2-1 <input id="r-s21" type="number" step="0.05"></label>
+          <label for="r-s12">Série 1-2 <input id="r-s12" type="number" step="0.05"></label>
+          <label for="r-s02">Série 0-2 <input id="r-s02" type="number" step="0.05"></label>
           <label for="r-cap">Capitão <input id="r-cap" type="number" step="0.1"></label>
-          <div class="row-btns"><button class="btn ghost" type="button" id="reset">Restaurar padrão</button></div>
         </form>
-      </div>
-    </section>
-
-    <!-- IMPORTAR -->
-    <section class="view" id="v-importar">
-      <div class="top"><div><div class="eyebrow">Dados do VLR</div><h1>Atualizar rodada</h1></div></div>
-      <div class="grid" style="grid-template-columns:minmax(0,1fr) minmax(260px,420px);align-items:start;margin-bottom:28px">
-        <div class="panel">
-          <h2>Rodada no ar</h2>
-          <div id="pub-info" class="muted">Nenhuma rodada publicada ainda. O site está mostrando o G2 x LOUD de teste.</div>
-        </div>
-        <div class="panel">
-          <h2>Puxar uma rodada nova</h2>
-          <ol class="steps">
-            <li>Abra o <a href="https://github.com/chriszawa/vctfantasy/actions/workflows/coletar.yml" style="color:var(--red)">workflow Coletar rodada</a> no GitHub.</li>
-            <li>Clique em <b>Run workflow</b>, informe o ID do evento (o número em vlr.gg/event/<b>2977</b>/...) e a semana, ex.: <code>Week 4</code>.</li>
-            <li>Em uns 3 minutos o GitHub baixa as séries, os agentes e os coaches, e o site atualiza sozinho.</li>
-          </ol>
-        </div>
-      </div>
-      <div class="eyebrow" style="margin-bottom:10px">Modo local · para testar no seu computador com a API ligada</div>
-      <div class="panel" style="margin-bottom:16px">
-        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center">
-          <h2 style="margin:0">Buscar da API</h2>
-          <span class="chip" id="api-status">Não verificada</span>
-        </div>
-        <div class="api-form">
-          <label for="api-url">Endereço da API<input id="api-url" value="http://127.0.0.1:3001"></label>
-          <label for="api-event">ID do evento no VLR<input id="api-event" placeholder="ex.: 2501" inputmode="numeric"></label>
-          <button class="btn" id="api-list" type="button">Listar jogos</button>
-        </div>
-        <p class="muted" style="font-size:13px;margin:8px 0 0">O ID é o número no link do evento: vlr.gg/event/<b>2501</b>/... Funciona com o site aberto no seu computador e a API ligada.</p>
-        <div id="api-matches"></div>
-        <div class="msg" id="api-msg"></div>
-      </div>
-      <div class="grid" style="grid-template-columns:minmax(0,1fr) minmax(260px,360px);align-items:start">
-        <div class="panel">
-          <h2>Ou cole o JSON da série</h2>
-          <textarea id="json-in" spellcheck="false" placeholder='{"status":"success","data":{"match_id":"706375", ...}}'></textarea>
-          <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
-            <button class="btn" id="do-import">Adicionar à rodada</button>
-            <button class="btn ghost" id="do-clear">Limpar rodada</button>
-            <button class="btn ghost" id="do-sample">Recarregar G2 x LOUD de teste</button>
-          </div>
-          <div class="msg" id="import-msg"></div>
-        </div>
-        <div class="panel">
-          <h2>Como pegar</h2>
-          <ol class="steps">
-            <li>Suba a vlrggapi na sua máquina com <code>uv run python main.py</code>.</li>
-            <li>Abra no navegador <code>127.0.0.1:3001/v2/match/details?match_id=ID</code>. O ID é o número do link da série no VLR.</li>
-            <li>Copie tudo e cole aqui. Repita para cada série da semana.</li>
-          </ol>
-          <p class="muted" style="font-size:13px">Aceita a resposta inteira da API, só o campo <code>data</code> ou uma lista de séries.</p>
-          <h2 style="margin-top:18px">No site online</h2>
-          <p class="muted" style="font-size:13px">No GitHub, abra Actions → Coletar rodada → Run workflow, informe o ID do evento e a semana. Em uns 2 minutos a rodada aparece aqui sozinha.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- MERCADO / CARTAS -->
-    <section class="view" id="v-mercado">
-      <div class="top"><div><div class="eyebrow">Próxima etapa</div><h1>Mercado</h1></div></div>
-      <div class="soon">
-        <div class="panel"><h2>Preço inicial</h2><p>Sai do overall de cada jogador, calculado com a temporada 2026: 4 + 0,017 × (overall − 60)². Overall 90 custa C$ 19,30.</p></div>
-        <div class="panel"><h2>Valorização</h2><p>Depois de cada rodada: 0,15 × (pontos − preço), com limite de 15% de variação.</p></div>
-        <div class="panel"><h2>Patrimônio</h2><p>C$ 80 para 5 jogadores e 1 coach. Dá para levar uns dois craques e completar o time.</p></div>
-      </div>
-    </section>
-    <section class="view" id="v-cartas">
-      <div class="top"><div><div class="eyebrow">Próxima etapa</div><h1>Cartas</h1></div></div>
-      <div class="soon">
-        <div class="panel"><h2>Atributos</h2><p>Mira, Dano, Impacto, Entrada, Suporte, Consistência e Sobrevivência, de 40 a 99 por percentil na liga.</p></div>
-        <div class="panel"><h2>Overall por função</h2><p>Pesos diferentes para duelista, iniciador, controlador e sentinela, como posição no FIFA.</p></div>
-        <div class="panel"><h2>Manutenção</h2><p>Recalculado a cada 3 rodadas misturando 2026 com o ano novo, pelo peso de rounds jogados.</p></div>
-      </div>
+        <button class="btn ghost small" type="button" id="reset" style="margin-top:10px">Restaurar padrão</button>
+      </details>
     </section>
   </main>
+
   <div class="picker" id="picker" hidden>
     <div class="picker-box" role="dialog" aria-modal="true" aria-labelledby="picker-title">
       <div class="picker-head">
         <div><div class="eyebrow" id="picker-eyebrow">Escolher</div><h2 id="picker-title" style="margin:2px 0 0">Duelista</h2></div>
-        <button class="btn ghost" id="picker-close" type="button">Fechar</button>
+        <button class="btn ghost small" id="picker-close" type="button">Fechar</button>
       </div>
       <label for="picker-search" class="muted" style="font-size:12px">Buscar jogador ou time</label>
       <input id="picker-search" class="picker-search" placeholder="ex.: aspas, LOUD" autocomplete="off">
+      <div class="muted" id="picker-budget" style="font-size:13px"></div>
       <div class="picker-list" id="picker-list"></div>
-      <div class="picker-foot"><button class="btn ghost" id="picker-remove" type="button">Deixar vazio</button></div>
+      <div class="picker-foot"><button class="btn ghost small" id="picker-remove" type="button">Deixar vazio</button></div>
+    </div>
+  </div>
+
+  <div class="picker" id="card-modal" hidden>
+    <div class="picker-box" style="width:min(780px,100%)" role="dialog" aria-modal="true" aria-labelledby="cm-title">
+      <div class="picker-head">
+        <div><div class="eyebrow" id="cm-eyebrow">Carta</div><h2 id="cm-title" style="margin:2px 0 0"></h2></div>
+        <button class="btn ghost small" id="cm-close" type="button">Fechar</button>
+      </div>
+      <div class="card-detail" id="cm-body" style="overflow-y:auto"></div>
     </div>
   </div>
 </div>
 
 <script>
-// ------------------------------------------------------------------ dados
+// ================================================================ base
 const AGENT_ROLE = {
-  Jett:"Duelista",Raze:"Duelista",Reyna:"Duelista",Phoenix:"Duelista",Yoru:"Duelista",Neon:"Duelista",Iso:"Duelista",Waylay:"Duelista",
-  Sova:"Iniciador",Breach:"Iniciador",Skye:"Iniciador","KAY/O":"Iniciador",Fade:"Iniciador",Gekko:"Iniciador",Tejo:"Iniciador",
-  Brimstone:"Controlador",Omen:"Controlador",Viper:"Controlador",Astra:"Controlador",Harbor:"Controlador",Clove:"Controlador",
-  Killjoy:"Sentinela",Cypher:"Sentinela",Sage:"Sentinela",Chamber:"Sentinela",Deadlock:"Sentinela",Vyse:"Sentinela",Veto:"Sentinela"
+  jett:"Duelista",raze:"Duelista",reyna:"Duelista",phoenix:"Duelista",yoru:"Duelista",neon:"Duelista",iso:"Duelista",waylay:"Duelista",
+  sova:"Iniciador",breach:"Iniciador",skye:"Iniciador",kayo:"Iniciador","kay/o":"Iniciador",fade:"Iniciador",gekko:"Iniciador",tejo:"Iniciador",
+  brimstone:"Controlador",omen:"Controlador",viper:"Controlador",astra:"Controlador",harbor:"Controlador",clove:"Controlador",
+  killjoy:"Sentinela",cypher:"Sentinela",sage:"Sentinela",chamber:"Sentinela",deadlock:"Sentinela",vyse:"Sentinela",veto:"Sentinela"
 };
-
-// G2 x LOUD — VCT 2026 Americas Stage 2 W4. Teste: ACS por mapa = ACS da série (o print só mostrava o total).
-const SAMPLE = {"match_id":"706375","teams":[{"name":"G2 Esports"},{"name":"LOUD"}],"maps":[
- {"map_name":"Sunset","score":{"team1":{"total":13},"team2":{"total":15}},"players":{
-  "team1":[
-   {"name":"valyn","agent":"Omen","acs":"197","kills":"26","deaths":"18","assists":"7","kast":"75%","adr":"167","fk":"3","fd":"1"},
-   {"name":"trent","agent":"Skye","acs":"175","kills":"18","deaths":"18","assists":"7","kast":"71%","adr":"104","fk":"0","fd":"2"},
-   {"name":"BABYBAY","agent":"Chamber","acs":"194","kills":"20","deaths":"23","assists":"1","kast":"64%","adr":"131","fk":"4","fd":"3"},
-   {"name":"jawgemo","agent":"Neon","acs":"178","kills":"15","deaths":"24","assists":"9","kast":"68%","adr":"120","fk":"2","fd":"6"},
-   {"name":"leaf","agent":"Sage","acs":"116","kills":"14","deaths":"20","assists":"6","kast":"64%","adr":"93","fk":"2","fd":"5"}],
-  "team2":[
-   {"name":"lukxo","agent":"Chamber","acs":"294","kills":"31","deaths":"15","assists":"2","kast":"75%","adr":"183","fk":"8","fd":"4"},
-   {"name":"Darker","agent":"Omen","acs":"196","kills":"19","deaths":"18","assists":"16","kast":"79%","adr":"120","fk":"1","fd":"0"},
-   {"name":"DaviH","agent":"Sova","acs":"209","kills":"18","deaths":"18","assists":"13","kast":"79%","adr":"134","fk":"3","fd":"1"},
-   {"name":"erde","agent":"Sage","acs":"185","kills":"16","deaths":"20","assists":"9","kast":"71%","adr":"123","fk":"3","fd":"2"},
-   {"name":"tkzin","agent":"Neon","acs":"242","kills":"19","deaths":"22","assists":"6","kast":"75%","adr":"121","fk":"2","fd":"4"}]}},
- {"map_name":"Lotus","score":{"team1":{"total":1},"team2":{"total":13}},"players":{
-  "team1":[
-   {"name":"trent","agent":"Skye","acs":"175","kills":"8","deaths":"12","assists":"4","kast":"57%","adr":"119","fk":"0","fd":"0"},
-   {"name":"BABYBAY","agent":"Vyse","acs":"194","kills":"8","deaths":"12","assists":"3","kast":"57%","adr":"127","fk":"1","fd":"3"},
-   {"name":"jawgemo","agent":"Raze","acs":"178","kills":"8","deaths":"14","assists":"2","kast":"57%","adr":"109","fk":"1","fd":"2"},
-   {"name":"valyn","agent":"Omen","acs":"197","kills":"5","deaths":"14","assists":"1","kast":"43%","adr":"43","fk":"2","fd":"2"},
-   {"name":"leaf","agent":"Viper","acs":"116","kills":"2","deaths":"14","assists":"3","kast":"29%","adr":"59","fk":"1","fd":"2"}],
-  "team2":[
-   {"name":"tkzin","agent":"Neon","acs":"242","kills":"18","deaths":"9","assists":"2","kast":"79%","adr":"236","fk":"6","fd":"1"},
-   {"name":"DaviH","agent":"Fade","acs":"209","kills":"10","deaths":"4","assists":"12","kast":"100%","adr":"121","fk":"1","fd":"0"},
-   {"name":"erde","agent":"Omen","acs":"185","kills":"11","deaths":"4","assists":"5","kast":"86%","adr":"146","fk":"0","fd":"1"},
-   {"name":"lukxo","agent":"Chamber","acs":"294","kills":"14","deaths":"7","assists":"1","kast":"86%","adr":"162","fk":"1","fd":"1"},
-   {"name":"Darker","agent":"Viper","acs":"196","kills":"13","deaths":"7","assists":"4","kast":"93%","adr":"132","fk":"1","fd":"2"}]}}
-]};
-
+const ROLES = ["Duelista","Iniciador","Controlador","Sentinela"];
+const ROLE_ABBR = {Duelista:"DUE",Iniciador:"INI",Controlador:"CON",Sentinela:"SEN",Flex:"FLX"};
+const PATRIMONIO = 80;
+const MAX_POR_TIME = 2;
 const DEFAULT_RULES = {acs:10,d:-0.5,a:0.3,fk:1,fd:-1,kastmin:75,kastb:2,adr1:120,adr1b:1,adr2:150,adr2b:2,
   k1:1.0,k1m:1.1,k2:1.2,k2m:1.2,s20:1.25,s21:1.15,s12:1.05,s02:1.00,cap:1.5};
 let R = {...DEFAULT_RULES};
-let SERIES = [SAMPLE];
-let isSample = true;
-let DATA_LABEL = "";
-let lineup = {Duelista:null,Iniciador:null,Controlador:null,Sentinela:null,Flex:null,Coach:null,cap:null};
 
-// ------------------------------------------------------------------ cálculo
+let SERIES = [], RODADA = null, TEMPORADA = null, PROXIMAS = null;
+let STATE = {players:[], coaches:[], seriesInfo:[]};
+let CARDS = [], CARD_BY_NAME = {};
+let lineup = {cap:null};
+let canSave = false;
+let SAVED_LINEUP = null;
+try{ SAVED_LINEUP = JSON.parse(localStorage.getItem("fvct-lineup")||"null"); }catch(e){}
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const num = v => { const n = parseFloat(String(v ?? "").replace("%","").replace("+","")); return isNaN(n) ? 0 : n; };
 const sc = x => (x && typeof x==="object") ? num(x.total) : num(x);
-const fmt = n => n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
-const fx = n => n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + "x";
+const fmt = n => (n||0).toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const fx = n => fmt(n) + "x";
+const cs = n => "C$ " + fmt(n);
+const key = n => String(n||"").trim().toLowerCase();
+const roleOfAgent = a => AGENT_ROLE[key(a).replace(/[^a-z/]/g,"")];
+function roleOf(agents){
+  const c = {}; agents.forEach(a => { const r = roleOfAgent(a); if(r) c[r]=(c[r]||0)+1; });
+  const e = Object.entries(c).sort((a,b)=>b[1]-a[1]);
+  if(!e.length) return "Flex";
+  if(e.length>1 && e[0][1]===e[1][1]) return "Flex";
+  return e[0][0];
+}
+function initials(n){ const w = String(n).replace(/[^\p{L}\p{N} ]/gu,"").trim(); return (w.length<=3 ? w : w.slice(0,2)).toUpperCase(); }
+function normalize(obj){
+  if(Array.isArray(obj)) return obj.flatMap(normalize);
+  if(obj && obj.status==="success" && obj.data) return normalize(obj.data);
+  if(obj && Array.isArray(obj.segments)) return normalize(obj.segments);
+  if(obj && Array.isArray(obj.maps) && Array.isArray(obj.teams)) return [obj];
+  return [];
+}
 
+// ================================================================ cartas (temporada)
+const ATTRS = [
+  ["MIR","Mira"],["DAN","Dano"],["IMP","Impacto"],["ENT","Entrada"],["SUP","Suporte"],["CON","Consistência"],["SOB","Sobrevivência"],["CLU","Clutch"]
+];
+const FRONT_ATTRS = ["MIR","DAN","IMP","ENT","SUP","CON"];
+const WEIGHTS = {
+  Duelista:   {IMP:.30,ENT:.30,MIR:.20,DAN:.10,CON:.05,SOB:.05},
+  Iniciador:  {SUP:.30,DAN:.25,CON:.25,IMP:.10,ENT:.05,SOB:.05},
+  Controlador:{CON:.30,SUP:.25,SOB:.25,DAN:.10,IMP:.10},
+  Sentinela:  {SOB:.30,CON:.25,IMP:.25,CLU:.10,DAN:.10},
+  Flex:       {MIR:1/6,DAN:1/6,IMP:1/6,ENT:1/6,SUP:1/6,CON:1/6},
+};
+const MIN_ROUNDS = 150;
+const TEAM_TAG = {"Evil Geniuses":"EG","G2 Esports":"G2","FURIA":"FUR","LOUD":"LOUD","MIBR":"MIBR","NRG":"NRG","Cloud9":"C9","100 Thieves":"100T","Sentinels":"SEN","LEVIATÁN":"LEV","KRÜ Esports":"KRÜ","ENVY":"NV"};
+const EVENT_NAMES = {"2682":"Kickoff","2860":"Stage 1","2977":"Stage 2"};
+const rate = v => { const t = String(v ?? ""); const n = num(t); return t.includes("%") || n > 1.5 ? n/100 : n; };
+const tierOf = o => o>=90 ? "icone" : o>=80 ? "ouro" : o>=70 ? "prata" : "bronze";
+const priceOf = o => Math.round((4 + 0.017*Math.pow(Math.max(0,o-60),2))*100)/100;
+
+function buildCards(){
+  CARDS = []; CARD_BY_NAME = {};
+  if(!TEMPORADA || !TEMPORADA.eventos) return;
+  const acc = {};
+  TEMPORADA.eventos.forEach((ev, ei) => {
+    (ev.jogadores||[]).forEach(r => {
+      const rounds = num(r.rounds_played); if(!rounds || !r.player) return;
+      const k = key(r.player);
+      const a = acc[k] ||= {name:r.player, org:"", rounds:0, sums:{}, agents:{}, eventos:[]};
+      if(r.org && r.org!=="N/A") a.org = r.org;
+      a.name = r.player;
+      a.rounds += rounds; a.eventos.push(ev.nome || EVENT_NAMES[ev.event_id] || ev.event_id);
+      const kd = num(r.kill_deaths), kpr = num(r.kills_per_round);
+      const vals = {acs:num(r.average_combat_score), adr:num(r.average_damage_per_round), kast:num(r.kill_assists_survived_traded),
+        kpr, apr:num(r.assists_per_round), fkpr:rate(r.first_kills_per_round), fdpr:rate(r.first_deaths_per_round),
+        hs:num(r.headshot_percentage), clp:num(r.clutch_success_percentage), dpr: kd>0 ? kpr/kd : 0, rating:num(r.rating)};
+      Object.entries(vals).forEach(([n,v]) => { a.sums[n] = (a.sums[n]||0) + v*rounds; });
+      (r.agents||[]).forEach(ag => { a.agents[ag] = (a.agents[ag]||0) + rounds; });
+    });
+  });
+  const list = Object.values(acc).map(a => {
+    const s = {}; Object.entries(a.sums).forEach(([n,v]) => s[n] = v/a.rounds);
+    const roleCount = {};
+    Object.entries(a.agents).forEach(([ag,r]) => { const ro = roleOfAgent(ag); if(ro) roleCount[ro]=(roleCount[ro]||0)+r; });
+    const rc = Object.entries(roleCount).sort((x,y)=>y[1]-x[1]);
+    const role = !rc.length ? "Flex" : (rc.length>1 && rc[1][1] >= rc[0][1]*0.8) ? "Flex" : rc[0][0];
+    const raw = {MIR:s.hs, DAN:s.adr, IMP:s.acs, ENT:s.fkpr*0.6+(s.fkpr-s.fdpr)*0.4, SUP:s.apr, CON:s.kast, SOB:-s.dpr, CLU:s.clp};
+    return {name:a.name, org:a.org || "—", rounds:a.rounds, stats:s, raw, role, agents:Object.entries(a.agents).sort((x,y)=>y[1]-x[1]).map(x=>x[0]), eventos:a.eventos, prov:a.rounds<MIN_ROUNDS};
+  });
+  const base = list.filter(c=>!c.prov);
+  const pct = (val, arr) => { if(!arr.length) return .5; let below=0, eq=0; arr.forEach(x=>{ if(x<val) below++; else if(x===val) eq++; }); return (below + eq/2)/arr.length; };
+  const cols = {}; ATTRS.forEach(([a]) => cols[a] = base.map(c=>c.raw[a]));
+  list.forEach(c => {
+    c.attrs = {}; ATTRS.forEach(([a]) => c.attrs[a] = Math.round(40 + 59*pct(c.raw[a], cols[a])));
+    c.wscore = Object.entries(WEIGHTS[c.role]).reduce((t,[a,w])=>t+w*c.attrs[a],0);
+  });
+  const ws = base.map(c=>c.wscore);
+  // percentil → overall: 40% bronze, 35% prata, 20% ouro, 5% ícone
+  const curve = x => x<.4 ? 55+15*(x/.4) : x<.75 ? 70+10*((x-.4)/.35) : x<.95 ? 80+10*((x-.75)/.2) : 90+6*((x-.95)/.05);
+  const nameTeam = {};
+  SERIES.forEach(sr => (sr.maps||[]).forEach(m => ["team1","team2"].forEach((side,i) => (m.players?.[side]||[]).forEach(pl => { nameTeam[key(pl.name)] = sr.teams[i].name; }))));
+  list.forEach(c => {
+    if(c.org==="—" && nameTeam[key(c.name)]) c.org = TEAM_TAG[nameTeam[key(c.name)]] || nameTeam[key(c.name)];
+    c.ovr = Math.round(curve(pct(c.wscore, ws)));
+    if(c.prov) c.ovr = Math.min(c.ovr, 79);
+    c.tier = tierOf(c.ovr); c.price = priceOf(c.ovr);
+  });
+  list.sort((a,b)=>b.ovr-a.ovr || b.wscore-a.wscore);
+  CARDS = list; list.forEach(c => CARD_BY_NAME[key(c.name)] = c);
+}
+
+function fcardHTML(c, opts={}){
+  return `<button class="fcard ${c.tier}${c.prov?' prov':''}" type="button" data-card="${esc(key(c.name))}" ${opts.style?`style="${opts.style}"`:''} aria-label="Carta de ${esc(c.name)}, overall ${c.ovr}">
+    <div class="shape">
+      <div class="fc-top">
+        <div><div class="fc-ovr">${c.ovr}</div><div class="fc-pos">${ROLE_ABBR[c.role]}</div></div>
+        <div class="fc-tag">${esc(c.org)}</div>
+      </div>
+      <div class="fc-face">${esc(initials(c.name))}</div>
+      <div class="fc-name">${esc(c.name)}</div>
+      <div class="fc-attrs">${FRONT_ATTRS.map(a=>`<div><b>${c.attrs[a]}</b><span>${a}</span></div>`).join("")}</div>
+      <div class="fc-foot">${esc(c.role)} · ${cs(c.price)}</div>
+    </div></button>`;
+}
+
+// ================================================================ pontuação da rodada
 function mapPoints(p){
   const parts = [];
-  const acs = num(p.acs)/R.acs; parts.push(["ACS "+num(p.acs)+" ÷ "+R.acs, "", acs]);
+  parts.push(["ACS "+num(p.acs)+" ÷ "+R.acs, "", num(p.acs)/R.acs]);
   parts.push(["Mortes", num(p.deaths), num(p.deaths)*R.d]);
   parts.push(["Assistências", num(p.assists), num(p.assists)*R.a]);
   parts.push(["First kills", num(p.fk), num(p.fk)*R.fk]);
   parts.push(["First deaths", num(p.fd), num(p.fd)*R.fd]);
   const kast = num(p.kast); parts.push(["KAST", kast+"%", kast>=R.kastmin ? R.kastb : 0]);
-  const adr = num(p.adr); const ab = adr>=R.adr2 ? R.adr2b : adr>=R.adr1 ? R.adr1b : 0;
-  parts.push(["ADR", Math.round(adr), ab]);
+  const adr = num(p.adr); parts.push(["ADR", Math.round(adr), adr>=R.adr2 ? R.adr2b : adr>=R.adr1 ? R.adr1b : 0]);
   return {parts, total: parts.reduce((s,x)=>s+x[2],0)};
 }
 function seriesMult(w,l){
   const t = {"2-0":R.s20,"2-1":R.s21,"1-2":R.s12,"0-2":R.s02,"3-0":1.30,"3-1":1.20,"3-2":1.15,"2-3":1.05,"1-3":1,"0-3":1};
   return t[w+"-"+l] ?? 1;
-}
-function roleOf(agents){
-  const c = {}; agents.forEach(a => { const r = AGENT_ROLE[a]; if(r) c[r]=(c[r]||0)+1; });
-  const e = Object.entries(c).sort((a,b)=>b[1]-a[1]);
-  if(!e.length) return "Flex";
-  if(e.length>1 && e[0][1]===e[1][1]) return "Flex";
-  return e[0][0];
 }
 function compute(){
   const players = [], coaches = [], seriesInfo = [];
@@ -557,359 +670,320 @@ function compute(){
     });
     const local = Object.values(acc).map(j => {
       const opp = j.team===teams[0]?teams[1]:teams[0];
-      const avg = j.maps.reduce((s,m)=>s+m.total,0)/j.maps.length;
+      const avg = j.maps.reduce((t,m)=>t+m.total,0)/j.maps.length;
       const kpr = j.rounds ? j.kills/j.rounds : 0;
       const mk = kpr>=R.k2 ? R.k2m : kpr>=R.k1 ? R.k1m : 1;
       const ms = seriesMult(wins[j.team], wins[opp]);
-      const final = avg>0 ? avg*mk*ms : avg;
-      return {...j, id:s.match_id+":"+j.name, opp, score:wins[j.team]+"-"+wins[opp], avg, kpr, mk, ms, final, role:roleOf(j.agents)};
+      return {...j, opp, score:wins[j.team]+"-"+wins[opp], avg, kpr, mk, ms, final: avg>0 ? avg*mk*ms : avg};
     });
     players.push(...local);
     const coachName = {}; (s.teams||[]).forEach(t => { coachName[t.name] = t.coach || ""; });
     teams.forEach(t => {
       const tp = local.filter(p=>p.team===t); const opp = t===teams[0]?teams[1]:teams[0];
-      const avg = tp.reduce((s,p)=>s+p.avg,0)/(tp.length||1); const ms = seriesMult(wins[t],wins[opp]);
-      coaches.push({id:s.match_id+":coach:"+t, name: coachName[t] || "Coach "+t, team:t, score:wins[t]+"-"+wins[opp], avg, ms, final: avg>0?avg*ms:avg});
+      const avg = tp.reduce((x,p)=>x+p.avg,0)/(tp.length||1); const ms = seriesMult(wins[t],wins[opp]);
+      coaches.push({name: coachName[t] || "Coach "+t, team:t, opp, score:wins[t]+"-"+wins[opp], avg, ms, final: avg>0?avg*ms:avg, coachOf:tp.map(p=>p.name)});
     });
   });
-  // Na rodada, quem jogou mais de uma série pontua pela média das séries
   const group = (list, keyOf) => {
-    const g = {};
-    list.forEach(e => { const k = keyOf(e); (g[k] ||= []).push(e); });
-    return Object.entries(g).map(([k, es]) => ({
-      ...es[0], id: k, entries: es,
-      final: es.reduce((s,e)=>s+e.final,0)/es.length,
-      role: roleOf(es.flatMap(e=>e.agents||[])),
-    }));
+    const g = {}; list.forEach(e => { (g[keyOf(e)] ||= []).push(e); });
+    return Object.entries(g).map(([k, es]) => ({...es[0], id:k, entries:es, final: es.reduce((t,e)=>t+e.final,0)/es.length}));
   };
-  const P = group(players, e => "p:"+e.team+":"+e.name);
-  const C = group(coaches, e => "c:"+e.team);
+  const P = group(players, e => "p:"+e.team+":"+e.name).map(p => {
+    const card = CARD_BY_NAME[key(p.name)];
+    const role = card ? card.role : roleOf(p.entries.flatMap(e=>e.agents||[]));
+    const ovr = card ? card.ovr : 70;
+    return {...p, role, card, ovr, price: priceOf(ovr)};
+  });
+  const C = group(coaches, e => "c:"+e.team).map(c => {
+    const ovrs = c.entries[0].coachOf.map(n => CARD_BY_NAME[key(n)]?.ovr).filter(Boolean);
+    const ovr = ovrs.length ? Math.round(ovrs.reduce((a,b)=>a+b,0)/ovrs.length) : 70;
+    return {...c, role:"Coach", ovr, price: priceOf(ovr)};
+  });
   P.sort((a,b)=>b.final-a.final); C.sort((a,b)=>b.final-a.final);
   return {players:P, coaches:C, seriesInfo};
 }
 
-// ------------------------------------------------------------------ render
-let STATE = compute();
-const $ = id => document.getElementById(id);
-const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
-let openRow = null;
-
-function renderAll(){
-  STATE = compute();
-  renderHome(); renderTable(); renderSeries(); renderPitch();
-  $("data-chip").textContent = isSample ? "Dados de teste" : (DATA_LABEL || SERIES.length+" série(s) importada(s)");
-  $("data-chip").className = "chip" + (isSample ? " test" : "");
-}
-function renderHome(){
-  const {players, coaches} = STATE; const top = players[0];
-  const avgAll = players.reduce((s,p)=>s+p.final,0)/(players.length||1);
-  $("tiles").innerHTML = top ? `
-    <div class="panel tile"><div class="lbl">Maior pontuador</div><div class="val">${fmt(top.final)}</div><div class="sub">${esc(top.name)} · ${esc(top.team)}</div></div>
-    <div class="panel tile"><div class="lbl">Melhor coach</div><div class="val">${fmt(coaches[0].final)}</div><div class="sub">${esc(coaches[0].name)} · ${esc(coaches[0].team)}</div></div>
-    <div class="panel tile"><div class="lbl">Média dos jogadores</div><div class="val">${fmt(avgAll)}</div><div class="sub">${players.length} jogadores</div></div>
-    <div class="panel tile"><div class="lbl">Séries na rodada</div><div class="val">${SERIES.length}</div><div class="sub">${STATE.seriesInfo.map(s=>esc(s.teams[0])+" x "+esc(s.teams[1])).join(", ")}</div></div>` : `<div class="panel">Nenhuma série carregada. Vá em Importar série.</div>`;
-  $("top5").innerHTML = players.slice(0,5).map((p,i)=>`<li><span>${i+1}. ${esc(p.name)} <span class="role ${p.role}">${p.role}</span></span><b>${fmt(p.final)}</b></li>`).join("");
-  $("topc").innerHTML = coaches.map((c,i)=>`<li><span>${i+1}. ${esc(c.name)} <span class="team">${esc(c.team)} · ${c.entries.map(e=>e.score).join(" · ")}</span></span><b>${fmt(c.final)}</b></li>`).join("");
-}
-function renderSeries(){
-  $("series-bar").innerHTML = STATE.seriesInfo.map(s => {
-    const [a,b] = s.teams; const wa = s.wins[a], wb = s.wins[b];
-    return `<div class="series"><span class="${wa>wb?'w':'lz'}">${esc(a)}</span><span class="sc">${wa} : ${wb}</span><span class="${wb>wa?'w':'lz'}">${esc(b)}</span><span class="maps">${s.maps.map(esc).join(" · ")}</span></div>`;
-  }).join("");
-}
-function renderTable(){
-  const rows = STATE.players.map((p,i) => {
-    const isOpen = openRow===p.id;
-    const multi = p.entries.length>1;
-    const serTxt = p.entries.map(e=>`vs ${esc(e.opp)} ${e.score} <span class="${e.final<0?'neg':''}">${fmt(e.final)}</span>`).join("<br>");
-    const e0 = p.entries[0];
-    let html = `<tr class="row${isOpen?' open':''}" data-id="${esc(p.id)}" tabindex="0">
-      <td class="l pos">${i+1}</td>
-      <td class="l"><span class="name">${esc(p.name)}</span><span class="role ${p.role}">${p.role}</span><br><span class="team">${esc(p.team)}${multi?' · '+p.entries.length+' séries':''}</span></td>
-      <td class="l" style="font-size:13px">${serTxt}</td>
-      <td>${multi?'–':fmt(e0.avg)}</td>
-      <td>${multi?'–':e0.kpr.toFixed(2).replace(".",",")}</td>
-      <td class="mult ${!multi&&e0.mk>1?'up':''}">${multi?'–':fx(e0.mk)}</td>
-      <td class="mult ${!multi&&e0.ms>1?'up':''}">${multi?'–':fx(e0.ms)}</td>
-      <td class="final ${p.final<0?'neg':''}">${fmt(p.final)}</td></tr>`;
-    if(isOpen){
-      html += `<tr class="detail"><td colspan="8">${p.entries.map(e=>`
-        ${multi?`<div class="formula" style="padding-top:14px;padding-bottom:0"><b>vs ${esc(e.opp)} · ${e.score}</b></div>`:''}
-        <div class="breakdown">${e.maps.map(m=>`
-        <div class="bk"><h3><span>${esc(m.map)}${m.agent?' · '+esc(m.agent):''}</span><span>${fmt(m.total)}</span></h3><dl>
-        ${m.parts.map(([k,v,pts])=>`<dt>${k}</dt><dd class="muted">${v}</dd><dd class="${pts<0?'neg':''}">${(pts||0)>=0?'+':''}${fmt(pts||0)}</dd>`).join("")}
-        <dt class="tot">Total do mapa</dt><dd class="tot"></dd><dd class="tot">${fmt(m.total)}</dd></dl></div>`).join("")}
-        </div><div class="formula">Média ${fmt(e.avg)} × kill ${fx(e.mk)} × série ${fx(e.ms)} = <b>${fmt(e.final)}</b>${e.avg<=0?' (pontuação negativa não recebe multiplicador)':''}</div>`).join("")}
-        ${multi?`<div class="formula">Rodada: média das ${p.entries.length} séries = <b>${fmt(p.final)}</b></div>`:''}
-      </td></tr>`;
-    }
-    return html;
-  }).join("");
-  $("tbody").innerHTML = rows || `<tr><td colspan="8" class="l muted">Nenhuma série carregada.</td></tr>`;
-}
-$("tbody").addEventListener("click", e => {
-  const tr = e.target.closest("tr.row"); if(!tr) return;
-  openRow = openRow===tr.dataset.id ? null : tr.dataset.id; renderTable();
-});
-$("tbody").addEventListener("keydown", e => { if(e.key==="Enter"){ const tr=e.target.closest("tr.row"); if(tr){ openRow = openRow===tr.dataset.id?null:tr.dataset.id; renderTable(); } } });
-
-// ------------------------------------------------------------------ escalação
+// ================================================================ escalação
 const SLOTS = ["Duelista","Iniciador","Controlador","Sentinela","Flex","Coach"];
 const PLAYER_SLOTS = SLOTS.slice(0,5);
 const SLOT_AREA = {Duelista:"slot-duel",Iniciador:"slot-ini",Controlador:"slot-ctrl",Sentinela:"slot-sent",Flex:"slot-flex"};
 const SLOT_HINT = {Duelista:"abre o round", Iniciador:"gera informação", Controlador:"smokes e ritmo", Sentinela:"segura o bomb", Flex:"qualquer função", Coach:"média do time"};
-const MAX_POR_TIME = 2;
+const SLOT_COLOR = {Duelista:"var(--c-due)",Iniciador:"var(--c-ini)",Controlador:"var(--c-con)",Sentinela:"var(--c-sen)",Flex:"var(--c-flex)",Coach:"var(--c-coach)"};
 let pickerSlot = null;
-let canSave = false;
-let SAVED_LINEUP = null;
-try{ SAVED_LINEUP = JSON.parse(localStorage.getItem("fvct-lineup")||"null"); }catch(e){}
 
-function pool(slot){
-  if(slot==="Coach") return STATE.coaches;
-  if(slot==="Flex") return STATE.players;
-  return STATE.players.filter(p=>p.role===slot);
+const pool = slot => slot==="Coach" ? STATE.coaches : slot==="Flex" ? STATE.players : STATE.players.filter(p=>p.role===slot);
+const findById = id => STATE.players.find(p=>p.id===id) || STATE.coaches.find(c=>c.id===id);
+const teamCount = (team, exceptSlot) => PLAYER_SLOTS.filter(s => s!==exceptSlot && lineup[s] && findById(lineup[s])?.team===team).length;
+const slotPoints = s => { const sel = lineup[s] && findById(lineup[s]); return sel ? sel.final*(lineup.cap===s && s!=="Coach" ? R.cap : 1) : 0; };
+const teamTotal = () => SLOTS.reduce((t,s)=>t+slotPoints(s),0);
+const spent = (except) => SLOTS.filter(s=>s!==except && lineup[s]).reduce((t,s)=>t+(findById(lineup[s])?.price||0),0);
+function slotFor(p){
+  if(lineup[p.role]===undefined || !lineup[p.role]) return ROLES.includes(p.role) ? p.role : "Flex";
+  return "Flex";
 }
-function findById(id){ return STATE.players.find(p=>p.id===id) || STATE.coaches.find(c=>c.id===id); }
-function teamCount(team, exceptSlot){
-  return PLAYER_SLOTS.filter(s => s!==exceptSlot && lineup[s] && findById(lineup[s])?.team===team).length;
+function whyBlocked(p, s){
+  const usedElsewhere = SLOTS.filter(x=>x!==s).some(x=>lineup[x]===p.id);
+  if(usedElsewhere) return "já está no time";
+  if(s!=="Coach" && teamCount(p.team, s) >= MAX_POR_TIME) return `limite de ${MAX_POR_TIME} do ${p.team}`;
+  const rest = PATRIMONIO - spent(s);
+  if(p.price > rest + 1e-9) return `faltam ${cs(p.price-rest)}`;
+  return "";
 }
-function slotPoints(s){
-  const sel = lineup[s] ? findById(lineup[s]) : null;
-  if(!sel) return 0;
-  return sel.final * (lineup.cap===s && s!=="Coach" ? R.cap : 1);
-}
-function teamTotal(){ return SLOTS.reduce((t,s)=>t+slotPoints(s),0); }
-function initials(n){ const w = String(n).replace(/[^\p{L}\p{N} ]/gu,"").trim(); return (w.length<=3 ? w : w.slice(0,2)).toUpperCase(); }
 function cardStats(p){
   const maps = (p.entries||[]).flatMap(e=>e.maps||[]);
   if(!maps.length) return null;
-  const acs = maps.reduce((t,m)=>t+m.acs,0)/maps.length;
   const k = maps.reduce((t,m)=>t+m.k,0), d = maps.reduce((t,m)=>t+m.d,0), a = maps.reduce((t,m)=>t+m.a,0);
-  return {acs:Math.round(acs), kda:`${k}/${d}/${a}`, maps:maps.length};
+  return {acs:Math.round(maps.reduce((t,m)=>t+m.acs,0)/maps.length), kda:`${k}/${d}/${a}`};
 }
-function cardHTML(s, opts={}){
+function pcardHTML(s){
   const sel = lineup[s] ? findById(lineup[s]) : null;
   const area = SLOT_AREA[s] || "";
-  const tag = opts.static ? "div" : "div";
-  const open = opts.static ? `onclick="location.hash='escalacao'"` : `data-open="${s}" tabindex="0" role="button" aria-label="Escolher ${s}"`;
-  if(!sel){
-    return `<${tag} class="pcard empty ${s} ${area}" ${open}>
-      <div class="pc-plus">+</div><div class="pc-empty-role">${s}</div><div class="pc-hint">${SLOT_HINT[s]}</div></${tag}>`;
-  }
+  const open = `data-open="${s}" tabindex="0" role="button" aria-label="Escolher ${s}"`;
+  if(!sel) return `<div class="pcard empty ${s} ${area}" ${open}><div class="pc-plus">+</div><div class="pc-empty-role">${s}</div><div class="pc-hint">${SLOT_HINT[s]}</div></div>`;
   const isCap = lineup.cap===s && s!=="Coach";
-  const pts = slotPoints(s);
   const st = s==="Coach" ? null : cardStats(sel);
   const label = s==="Flex" ? "Flex · "+sel.role : s;
-  const sub = s==="Coach" ? esc(sel.team) : esc(sel.team) + (sel.entries.length>1 ? " · 2 séries" : "");
-  return `<${tag} class="pcard ${s} ${area}${isCap?' cap':''}" ${open}>
-    <div class="pc-top"><div class="pc-pts">${fmt(pts)}<small>${isCap?'CAPITÃO 1,5x':'PONTOS'}</small></div><div class="pc-role">${label}</div></div>
+  return `<div class="pcard ${s} ${area}${isCap?' cap':''}" ${open}>
+    <div class="pc-role">${label}</div>
+    <div class="pc-pts">${fmt(slotPoints(s))}<small>${isCap?'CAPITÃO 1,5x':'PONTOS'}</small></div>
     <div class="pc-avatar">${esc(initials(sel.name))}</div>
     <div class="pc-name">${esc(sel.name)}</div>
-    <div class="pc-team">${sub}</div>
-    ${st ? `<div class="pc-stats"><div><b>${st.acs}</b><span>ACS</span></div><div><b>${st.kda}</b><span>K/D/A</span></div><div><b>${st.maps}</b><span>Mapas</span></div></div>`
-         : (s==="Coach" ? `<div class="pc-stats"><div style="grid-column:span 3"><b>${sel.entries.map(e=>e.score).join(" · ")}</b><span>Séries</span></div></div>` : "")}
-    ${s!=="Coach" && !opts.static ? `<button class="pc-cap" type="button" data-cap="${s}" title="${isCap?'Capitão':'Tornar capitão'}" aria-label="Tornar ${esc(sel.name)} capitão">C</button>` : ""}
-  </${tag}>`;
+    <div class="pc-team">${esc(sel.team)}${sel.entries.length>1?' · 2 séries':''}</div>
+    <div class="pc-stats">
+      <div><b>${sel.ovr}</b><span>OVR</span></div>
+      <div><b style="color:var(--gold)">${fmt(sel.price)}</b><span>C$</span></div>
+      <div><b>${st?st.acs:sel.entries.map(e=>e.score).join(" ")}</b><span>${st?'ACS':'Série'}</span></div>
+    </div>
+    ${s!=="Coach" ? `<button class="pc-cap" type="button" data-cap="${s}" aria-label="Tornar ${esc(sel.name)} capitão">C</button>` : ""}
+  </div>`;
 }
-function renderPitch(){
+function renderLineup(){
   SLOTS.forEach(s => { if(lineup[s] && !findById(lineup[s])) lineup[s]=null; });
   if(lineup.cap && !lineup[lineup.cap]) lineup.cap = null;
-  $("field").innerHTML = PLAYER_SLOTS.map(s=>cardHTML(s)).join("");
-  $("bench-coach").innerHTML = cardHTML("Coach");
-  $("home-field").innerHTML = PLAYER_SLOTS.map(s=>cardHTML(s,{static:true})).join("");
-  $("home-coach").innerHTML = cardHTML("Coach",{static:true});
-  const total = fmt(teamTotal());
-  $("team-total").textContent = total; $("home-total").textContent = total;
+  $("field").innerHTML = PLAYER_SLOTS.map(pcardHTML).join("");
+  $("bench-coach").innerHTML = pcardHTML("Coach");
+  const total = fmt(teamTotal()), gasto = spent(), rest = PATRIMONIO - gasto;
+  $("team-total").textContent = total; $("w-total").textContent = total;
+  $("b-gasto").textContent = cs(gasto); $("b-rest").textContent = cs(rest);
+  $("b-bar").style.width = Math.min(100, gasto/PATRIMONIO*100) + "%";
+  $("w-budget").textContent = cs(rest); $("m-budget").textContent = "Restante " + cs(rest);
   const filled = SLOTS.filter(s=>lineup[s]).length;
-  const note = filled<6 ? `${filled} de 6 posições preenchidas` : (lineup.cap ? `Time completo · capitão: ${findById(lineup[lineup.cap]).name}` : "Time completo. Escolha um capitão.");
-  $("team-note").textContent = note; $("home-team-note").textContent = note;
+  $("team-note").textContent = filled<6 ? `${filled} de 6 posições preenchidas` : (lineup.cap ? `Time completo · capitão: ${findById(lineup[lineup.cap]).name}` : "Time completo. Escolha um capitão.");
+  $("w-lineup").innerHTML = ["Duelista","Iniciador","Controlador","Sentinela","Flex","Coach"].map(s => {
+    const sel = lineup[s] && findById(lineup[s]);
+    return `<div class="mini-slot" style="--rc:${SLOT_COLOR[s]}"><span class="r">${s}${lineup.cap===s?' · C':''}</span>
+      <span class="n${sel?'':' vazio'}">${sel?esc(sel.name)+' <span class="team">'+esc(sel.team)+'</span>':'vazio'}</span>
+      <span class="p">${sel?fmt(slotPoints(s)):'–'}</span></div>`;
+  }).join("");
   if(canSave){ try{ localStorage.setItem("fvct-lineup", JSON.stringify(lineup)); }catch(e){} }
+  renderMarket();
 }
-
-// seletor
 function openPicker(s){
   pickerSlot = s;
   $("picker-eyebrow").textContent = s==="Coach" ? "Escolher coach" : "Escolher jogador";
   $("picker-title").textContent = s + " · " + SLOT_HINT[s];
-  $("picker-search").value = "";
-  renderPicker();
-  $("picker").hidden = false;
-  setTimeout(()=>$("picker-search").focus(), 30);
+  $("picker-search").value = ""; renderPicker();
+  $("picker").hidden = false; setTimeout(()=>$("picker-search").focus(), 30);
 }
-function closePicker(){ $("picker").hidden = true; const s = pickerSlot; pickerSlot = null; const c = document.querySelector(`[data-open="${s}"]`); if(c) c.focus(); }
+function closeModal(id){ $(id).hidden = true; }
+function closePicker(){ closeModal("picker"); const s = pickerSlot; pickerSlot = null; document.querySelector(`[data-open="${s}"]`)?.focus(); }
 function renderPicker(){
   const s = pickerSlot; if(!s) return;
-  const q = $("picker-search").value.trim().toLowerCase();
-  const usedElsewhere = new Set(PLAYER_SLOTS.filter(x=>x!==s).map(x=>lineup[x]).filter(Boolean));
-  const list = pool(s).filter(p => !q || p.name.toLowerCase().includes(q) || p.team.toLowerCase().includes(q));
+  const q = key($("picker-search").value);
+  const rest = PATRIMONIO - spent(s);
+  $("picker-budget").textContent = `Disponível para esta posição: ${cs(rest)}`;
+  const list = pool(s).filter(p => !q || key(p.name).includes(q) || key(p.team).includes(q));
   $("picker-list").innerHTML = list.map(p => {
-    let why = "";
-    if(s!=="Coach"){
-      if(usedElsewhere.has(p.id)) why = "já está no time";
-      else if(teamCount(p.team, s) >= MAX_POR_TIME) why = `limite de ${MAX_POR_TIME} do ${p.team}`;
-    }
-    const series = p.entries.map(e=>`vs ${e.opp} ${e.score}`).join(" · ");
+    const why = whyBlocked(p, s);
     return `<button class="pick-row${p.id===lineup[s]?' sel':''}" type="button" data-pick="${esc(p.id)}" ${why?'disabled':''}>
       <span><b>${esc(p.name)}</b>${s!=="Coach"?`<span class="role ${p.role}">${p.role}</span>`:''}</span>
-      <span class="pts">${fmt(p.final)}</span>
-      <span class="sub">${esc(p.team)} · ${esc(series)}${why?' · '+why:''}</span>
+      <span class="price">${fmt(p.price)}<span class="lbl">C$ · OVR ${p.ovr}</span></span>
+      <span class="pts">${fmt(p.final)}<span class="lbl">PONTOS</span></span>
+      <span class="sub">${esc(p.team)} · ${esc(p.entries.map(e=>`vs ${e.opp} ${e.score}`).join(" · "))}${why?' · '+why:''}</span>
     </button>`;
   }).join("") || `<p class="muted" style="padding:10px">Nenhum jogador encontrado.</p>`;
 }
+
+// ================================================================ mercado
+let mSort = {k:"price", dir:-1};
+function renderMarket(){
+  const role = $("m-role").value, team = $("m-team").value, q = key($("m-q").value);
+  let list = role==="Coach" ? STATE.coaches : STATE.players.filter(p => !role || p.role===role);
+  list = list.filter(p => (!team || p.team===team) && (!q || key(p.name).includes(q)));
+  const val = p => mSort.k==="ovr" ? p.ovr : mSort.k==="price" ? p.price : mSort.k==="pts" ? p.final : p.final/p.price;
+  list = [...list].sort((a,b)=>(val(a)-val(b))*mSort.dir);
+  document.querySelectorAll("#v-mercado th[data-sort]").forEach(th => th.classList.toggle("sorted", th.dataset.sort===mSort.k));
+  $("m-body").innerHTML = list.map(p => {
+    const inSlot = SLOTS.find(s => lineup[s]===p.id);
+    const target = p.role==="Coach" ? "Coach" : slotFor(p);
+    const why = inSlot ? "" : whyBlocked(p, target);
+    return `<tr>
+      <td class="l"><span class="name">${esc(p.name)}</span>${p.role!=="Coach"?`<span class="role ${p.role}">${p.role}</span>`:'<span class="role">Coach</span>'}<br><span class="team">${esc(p.team)}</span></td>
+      <td>${p.ovr}</td><td class="price">${cs(p.price)}</td><td>${fmt(p.final)}</td><td>${fmt(p.final/p.price)}</td>
+      <td>${inSlot ? `<span class="in-team">No time</span> <button class="btn ghost small" type="button" data-sell="${inSlot}">Vender</button>`
+        : `<button class="btn small" type="button" data-buy="${esc(p.id)}" data-slot="${target}" ${why?`disabled title="${esc(why)}"`:''}>Escalar</button>${why?`<br><span class="muted" style="font-size:12px">${esc(why)}</span>`:''}`}</td>
+    </tr>`;
+  }).join("") || `<tr><td colspan="6" class="l muted">Nenhum jogador encontrado.</td></tr>`;
+}
+
+// ================================================================ cartas
+function renderCards(){
+  const grid = $("c-grid");
+  if(!CARDS.length){ grid.innerHTML = `<div class="empty-state panel" style="grid-column:1/-1">As cartas aparecem depois da coleta da temporada.</div>`; return; }
+  const role = $("c-role").value, team = $("c-team").value, q = key($("c-q").value), sort = $("c-sort").value;
+  let list = CARDS.filter(c => (!role || c.role===role) && (!team || c.org===team) && (!q || key(c.name).includes(q)));
+  list = [...list].sort((a,b) => sort==="ovr" ? (b.ovr-a.ovr || b.wscore-a.wscore) : (b.attrs[sort]-a.attrs[sort]));
+  grid.innerHTML = list.map(c=>fcardHTML(c)).join("") || `<div class="empty-state" style="grid-column:1/-1">Nenhuma carta encontrada.</div>`;
+}
+function openCard(k){
+  const c = CARD_BY_NAME[k]; if(!c) return;
+  $("cm-eyebrow").textContent = `${c.role} · ${c.org}`;
+  $("cm-title").textContent = c.name;
+  const st = c.stats;
+  const color = {bronze:"#c08457",prata:"#c9d1d9",ouro:"#f1c95b",icone:"#ff4655"}[c.tier];
+  $("cm-body").innerHTML = `<div>${fcardHTML(c)}</div>
+    <div>
+      <div class="kv" style="margin-bottom:14px">
+        <div><div class="lbl" style="font-size:11.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase">Overall</div><div class="big-num">${c.ovr}</div></div>
+        <div><div class="lbl" style="font-size:11.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase">Preço</div><div class="big-num" style="color:var(--gold)">${cs(c.price)}</div></div>
+        <div><div class="lbl" style="font-size:11.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase">Rounds</div><div class="big-num">${Math.round(c.rounds)}</div></div>
+      </div>
+      <div class="attr-bars">${ATTRS.map(([a,n]) => `<div class="attr-bar"><span>${n}${WEIGHTS[c.role][a]?' <span class="muted" style="font-size:11px">· peso '+Math.round(WEIGHTS[c.role][a]*100)+'%</span>':''}</span><div class="b"><i style="width:${(c.attrs[a]-40)/59*100}%;background:${color}"></i></div><b>${c.attrs[a]}</b></div>`).join("")}</div>
+      <div class="stat-grid">
+        <div><span>ACS</span><b>${st.acs.toFixed(1)}</b></div><div><span>ADR</span><b>${st.adr.toFixed(1)}</b></div>
+        <div><span>KAST</span><b>${Math.round(st.kast)}%</b></div><div><span>Kills/rd</span><b>${st.kpr.toFixed(2)}</b></div>
+        <div><span>Assist./rd</span><b>${st.apr.toFixed(2)}</b></div><div><span>Mortes/rd</span><b>${st.dpr.toFixed(2)}</b></div>
+        <div><span>FK/rd</span><b>${st.fkpr.toFixed(2)}</b></div><div><span>FD/rd</span><b>${st.fdpr.toFixed(2)}</b></div>
+        <div><span>HS%</span><b>${Math.round(st.hs)}%</b></div><div><span>Clutch</span><b>${Math.round(st.clp)}%</b></div>
+      </div>
+      <p class="muted" style="font-size:13px;margin-top:12px">Agentes: ${esc(c.agents.slice(0,5).join(", "))}<br>Eventos: ${esc(c.eventos.join(" · "))}${c.prov?'<br>Carta provisória: menos de '+MIN_ROUNDS+' rounds na temporada.':''}</p>
+    </div>`;
+  $("card-modal").hidden = false;
+}
+
+// ================================================================ stats e partidas
+let sSort = {k:"acs", dir:-1};
+function proximasHTML(max){
+  const ps = PROXIMAS?.partidas || [];
+  if(!ps.length) return `<p class="muted" style="margin:0">Nenhuma partida do VCT Americas agendada. O calendário volta com a temporada 2027.</p>`;
+  return `<div class="matches">${ps.slice(0, max||99).map(m => `<div class="match"><span>${esc(m.team1)}</span><span class="vs"><b>${esc(m.time_until_match||"")}</b>${esc(m.match_series||"")}</span><span class="t2">${esc(m.team2)}</span></div>`).join("")}</div>`;
+}
+function renderStats(){
+  $("s-proximas").innerHTML = proximasHTML();
+  if(!CARDS.length){ $("s-body").innerHTML = `<tr><td colspan="11" class="l muted">As stats aparecem depois da coleta da temporada.</td></tr>`; return; }
+  const list = [...CARDS].sort((a,b)=>(a.stats[sSort.k]-b.stats[sSort.k])*sSort.dir);
+  const k = sSort.k==="rounds" ? null : sSort.k;
+  if(sSort.k==="rounds") list.sort((a,b)=>(a.rounds-b.rounds)*sSort.dir);
+  document.querySelectorAll("#s-head th[data-s]").forEach(th => th.classList.toggle("sorted", th.dataset.s===sSort.k));
+  $("s-body").innerHTML = list.map(c => `<tr class="row" data-card="${esc(key(c.name))}">
+    <td class="l"><span class="name">${esc(c.name)}</span><span class="role ${c.role}">${c.role}</span><br><span class="team">${esc(c.org)}</span></td>
+    <td>${Math.round(c.rounds)}</td><td>${c.stats.acs.toFixed(1)}</td><td>${c.stats.adr.toFixed(1)}</td><td>${Math.round(c.stats.kast)}%</td>
+    <td>${c.stats.kpr.toFixed(2)}</td><td>${c.stats.apr.toFixed(2)}</td><td>${c.stats.fkpr.toFixed(2)}</td><td>${c.stats.fdpr.toFixed(2)}</td>
+    <td>${Math.round(c.stats.hs)}%</td><td>${Math.round(c.stats.clp)}%</td></tr>`).join("");
+}
+
+// ================================================================ pontuação (tabela)
+let openRow = null;
+function renderScore(){
+  $("series-bar").innerHTML = STATE.seriesInfo.map(s => {
+    const [a,b] = s.teams; const wa = s.wins[a], wb = s.wins[b];
+    return `<div class="series"><span class="${wa>wb?'w':'lz'}">${esc(a)}</span><span class="sc">${wa} : ${wb}</span><span class="${wb>wa?'w':'lz'}">${esc(b)}</span><span class="maps">${s.maps.map(esc).join(" · ")}</span></div>`;
+  }).join("");
+  $("tbody").innerHTML = STATE.players.map((p,i) => {
+    const isOpen = openRow===p.id, multi = p.entries.length>1, e0 = p.entries[0];
+    let html = `<tr class="row${isOpen?' open':''}" data-id="${esc(p.id)}" tabindex="0">
+      <td class="l pos">${i+1}</td>
+      <td class="l"><span class="name">${esc(p.name)}</span><span class="role ${p.role}">${p.role}</span><br><span class="team">${esc(p.team)}${multi?' · '+p.entries.length+' séries':''}</span></td>
+      <td class="l" style="font-size:13px">${p.entries.map(e=>`vs ${esc(e.opp)} ${e.score} <span class="${e.final<0?'neg':''}">${fmt(e.final)}</span>`).join("<br>")}</td>
+      <td>${multi?'–':fmt(e0.avg)}</td><td>${multi?'–':e0.kpr.toFixed(2).replace(".",",")}</td>
+      <td class="mult ${!multi&&e0.mk>1?'up':''}">${multi?'–':fx(e0.mk)}</td><td class="mult ${!multi&&e0.ms>1?'up':''}">${multi?'–':fx(e0.ms)}</td>
+      <td class="final ${p.final<0?'neg':''}">${fmt(p.final)}</td></tr>`;
+    if(isOpen){
+      html += `<tr class="detail"><td colspan="8">${p.entries.map(e=>`
+        ${multi?`<div class="formula" style="padding-top:14px;padding-bottom:0"><b>vs ${esc(e.opp)} · ${e.score}</b></div>`:''}
+        <div class="breakdown">${e.maps.map(m=>`<div class="bk"><h3><span>${esc(m.map)}${m.agent?' · '+esc(m.agent):''}</span><span>${fmt(m.total)}</span></h3><dl>
+          ${m.parts.map(([k,v,pts])=>`<dt>${k}</dt><dd class="muted">${v}</dd><dd class="${pts<0?'neg':''}">${(pts||0)>=0?'+':''}${fmt(pts||0)}</dd>`).join("")}
+          <dt class="tot">Total do mapa</dt><dd class="tot"></dd><dd class="tot">${fmt(m.total)}</dd></dl></div>`).join("")}</div>
+        <div class="formula">Média ${fmt(e.avg)} × kill ${fx(e.mk)} × série ${fx(e.ms)} = <b>${fmt(e.final)}</b>${e.avg<=0?' (pontuação negativa não recebe multiplicador)':''}</div>`).join("")}
+        ${multi?`<div class="formula">Rodada: média das ${p.entries.length} séries = <b>${fmt(p.final)}</b></div>`:''}</td></tr>`;
+    }
+    return html;
+  }).join("") || `<tr><td colspan="8" class="l muted">Nenhuma série na rodada.</td></tr>`;
+}
+
+// ================================================================ início
+function renderHome(){
+  const caros = [...STATE.players].sort((a,b)=>b.price-a.price).slice(0,4);
+  const custo = [...STATE.players].sort((a,b)=>b.final/b.price-a.final/a.price).slice(0,4);
+  $("w-caros").innerHTML = caros.map(p=>`<li><span>${esc(p.name)} <span class="team">${esc(p.team)}</span></span><b style="color:var(--gold)">${cs(p.price)}</b></li>`).join("") || `<li class="muted">Sem dados</li>`;
+  $("w-custo").innerHTML = custo.map(p=>`<li><span>${esc(p.name)} <span class="team">${fmt(p.final)} pts</span></span><b>${fmt(p.final/p.price)}</b></li>`).join("") || `<li class="muted">Sem dados</li>`;
+  const top = CARDS.slice(0,3);
+  $("w-cartas").innerHTML = top.length ? top.map(c=>`<div style="width:150px">${fcardHTML(c)}</div>`).join("") +
+    `<div class="muted" style="font-size:13.5px">${CARDS.length} cartas<br>${CARDS.filter(c=>c.tier==="icone").length} ícones · ${CARDS.filter(c=>c.tier==="ouro").length} ouro</div>`
+    : `<p class="muted">As cartas aparecem depois da coleta da temporada.</p>`;
+  $("w-proximas").innerHTML = proximasHTML(3);
+  $("w-destaques").innerHTML = STATE.players.slice(0,4).map((p,i)=>`<li><span>${i+1}. ${esc(p.name)} <span class="role ${p.role}">${p.role}</span></span><b>${fmt(p.final)}</b></li>`).join("") || `<li class="muted">Sem rodada</li>`;
+}
+
+// ================================================================ render geral
+function fillTeamFilters(){
+  const teams = [...new Set(STATE.players.map(p=>p.team))].sort();
+  $("m-team").innerHTML = `<option value="">Todos</option>` + teams.map(t=>`<option>${esc(t)}</option>`).join("");
+  const orgs = [...new Set(CARDS.map(c=>c.org))].sort();
+  $("c-team").innerHTML = `<option value="">Todos</option>` + orgs.map(t=>`<option>${esc(t)}</option>`).join("");
+}
+function renderAll(){
+  STATE = compute();
+  renderLineup(); renderScore(); renderHome(); renderCards(); renderStats();
+}
+
+// ================================================================ eventos
+document.addEventListener("click", e => {
+  const cap = e.target.closest("[data-cap]");
+  if(cap){ e.stopPropagation(); const s = cap.dataset.cap; lineup.cap = lineup.cap===s ? null : s; renderLineup(); return; }
+  const open = e.target.closest("[data-open]");
+  if(open){ openPicker(open.dataset.open); return; }
+  const card = e.target.closest("[data-card]");
+  if(card){ openCard(card.dataset.card); return; }
+  const buy = e.target.closest("[data-buy]");
+  if(buy && !buy.disabled){ lineup[buy.dataset.slot] = buy.dataset.buy; renderLineup(); return; }
+  const sell = e.target.closest("[data-sell]");
+  if(sell){ const s = sell.dataset.sell; if(lineup.cap===s) lineup.cap=null; lineup[s]=null; renderLineup(); return; }
+  const row = e.target.closest("#tbody tr.row");
+  if(row){ openRow = openRow===row.dataset.id ? null : row.dataset.id; renderScore(); return; }
+  const th = e.target.closest("#v-mercado th[data-sort]");
+  if(th){ mSort = {k:th.dataset.sort, dir: mSort.k===th.dataset.sort ? -mSort.dir : -1}; renderMarket(); return; }
+  const sth = e.target.closest("#s-head th[data-s]");
+  if(sth){ sSort = {k:sth.dataset.s, dir: sSort.k===sth.dataset.s ? -sSort.dir : -1}; renderStats(); return; }
+});
+document.addEventListener("keydown", e => {
+  if(e.key==="Escape"){ if(!$("picker").hidden) closePicker(); if(!$("card-modal").hidden) closeModal("card-modal"); return; }
+  if((e.key==="Enter"||e.key===" ") && e.target.matches("[data-open]")){ e.preventDefault(); openPicker(e.target.dataset.open); }
+  if(e.key==="Enter" && e.target.matches("#tbody tr.row")){ openRow = openRow===e.target.dataset.id ? null : e.target.dataset.id; renderScore(); }
+});
 $("picker-search").addEventListener("input", renderPicker);
 $("picker-close").addEventListener("click", closePicker);
-$("picker").addEventListener("click", e => { if(e.target.id==="picker") closePicker(); });
-document.addEventListener("keydown", e => { if(e.key==="Escape" && !$("picker").hidden) closePicker(); });
+$("cm-close").addEventListener("click", () => closeModal("card-modal"));
+["picker","card-modal"].forEach(id => $(id).addEventListener("click", e => { if(e.target.id===id) id==="picker" ? closePicker() : closeModal(id); }));
 $("picker-list").addEventListener("click", e => {
   const b = e.target.closest("[data-pick]"); if(!b || b.disabled) return;
-  lineup[pickerSlot] = b.dataset.pick; renderPitch(); closePicker();
+  lineup[pickerSlot] = b.dataset.pick; renderLineup(); closePicker();
 });
-$("picker-remove").addEventListener("click", () => {
-  if(lineup.cap===pickerSlot) lineup.cap=null;
-  lineup[pickerSlot] = null; renderPitch(); closePicker();
-});
-
-function onFieldClick(e){
-  const cap = e.target.closest("[data-cap]");
-  if(cap){ e.stopPropagation(); const s = cap.dataset.cap; lineup.cap = lineup.cap===s ? null : s; renderPitch(); return; }
-  const c = e.target.closest("[data-open]"); if(c) openPicker(c.dataset.open);
-}
-function onFieldKey(e){
-  if((e.key==="Enter"||e.key===" ") && e.target.matches("[data-open]")){ e.preventDefault(); openPicker(e.target.dataset.open); }
-}
-["field","bench-coach"].forEach(id => { $(id).addEventListener("click", onFieldClick); $(id).addEventListener("keydown", onFieldKey); });
-
-function autoLineup(){
-  lineup = {cap:null};
-  const taken = new Set(), perTeam = {};
-  ["Duelista","Iniciador","Controlador","Sentinela","Flex"].forEach(s => {
-    const best = pool(s).find(p => !taken.has(p.id) && (perTeam[p.team]||0) < MAX_POR_TIME);
-    lineup[s] = best ? best.id : null;
-    if(best){ taken.add(best.id); perTeam[best.team] = (perTeam[best.team]||0)+1; }
-  });
-  lineup.Coach = STATE.coaches[0]?.id || null;
-  const ranked = PLAYER_SLOTS.filter(s=>lineup[s]).sort((a,b)=>findById(lineup[b]).final-findById(lineup[a]).final);
-  lineup.cap = ranked[0] || null;
-  renderPitch();
-}
-$("auto").addEventListener("click", autoLineup);
-$("clear-lineup").addEventListener("click", () => { lineup = {cap:null}; renderPitch(); });
-
-// ------------------------------------------------------------------ regras
+$("picker-remove").addEventListener("click", () => { if(lineup.cap===pickerSlot) lineup.cap=null; lineup[pickerSlot]=null; renderLineup(); closePicker(); });
+$("clear-lineup").addEventListener("click", () => { lineup = {cap:null}; renderLineup(); });
+["m-role","m-team","m-q"].forEach(id => $(id).addEventListener("input", renderMarket));
+["c-role","c-team","c-q","c-sort"].forEach(id => $(id).addEventListener("input", renderCards));
 const RULE_IDS = Object.keys(DEFAULT_RULES);
 function fillRules(){ RULE_IDS.forEach(k => { $("r-"+k).value = R[k]; }); }
 $("rules").addEventListener("input", e => {
   const k = e.target.id.replace("r-",""); if(!(k in R)) return;
-  const v = parseFloat(e.target.value); if(isNaN(v)) return;
-  if(k==="acs" && v<=0) return;
+  const v = parseFloat(e.target.value); if(isNaN(v) || (k==="acs" && v<=0)) return;
   R[k] = v; renderAll();
 });
 $("reset").addEventListener("click", () => { R = {...DEFAULT_RULES}; fillRules(); renderAll(); });
 
-// ------------------------------------------------------------------ importar
-function normalize(obj){
-  if(Array.isArray(obj)) return obj.flatMap(normalize);
-  if(obj && obj.status==="success" && obj.data) return normalize(obj.data);
-  if(obj && Array.isArray(obj.segments)) return normalize(obj.segments);
-  if(obj && Array.isArray(obj.maps) && Array.isArray(obj.teams)) return [obj];
-  throw new Error("Não encontrei os campos teams e maps. Cole a resposta de /v2/match/details.");
-}
-$("do-import").addEventListener("click", () => {
-  const msg = $("import-msg");
-  try{
-    const list = normalize(JSON.parse($("json-in").value));
-    if(isSample){ SERIES = []; isSample = false; }
-    let added = 0;
-    list.forEach(s => { if(!SERIES.some(x=>x.match_id && x.match_id===s.match_id)){ SERIES.push(s); added++; } });
-    renderAll();
-    msg.className = "msg ok";
-    msg.textContent = added ? `${added} série(s) adicionada(s). A rodada tem ${SERIES.length} série(s).` : "Essa série já estava na rodada.";
-    $("json-in").value = "";
-  }catch(err){
-    msg.className = "msg err";
-    msg.textContent = err instanceof SyntaxError ? "O texto colado não é um JSON válido. Copie a resposta inteira da API." : err.message;
-  }
-});
-$("do-clear").addEventListener("click", () => { SERIES = []; isSample = false; lineup = {cap:null}; renderAll(); $("import-msg").className="msg"; $("import-msg").textContent="Rodada limpa."; });
-$("do-sample").addEventListener("click", () => { SERIES = [SAMPLE]; isSample = true; renderAll(); $("import-msg").className="msg ok"; $("import-msg").textContent="G2 x LOUD de teste carregado."; });
-
-// ------------------------------------------------------------------ API local
-const apiBase = () => $("api-url").value.trim().replace(/\/+$/,"");
-const sleep = ms => new Promise(r=>setTimeout(r,ms));
-function apiMsg(text, kind){ const m=$("api-msg"); m.className="msg"+(kind?" "+kind:""); m.textContent=text; }
-function apiStatus(text, kind){ const c=$("api-status"); c.textContent=text; c.className="chip"+(kind?" "+kind:""); }
-try{ const saved = localStorage.getItem("fvct-api"); if(saved) $("api-url").value = saved;
-     const ev = localStorage.getItem("fvct-event"); if(ev) $("api-event").value = ev; }catch(e){}
-
-async function apiGet(path){
-  let r;
-  try{ r = await fetch(apiBase()+path); }
-  catch(e){ throw new Error("NOCONN"); }
-  if(r.status===429){
-    const wait = (parseInt(r.headers.get("Retry-After"))||20)*1000;
-    apiMsg(`Limite da API atingido. Esperando ${Math.round(wait/1000)}s para continuar...`);
-    await sleep(wait); return apiGet(path);
-  }
-  const body = await r.json().catch(()=>null);
-  if(!r.ok || !body || body.status!=="success") throw new Error(body?.detail || body?.message || `A API respondeu ${r.status}`);
-  return body.data;
-}
-function connError(){
-  apiStatus("Sem conexão","err");
-  apiMsg(location.protocol==="file:"
-    ? "Não consegui falar com a API. Confira se a janela preta da API está aberta e mostrando 'Uvicorn running'."
-    : "Esta versão online não consegue acessar a API do seu computador. Abra o arquivo index.html que está na pasta fantasy-vct, com a API ligada.","err");
-}
-
-$("api-list").addEventListener("click", async () => {
-  const id = $("api-event").value.trim();
-  if(!/^\d+$/.test(id)){ apiMsg("Digite só o número do evento, ex.: 2501.","err"); return; }
-  try{ localStorage.setItem("fvct-api",$("api-url").value); localStorage.setItem("fvct-event",id); }catch(e){}
-  apiMsg("Buscando jogos do evento..."); $("api-matches").innerHTML="";
-  try{
-    const data = await apiGet(`/v2/events/matches?event_id=${id}`);
-    apiStatus("Conectada","ok");
-    const list = data.segments || [];
-    if(!list.length){ apiMsg("O evento não tem jogos listados.","err"); return; }
-    const groups = {};
-    list.forEach(m => { const g = [m.stage, m.event_series].filter(Boolean).join(" · ") || "Jogos"; (groups[g] ||= []).push(m); });
-    $("api-matches").innerHTML = Object.entries(groups).map(([g,ms],gi) => `
-      <div class="mgroup"><div class="mgroup-h"><b>${esc(g)}</b><button class="link-btn" type="button" data-group="${gi}">Marcar todos concluídos</button></div>
-      ${ms.map(m => { const done = (m.status||"").toLowerCase()==="completed";
-        return `<label class="mrow${done?'':' na'}"><input type="checkbox" data-g="${gi}" value="${esc(m.match_id)}" ${done?'':'disabled'}>
-          <span>${esc(m.team1.name)} <span class="sc">${esc(m.team1.score||"-")} : ${esc(m.team2.score||"-")}</span> ${esc(m.team2.name)}</span>
-          <span class="muted" style="font-size:12.5px">${esc(m.date||"")}${done?"":" · não jogado"}</span></label>`; }).join("")}
-      </div>`).join("") + `<div style="margin-top:14px"><button class="btn" id="api-import" type="button">Importar selecionadas</button></div>`;
-    apiMsg(`${list.length} jogos encontrados. Marque as séries da rodada e importe.`,"ok");
-  }catch(e){ e.message==="NOCONN" ? connError() : (apiStatus("Erro","err"), apiMsg(e.message,"err")); }
-});
-
-$("api-matches").addEventListener("click", async e => {
-  if(e.target.dataset.group!==undefined){
-    $("api-matches").querySelectorAll(`input[data-g="${e.target.dataset.group}"]:not(:disabled)`).forEach(c=>c.checked=true);
-    return;
-  }
-  if(e.target.id!=="api-import") return;
-  const ids = [...$("api-matches").querySelectorAll("input:checked")].map(c=>c.value);
-  if(!ids.length){ apiMsg("Marque pelo menos uma série.","err"); return; }
-  e.target.disabled = true;
-  const got = [];
-  try{
-    for(let i=0;i<ids.length;i++){
-      apiMsg(`Baixando série ${i+1} de ${ids.length}...`);
-      if(i) await sleep(3200); // limite de 20 req/min da API
-      got.push(...normalize(await apiGet(`/v2/match/details?match_id=${ids[i]}`)));
-    }
-    if(isSample){ SERIES=[]; isSample=false; }
-    let added=0; got.forEach(s => { if(!SERIES.some(x=>x.match_id===s.match_id)){ SERIES.push(s); added++; } });
-    renderAll();
-    apiMsg(`${added} série(s) importada(s). A rodada tem ${SERIES.length}. Veja em Pontuação.`,"ok");
-  }catch(err){ err.message==="NOCONN" ? connError() : apiMsg(`Parou na série ${got.length+1}: ${err.message}`,"err"); }
-  finally{ e.target.disabled=false; }
-});
-
-// ------------------------------------------------------------------ rotas
-const VIEWS = ["inicio","escalacao","pontuacao","importar","mercado","cartas"];
+// ================================================================ rotas
+const VIEWS = ["inicio","escalacao","mercado","cartas","stats","pontuacao"];
 function route(){
   const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "inicio";
   VIEWS.forEach(x => $("v-"+x).classList.toggle("on", x===v));
@@ -917,35 +991,27 @@ function route(){
 }
 window.addEventListener("hashchange", route);
 
-async function loadPublished(){
-  try{ await loadPublishedInner(); } finally { canSave = true; restoreOrAuto(); }
+// ================================================================ dados
+async function getJSON(path){
+  try{ const r = await fetch(path, {cache:"no-store"}); return r.ok ? await r.json() : null; }catch(e){ return null; }
 }
-async function loadPublishedInner(){
-  // No GitHub Pages, o workflow "Coletar rodada" salva a rodada em data/rodada.json
-  try{
-    const r = await fetch("data/rodada.json", {cache:"no-store"});
-    if(!r.ok) return;
-    const d = await r.json();
-    const list = normalize(Array.isArray(d) ? d : (d.series || []));
-    if(!list.length) return;
-    SERIES = list; isSample = false;
-    let rot = d.rotulo || "Rodada publicada";
-    if(d.semana && rot.endsWith(" · "+d.semana) && rot.slice(0, -(d.semana.length+3)).includes(d.semana)) rot = rot.slice(0, -(d.semana.length+3));
-    d.rotulo = rot;
-    DATA_LABEL = rot + " · " + list.length + " séries";
-    const quando = d.coletado_em ? new Date(d.coletado_em).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"}) : "";
-    $("pub-info").innerHTML = `<div style="font-family:var(--f-display);font-size:20px;color:var(--text);text-transform:uppercase;letter-spacing:.04em">${esc(d.rotulo||"Rodada")}</div>
-      <div style="margin-top:6px">${list.length} séries${quando?" · coletada em "+esc(quando):""}</div>
-      <div style="margin-top:10px;font-size:13.5px">${list.map(x=>esc(x.teams[0].name)+" "+esc(x.teams[0].score??"")+" x "+esc(x.teams[1].score??"")+" "+esc(x.teams[1].name)).join("<br>")}</div>`;
-    renderAll();
-  }catch(e){}
-}
-function restoreOrAuto(){
+async function boot(){
+  fillRules(); route();
+  const [rod, tmp, prox] = await Promise.all([getJSON("data/rodada.json"), getJSON("data/temporada.json"), getJSON("data/proximas.json")]);
+  RODADA = rod; TEMPORADA = tmp; PROXIMAS = prox;
+  SERIES = rod ? normalize(rod.series || rod) : [];
+  buildCards();
+  STATE = compute(); fillTeamFilters();
+  const rot = rod?.rotulo || "";
+  $("data-chip").textContent = SERIES.length ? `${rot} · ${SERIES.length} séries` : "Sem rodada carregada";
+  $("c-eyebrow").textContent = CARDS.length ? `Temporada 2026 · ${CARDS.length} jogadores` : "Temporada 2026";
+  $("side-foot").textContent = "Dados: VLR.gg" + (TEMPORADA?.atualizado_em ? " · atualizado " + new Date(TEMPORADA.atualizado_em).toLocaleDateString("pt-BR") : "");
   const saved = SAVED_LINEUP;
-  if(canSave && saved && SLOTS.some(s=>saved[s] && findById(saved[s]))){ lineup = {...saved}; renderPitch(); return; }
-  autoLineup();
+  if(saved && SLOTS.some(s=>saved[s] && findById(saved[s]))) lineup = {...saved};
+  canSave = true;
+  renderAll();
 }
-fillRules(); renderAll(); restoreOrAuto(); route(); loadPublished();
+boot();
 </script>
 </body>
 </html>
