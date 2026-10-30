@@ -524,18 +524,38 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
     <section class="view" id="v-admin">
       <div class="top"><div><div class="eyebrow">Só para você</div><h1>Admin</h1></div><span class="chip" id="adm-status">Sem conexão</span></div>
 
-      <div class="panel" style="margin-bottom:16px">
-        <h2>Conexão com o GitHub</h2>
-        <p class="muted" style="font-size:13.5px;margin-top:0">As alterações são salvas no repositório <b>chriszawa/vctfantasy</b>. O token fica só neste navegador.</p>
-        <div class="filters" style="margin:0">
-          <label for="adm-token">Token do GitHub<input id="adm-token" type="password" placeholder="github_pat_..." autocomplete="off" style="min-width:320px"></label>
-          <button class="btn" type="button" id="adm-connect">Conectar</button>
-          <button class="btn ghost small" type="button" id="adm-forget">Esquecer token</button>
-        </div>
-        <div class="msg" id="adm-conn-msg" style="font-size:13.5px;margin-top:8px"></div>
+      <div class="panel adm-login" id="adm-login">
+        <h2>Entrar</h2>
+        <form id="adm-login-form" class="filters" style="margin:0" onsubmit="return false">
+          <label for="adm-pass">Senha do admin<input id="adm-pass" type="password" autocomplete="current-password"></label>
+          <button class="btn" type="submit">Entrar</button>
+        </form>
+        <div class="msg" id="adm-login-msg" style="font-size:13.5px;margin-top:8px"></div>
+        <details id="adm-setup-box" style="margin-top:16px">
+          <summary class="muted" style="cursor:pointer;font-size:13.5px">Primeira vez? Configurar o acesso</summary>
+          <ol class="muted" style="font-size:13.5px;line-height:1.6;margin:12px 0">
+            <li>Abra <a href="https://github.com/settings/personal-access-tokens/new" style="color:var(--red)">github.com/settings/personal-access-tokens/new</a>.</li>
+            <li>Dê um nome, em <b>Repository access</b> escolha <b>Only select repositories → vctfantasy</b>.</li>
+            <li>Em <b>Permissions → Contents</b>, escolha <b>Read and write</b>. Gere e copie o token.</li>
+            <li>Cole aqui embaixo e crie a sua senha. Depois disso você só usa a senha.</li>
+          </ol>
+          <form id="adm-setup-form" class="filters" style="margin:0" onsubmit="return false">
+            <label for="adm-token">Token<input id="adm-token" type="password" placeholder="github_pat_..." autocomplete="off" style="min-width:260px"></label>
+            <label for="adm-newpass">Crie uma senha<input id="adm-newpass" type="password" autocomplete="new-password" minlength="8"></label>
+            <label for="adm-newpass2">Repita a senha<input id="adm-newpass2" type="password" autocomplete="new-password"></label>
+            <button class="btn" type="submit">Configurar</button>
+          </form>
+          <div class="msg" id="adm-setup-msg" style="font-size:13.5px;margin-top:8px"></div>
+        </details>
       </div>
 
+      <div id="adm-area" hidden>
+      <div class="panel" style="margin-bottom:16px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap">
+        <span class="muted" style="font-size:13.5px">Conectado. O que você salvar aqui vai direto para o site.</span>
+        <button class="btn ghost small" type="button" id="adm-logout">Sair</button>
+      </div>
       <div class="panel" style="margin-bottom:16px">
+        <div class="win-head"><h2 style="margin:0">Imagens dos times</h2>      <div class="panel" style="margin-bottom:16px">
         <div class="win-head"><h2 style="margin:0">Imagens dos times</h2><button class="btn small" type="button" id="adm-save-logos">Salvar imagens</button></div>
         <p class="muted" style="font-size:13.5px">PNG, SVG, WEBP ou JPG de até 300 KB. A imagem aparece ao lado da tag do time nas cartas.</p>
         <div class="adm-teams" id="adm-teams"></div>
@@ -552,6 +572,7 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
         <h3 class="sub-h" style="margin-top:18px">Jogadores ajustados</h3>
         <ul class="list" id="adm-list"></ul>
         <div class="msg" id="adm-player-msg" style="font-size:13.5px;margin-top:8px"></div>
+      </div>
       </div>
     </section>
   </main>
@@ -1126,7 +1147,7 @@ $("org-chip").addEventListener("click", openWelcome);
 
 // ================================================================ admin
 const REPO = "chriszawa/vctfantasy";
-let GH_TOKEN = ""; try{ GH_TOKEN = localStorage.getItem("fvct-gh") || ""; }catch(e){}
+let GH_TOKEN = ""; try{ GH_TOKEN = sessionStorage.getItem("fvct-gh") || ""; localStorage.removeItem("fvct-gh"); }catch(e){}
 const pendingLogos = {};   // nome do time -> {b64, ext, dataUrl}
 let BASE_ROLE = {};        // função automática + funcoes.json, antes dos ajustes
 
@@ -1146,20 +1167,60 @@ async function ghPut(path, b64, message){
   return gh(`/contents/${path}`, {method:"PUT", body: JSON.stringify({message, content:b64, sha, branch:"main"})});
 }
 function admMsg(id, text, kind){ const m=$(id); m.className="msg"+(kind?" "+kind:""); m.textContent=text; }
-async function admConnect(){
-  GH_TOKEN = $("adm-token").value.trim() || GH_TOKEN;
-  if(!GH_TOKEN){ admMsg("adm-conn-msg","Cole um token do GitHub.","err"); return; }
-  try{
-    const repo = await gh("");
-    if(!repo.permissions?.push) throw new Error("o token não tem permissão de escrita neste repositório");
-    try{ localStorage.setItem("fvct-gh", GH_TOKEN); }catch(e){}
-    $("adm-status").textContent = "Conectado"; $("adm-status").style.color = "var(--good)";
-    admMsg("adm-conn-msg","Conectado. As alterações vão direto para o repositório.","ok");
-  }catch(e){
-    $("adm-status").textContent = "Sem conexão"; $("adm-status").style.color = "";
-    admMsg("adm-conn-msg",`Não consegui conectar: ${e.message}. Confira se o token tem acesso ao vctfantasy com Contents: Read and write.`,"err");
-  }
+// token guardado criptografado em data/admin.json (AES-GCM, chave derivada da senha com PBKDF2)
+const enc = new TextEncoder(), dec = new TextDecoder();
+const toB64 = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
+const fromB64 = b => Uint8Array.from(atob(b), c => c.charCodeAt(0));
+async function deriveKey(pass, salt, iter){
+  const base = await crypto.subtle.importKey("raw", enc.encode(pass), "PBKDF2", false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({name:"PBKDF2", salt, iterations:iter, hash:"SHA-256"}, base, {name:"AES-GCM", length:256}, false, ["encrypt","decrypt"]);
 }
+async function checkToken(){
+  const repo = await gh("");
+  if(!repo.permissions?.push) throw new Error("o token não tem permissão de escrita no vctfantasy");
+}
+function admUnlock(){
+  $("adm-login").hidden = true; $("adm-area").hidden = false;
+  $("adm-status").textContent = "Conectado"; $("adm-status").style.color = "var(--good)";
+  renderAdmin();
+}
+$("adm-login-form").addEventListener("submit", async () => {
+  const pass = $("adm-pass").value; if(!pass) return;
+  admMsg("adm-login-msg","Entrando...");
+  const cfg = await getJSON("data/admin.json");
+  if(!cfg || !cfg.data){ admMsg("adm-login-msg","O acesso ainda não foi configurado. Abra \"Primeira vez?\" logo abaixo.","err"); $("adm-setup-box").open = true; return; }
+  try{
+    const key = await deriveKey(pass, fromB64(cfg.salt), cfg.iter);
+    GH_TOKEN = dec.decode(await crypto.subtle.decrypt({name:"AES-GCM", iv:fromB64(cfg.iv)}, key, fromB64(cfg.data)));
+  }catch(e){ admMsg("adm-login-msg","Senha errada.","err"); return; }
+  try{ await checkToken(); }catch(e){ admMsg("adm-login-msg",`A senha está certa, mas o GitHub recusou o token (${e.message}). Ele pode ter vencido: configure de novo em "Primeira vez?".`,"err"); return; }
+  try{ sessionStorage.setItem("fvct-gh", GH_TOKEN); }catch(e){}
+  $("adm-pass").value = ""; admMsg("adm-login-msg",""); admUnlock();
+});
+$("adm-setup-form").addEventListener("submit", async () => {
+  const tok = $("adm-token").value.trim(), p1 = $("adm-newpass").value, p2 = $("adm-newpass2").value;
+  if(!tok){ admMsg("adm-setup-msg","Cole o token do GitHub.","err"); return; }
+  if(p1.length < 8){ admMsg("adm-setup-msg","Use uma senha com pelo menos 8 caracteres.","err"); return; }
+  if(p1 !== p2){ admMsg("adm-setup-msg","As senhas não são iguais.","err"); return; }
+  GH_TOKEN = tok;
+  try{ await checkToken(); }catch(e){ admMsg("adm-setup-msg",`O GitHub recusou o token: ${e.message}. Confira o passo 2 e 3.`,"err"); GH_TOKEN=""; return; }
+  try{
+    const salt = crypto.getRandomValues(new Uint8Array(16)), iv = crypto.getRandomValues(new Uint8Array(12)), iter = 310000;
+    const key = await deriveKey(p1, salt, iter);
+    const data = await crypto.subtle.encrypt({name:"AES-GCM", iv}, key, enc.encode(tok));
+    const cfg = {v:1, iter, salt:toB64(salt), iv:toB64(iv), data:toB64(data)};
+    await ghPut("data/admin.json", b64utf8(JSON.stringify(cfg)), "Admin: configura acesso");
+    try{ sessionStorage.setItem("fvct-gh", GH_TOKEN); }catch(e){}
+    $("adm-token").value = $("adm-newpass").value = $("adm-newpass2").value = "";
+    admMsg("adm-setup-msg","Pronto. Das próximas vezes é só a senha.","ok");
+    admUnlock();
+  }catch(e){ admMsg("adm-setup-msg",`Não consegui salvar a configuração: ${e.message}`,"err"); }
+});
+$("adm-logout").addEventListener("click", () => {
+  GH_TOKEN = ""; try{ sessionStorage.removeItem("fvct-gh"); localStorage.removeItem("fvct-gh"); }catch(e){}
+  $("adm-area").hidden = true; $("adm-login").hidden = false;
+  $("adm-status").textContent = "Sem conexão"; $("adm-status").style.color = "";
+});
 function admTeams(){
   const names = [...new Set([...SERIES.flatMap(s=>s.teams.map(t=>t.name)), ...Object.keys(TEAM_TAG)])].sort();
   $("adm-teams").innerHTML = names.map((n,i) => {
@@ -1183,7 +1244,7 @@ const slug = n => n.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase(
 $("adm-save-logos").addEventListener("click", async () => {
   const teams = Object.keys(pendingLogos);
   if(!teams.length){ admMsg("adm-logo-msg","Nenhuma imagem nova para salvar."); return; }
-  if(!GH_TOKEN){ admMsg("adm-logo-msg","Conecte o GitHub primeiro.","err"); return; }
+  if(!GH_TOKEN){ admMsg("adm-logo-msg","Entre com a senha primeiro.","err"); return; }
   try{
     const novo = {...TIMES};
     for(const t of teams){
@@ -1239,15 +1300,16 @@ $("adm-list").addEventListener("click", e => {
   admMsg("adm-player-msg","Ajuste removido aqui. Clique em Salvar ajustes para publicar.");
 });
 $("adm-save-players").addEventListener("click", async () => {
-  if(!GH_TOKEN){ admMsg("adm-player-msg","Conecte o GitHub primeiro.","err"); return; }
+  if(!GH_TOKEN){ admMsg("adm-player-msg","Entre com a senha primeiro.","err"); return; }
   try{
     await ghPut("data/ajustes.json", b64utf8(JSON.stringify(AJUSTES, null, 1)), "Admin: ajustes de jogadores");
     admMsg("adm-player-msg","Ajustes salvos. O site publicado atualiza em 1 a 2 minutos.","ok");
   }catch(e){ admMsg("adm-player-msg",`Erro ao salvar: ${e.message}`,"err"); }
 });
-$("adm-connect").addEventListener("click", admConnect);
-$("adm-forget").addEventListener("click", () => { GH_TOKEN=""; try{ localStorage.removeItem("fvct-gh"); }catch(e){} $("adm-token").value=""; $("adm-status").textContent="Sem conexão"; $("adm-status").style.color=""; admMsg("adm-conn-msg","Token apagado deste navegador."); });
-function renderAdmin(){ admTeams(); admPlayerOptions(); admEditor(); admList(); if(GH_TOKEN && $("adm-status").textContent==="Sem conexão") admConnect(); }
+function renderAdmin(){
+  if(GH_TOKEN && $("adm-area").hidden){ $("adm-login").hidden = true; $("adm-area").hidden = false; $("adm-status").textContent = "Conectado"; $("adm-status").style.color = "var(--good)"; }
+  if(!$("adm-area").hidden){ admTeams(); admPlayerOptions(); admEditor(); admList(); }
+}
 
 // ================================================================ rotas
 const VIEWS = ["inicio","escalacao","cartas","stats","admin"];
