@@ -6,7 +6,7 @@
 <title>Fantasy VCT</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Barlow:wght@400;500;600&family=Russo+One&family=Black+Ops+One&family=Teko:wght@600&display=swap" rel="stylesheet">
 <style>
 :root{
   /* layout: menu lateral fixo + área de trabalho em janelas; cortes angulares como na UI do Valorant */
@@ -139,6 +139,21 @@ nav a:hover{background:#ffffff0d}
 .sw{width:30px;height:30px;border-radius:50%;border:2px solid #ffffff30;cursor:pointer;padding:0}
 .sw[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 2px var(--red)}
 .grp-label{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.org-tabs{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid #ffffff14}
+.org-tabs button{background:none;border:0;border-bottom:2px solid transparent;padding:8px 10px;cursor:pointer;color:var(--muted);font-family:var(--f-display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:12.5px}
+.org-tabs button[aria-selected="true"]{color:var(--text);border-bottom-color:var(--red)}
+.org-pane{min-height:150px}
+.pick-set.seg .opt{width:auto;height:auto;padding:7px 12px;font-size:13px;font-family:var(--f-body)}
+.fav-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:6px}
+.fav-opt{display:flex;align-items:center;gap:8px;padding:7px 9px;border:1px solid #ffffff1f;background:#ffffff08;cursor:pointer;font-size:13px;text-align:left}
+.fav-opt[aria-pressed="true"]{border-color:var(--red);box-shadow:inset 0 0 12px #ff465540}
+.fav-opt img{width:20px;height:20px;object-fit:contain}
+.fav-badge{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;color:var(--muted);margin-top:4px;white-space:nowrap}
+.fav-badge img{width:14px;height:14px;object-fit:contain}
+.pal{width:44px;height:30px;padding:0;border:1px solid #ffffff2a;cursor:pointer;display:grid;grid-template-columns:repeat(3,1fr)}
+.pal span{display:block}
+.org-preview .nm{font-family:var(--org-font, var(--f-display))}
+.welcome-org{max-height:calc(100vh - 40px);overflow-y:auto}
 .welcome-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px}
 @media (max-width:860px){.welcome-box{grid-template-columns:1fr}.welcome-intro{border-right:0;border-bottom:1px solid #ffffff14}}
 .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:flex-end}
@@ -591,16 +606,42 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
         <p class="muted" style="margin:auto 0 0;font-size:13.5px">As cartas mostram o nível de cada jogador na temporada. Quanto melhor a carta, mais caro.</p>
       </div>
       <form class="welcome-org" id="org-form" onsubmit="return false">
-        <div class="org-preview"><span id="org-prev-logo"></span><div><div class="nm" id="org-prev-name">Sua ORG</div><div class="tg" id="org-prev-tag">TAG</div></div></div>
+        <div class="org-preview"><span id="org-prev-logo"></span><div><div class="nm" id="org-prev-name">Sua ORG</div><div class="tg" id="org-prev-tag">TAG</div><div id="org-prev-fav"></div></div></div>
         <div class="org-form">
           <div class="row2">
             <label class="f" for="org-name">Nome da ORG<input id="org-name" maxlength="22" placeholder="ex.: Itapevi Snipers" autocomplete="off"></label>
             <label class="f" for="org-tag">Tag<input id="org-tag" maxlength="4" placeholder="ITS" autocomplete="off" style="text-transform:uppercase"></label>
           </div>
-          <div><div class="grp-label">Formato do escudo</div><div class="pick-set" id="org-shapes"></div></div>
-          <div><div class="grp-label">Símbolo</div><div class="pick-set" id="org-symbols"></div></div>
-          <div><div class="grp-label">Cor principal</div><div class="pick-set" id="org-c1"></div></div>
-          <div><div class="grp-label">Cor do símbolo</div><div class="pick-set" id="org-c2"></div></div>
+          <div class="org-tabs" role="tablist">
+            <button type="button" role="tab" data-tab="escudo" aria-selected="true">Escudo</button>
+            <button type="button" role="tab" data-tab="simbolo">Símbolo</button>
+            <button type="button" role="tab" data-tab="cores">Cores</button>
+            <button type="button" role="tab" data-tab="estilo">Estilo</button>
+            <button type="button" role="tab" data-tab="torcida">Torcida</button>
+          </div>
+          <div class="org-pane" data-pane="escudo">
+            <div class="grp-label">Formato</div><div class="pick-set" id="org-shapes"></div>
+            <div class="grp-label" style="margin-top:12px">Borda</div><div class="pick-set seg" id="org-borders"></div>
+          </div>
+          <div class="org-pane" data-pane="simbolo" hidden>
+            <div class="grp-label">Símbolo</div><div class="pick-set" id="org-symbols"></div>
+            <div class="grp-label" style="margin-top:12px">Fonte do monograma e do nome</div><div class="pick-set seg" id="org-fonts"></div>
+          </div>
+          <div class="org-pane" data-pane="cores" hidden>
+            <div class="grp-label">Principal</div><div class="pick-set" id="org-c1"></div>
+            <div class="grp-label" style="margin-top:10px">Símbolo</div><div class="pick-set" id="org-c2"></div>
+            <div class="grp-label" style="margin-top:10px">Detalhe (borda, listras, degradê)</div><div class="pick-set" id="org-c3"></div>
+            <div class="grp-label" style="margin-top:10px">Combinações prontas</div><div class="pick-set" id="org-palettes"></div>
+          </div>
+          <div class="org-pane" data-pane="estilo" hidden>
+            <div class="grp-label">Fundo do escudo</div><div class="pick-set seg" id="org-fills"></div>
+            <div class="grp-label" style="margin-top:12px">Brilho</div><div class="pick-set seg" id="org-shines"></div>
+          </div>
+          <div class="org-pane" data-pane="torcida" hidden>
+            <div class="grp-label">Time do coração</div>
+            <div class="fav-grid" id="org-favs"></div>
+            <p class="muted" style="font-size:12.5px;margin:8px 0 0">Aparece como "torce para" ao lado do seu escudo.</p>
+          </div>
         </div>
         <div class="welcome-actions">
           <span class="muted" id="org-msg" style="font-size:13px"></span>
@@ -1072,63 +1113,129 @@ $("clear-lineup").addEventListener("click", () => { lineup = {cap:null}; renderL
 ["c-role","c-team","c-q","c-sort"].forEach(id => $(id).addEventListener("input", renderCards));
 // ================================================================ ORG
 const SHAPES = {
-  escudo:   `<path d="M50 4 L92 18 L88 58 C84 78 68 90 50 98 C32 90 16 78 12 58 L8 18 Z"/>`,
-  hexagono: `<polygon points="50,4 92,27 92,73 50,96 8,73 8,27"/>`,
-  circulo:  `<circle cx="50" cy="50" r="46"/>`,
-  losango:  `<polygon points="50,3 97,50 50,97 3,50"/>`,
+  escudo:     `<path d="M50 4 L92 18 L88 58 C84 78 68 90 50 98 C32 90 16 78 12 58 L8 18 Z"/>`,
+  emblema:    `<path d="M50 3 L94 20 V56 L50 97 L6 56 V20 Z"/>`,
+  estandarte: `<path d="M12 5 H88 V80 L50 97 L12 80 Z"/>`,
+  hexagono:   `<polygon points="50,4 92,27 92,73 50,96 8,73 8,27"/>`,
+  octogono:   `<polygon points="31,5 69,5 95,31 95,69 69,95 31,95 5,69 5,31"/>`,
+  circulo:    `<circle cx="50" cy="50" r="46"/>`,
+  losango:    `<polygon points="50,3 97,50 50,97 3,50"/>`,
+  lamina:     `<path d="M8 8 H92 L80 70 L50 96 L20 70 Z"/>`,
 };
+const SHAPE_NAMES = {escudo:"Escudo",emblema:"Emblema",estandarte:"Estandarte",hexagono:"Hexágono",octogono:"Octógono",circulo:"Círculo",losango:"Losango",lamina:"Corte"};
 const SYMBOLS = {
   raio:    `<polygon points="56,10 28,54 46,54 40,90 72,42 52,42 62,10"/>`,
   estrela: `<polygon points="50,10 61,38 90,40 67,58 75,88 50,71 25,88 33,58 10,40 39,38"/>`,
-  coroa:   `<polygon points="16,74 22,30 38,50 50,22 62,50 78,30 84,74"/>`,
+  coroa:   `<polygon points="16,74 22,30 38,50 50,22 62,50 78,30 84,74"/><rect x="16" y="78" width="68" height="8"/>`,
   mira:    `<g fill="none" stroke-width="8"><circle cx="50" cy="50" r="24"/><path d="M50 8v22M50 70v22M8 50h22M70 50h22"/></g><circle cx="50" cy="50" r="6"/>`,
   lamina:  `<polygon points="14,18 36,18 50,62 64,18 86,18 58,88 42,88"/>`,
   chama:   `<path d="M50 8 C62 30 80 40 74 64 C70 80 60 90 50 90 C38 90 26 80 26 64 C26 50 36 44 38 28 C46 40 48 46 52 48 C56 36 56 22 50 8 Z"/>`,
+  garra:   `<polygon points="24,14 36,14 26,86 14,86"/><polygon points="46,10 58,10 48,90 36,90"/><polygon points="68,14 80,14 70,86 58,86"/>`,
+  diamante:`<polygon points="50,8 88,42 50,92 12,42"/><polygon points="12,42 88,42 50,92" opacity=".55"/>`,
+  orbita:  `<circle cx="50" cy="50" r="13"/><g fill="none" stroke-width="6"><ellipse cx="50" cy="50" rx="40" ry="16" transform="rotate(-30 50 50)"/><ellipse cx="50" cy="50" rx="40" ry="16" transform="rotate(30 50 50)"/></g>`,
+  caveira: `<path fill-rule="evenodd" d="M50 12 C28 12 16 28 16 46 C16 58 24 65 30 68 V84 H70 V68 C76 65 84 58 84 46 C84 28 72 12 50 12 Z M26 46 a10 10 0 1 0 20 0 a10 10 0 1 0 -20 0 Z M54 46 a10 10 0 1 0 20 0 a10 10 0 1 0 -20 0 Z M46 62 L50 54 L54 62 Z"/>`,
+  patente: `<polygon points="50,14 86,36 86,50 50,28 14,50 14,36"/><polygon points="50,40 86,62 86,76 50,54 14,76 14,62"/><polygon points="50,66 70,78 50,90 30,78" opacity=".8"/>`,
+  monograma: "",
 };
-const COLORS = ["#ff4655","#ff8a3d","#f2c94c","#3ddc97","#22b8cf","#4c7dff","#8b5cf6","#ec4899","#ece8e1","#111821"];
-const ORG_DEFAULT = {name:"", tag:"", shape:"escudo", symbol:"raio", c1:"#ff4655", c2:"#ece8e1"};
+const SYMBOL_NAMES = {raio:"Raio",estrela:"Estrela",coroa:"Coroa",mira:"Mira",lamina:"Lâmina",chama:"Chama",garra:"Garra",diamante:"Diamante",orbita:"Órbita",caveira:"Caveira",patente:"Patente",monograma:"Monograma"};
+const FONTS = {chakra:"'Chakra Petch', sans-serif", russo:"'Russo One', sans-serif", ops:"'Black Ops One', sans-serif", teko:"'Teko', sans-serif"};
+const FONT_NAMES = {chakra:"Tática", russo:"Pesada", ops:"Militar", teko:"Condensada"};
+const FILLS = {solido:"Sólido", degrade:"Degradê", listras:"Listras", dividido:"Dividido", faixa:"Faixa"};
+const BORDERS = {fina:"Fina", grossa:"Grossa", dupla:"Dupla", nenhuma:"Sem borda"};
+const SHINES = {sim:"Com brilho", nao:"Fosco"};
+const COLORS = ["#ff4655","#d7263d","#ff8a3d","#f2c94c","#3ddc97","#0f9d58","#22b8cf","#4c7dff","#1e3a8a","#8b5cf6","#ec4899","#ece8e1","#9aa4ad","#111821"];
+const PALETTES = [
+  ["#111821","#ff4655","#ece8e1"],["#1e3a8a","#f2c94c","#ece8e1"],["#0f9d58","#111821","#f2c94c"],["#8b5cf6","#ece8e1","#22b8cf"],
+  ["#d7263d","#111821","#ece8e1"],["#ece8e1","#111821","#ff4655"],["#111821","#3ddc97","#9aa4ad"],["#ff8a3d","#111821","#ece8e1"],
+];
+const ORG_DEFAULT = {name:"", tag:"", shape:"escudo", symbol:"raio", c1:"#ff4655", c2:"#ece8e1", c3:"#111821", fill:"solido", border:"fina", font:"chakra", shine:"sim", fav:""};
 let ORG = null;
 try{ ORG = JSON.parse(localStorage.getItem("fvct-org")||"null"); }catch(e){}
+if(ORG) ORG = {...ORG_DEFAULT, ...ORG};
 let draft = {...ORG_DEFAULT, ...(ORG||{})};
+let orgTab = "escudo";
 
 function logoSVG(o, size){
+  o = {...ORG_DEFAULT, ...o};
   const id = "g" + Math.random().toString(36).slice(2,8);
-  const sym = SYMBOLS[o.symbol] || SYMBOLS.raio;
+  const shape = SHAPES[o.shape] || SHAPES.escudo;
+  let fill = `<g fill="${o.c1}">${shape}</g>`;
+  if(o.fill==="degrade") fill = `<g fill="url(#${id}d)">${shape}</g>`;
+  if(o.fill==="listras") fill += `<g clip-path="url(#${id}c)" fill="${o.c3}" opacity=".55">${[...Array(9)].map((_,i)=>`<rect x="${-40+i*18}" y="-10" width="7" height="140" transform="rotate(25 50 50)"/>`).join("")}</g>`;
+  if(o.fill==="dividido") fill += `<g clip-path="url(#${id}c)"><polygon points="100,0 100,100 0,100" fill="${o.c3}" opacity=".85"/></g>`;
+  if(o.fill==="faixa") fill += `<g clip-path="url(#${id}c)"><rect x="-20" y="40" width="140" height="20" fill="${o.c3}" opacity=".9" transform="rotate(-20 50 50)"/></g>`;
+  const bw = o.border==="grossa" ? 7 : o.border==="nenhuma" ? 0 : 3.5;
+  let border = bw ? `<g fill="none" stroke="${o.c3===o.c1?o.c2:o.c3}" stroke-width="${bw}" stroke-linejoin="round">${shape}</g>` : "";
+  if(o.border==="dupla") border += `<g fill="none" stroke="${o.c2}" stroke-width="2" transform="translate(50 50) scale(.84) translate(-50 -50)">${shape}</g>`;
+  const shine = o.shine==="sim" ? `<g fill="url(#${id}s)">${shape}</g>` : "";
+  let sym;
+  if(o.symbol==="monograma"){
+    const t = (o.tag || "ORG").slice(0,4);
+    const fs = t.length<=1 ? 52 : t.length===2 ? 42 : t.length===3 ? 32 : 25;
+    sym = `<text x="50" y="${50+fs*0.36}" text-anchor="middle" font-family="${FONTS[o.font]}" font-size="${fs}" font-weight="700" fill="${o.c2}" letter-spacing="1">${esc(t)}</text>`;
+  } else {
+    sym = `<g transform="translate(22 20) scale(.56)" fill="${o.c2}" stroke="${o.c2}">${SYMBOLS[o.symbol]||SYMBOLS.raio}</g>`;
+  }
   return `<svg width="${size}" height="${size}" viewBox="0 0 100 100" aria-hidden="true">
-    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".35"/><stop offset=".5" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs>
-    <g fill="${o.c1}" stroke="${o.c2}" stroke-width="3">${SHAPES[o.shape]||SHAPES.escudo}</g>
-    <g fill="url(#${id})">${SHAPES[o.shape]||SHAPES.escudo}</g>
-    <g transform="translate(22 20) scale(.56)" fill="${o.c2}" stroke="${o.c2}">${sym}</g>
+    <defs>
+      <clipPath id="${id}c">${shape}</clipPath>
+      <linearGradient id="${id}d" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${o.c1}"/><stop offset="1" stop-color="${o.c3}"/></linearGradient>
+      <linearGradient id="${id}s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".32"/><stop offset=".5" stop-color="#ffffff" stop-opacity="0"/></linearGradient>
+    </defs>
+    ${fill}${shine}${border}${sym}
   </svg>`;
 }
 const autoTag = n => { const w = n.trim().split(/\s+/).filter(Boolean); return (w.length>1 ? w.map(x=>x[0]).join("") : (w[0]||"").slice(0,3)).toUpperCase().slice(0,4); };
+const TEAMS_FAV = () => [...new Set([...Object.keys(TEAM_TAG), ...SERIES.flatMap(s=>s.teams.map(t=>t.name))])].sort();
+function favBadge(o){
+  if(!o || !o.fav) return "";
+  return `<span class="fav-badge">${teamImg(o.fav)}torce para ${esc(TEAM_TAG[o.fav] || o.fav)}</span>`;
+}
 function renderOrgBuilder(){
-  $("org-prev-logo").innerHTML = logoSVG(draft, 84);
+  $("org-prev-logo").innerHTML = logoSVG(draft, 96);
   $("org-prev-name").textContent = draft.name || "Sua ORG";
+  $("org-prev-name").style.setProperty("--org-font", FONTS[draft.font]);
   $("org-prev-tag").textContent = draft.tag || "TAG";
-  const opt = (group, val, inner, label, cur) => `<button type="button" class="opt" data-${group}="${val}" aria-pressed="${cur===val}" aria-label="${label}">${inner}</button>`;
-  $("org-shapes").innerHTML = Object.keys(SHAPES).map(k => opt("shape", k, `<svg width="30" height="30" viewBox="0 0 100 100"><g fill="#ffffff22" stroke="#ece8e1" stroke-width="5">${SHAPES[k]}</g></svg>`, k, draft.shape)).join("");
-  $("org-symbols").innerHTML = Object.keys(SYMBOLS).map(k => opt("symbol", k, `<svg width="28" height="28" viewBox="0 0 100 100"><g fill="#ece8e1" stroke="#ece8e1">${SYMBOLS[k]}</g></svg>`, k, draft.symbol)).join("");
-  const sw = (g, cur) => COLORS.map(c => `<button type="button" class="sw" data-${g}="${c}" style="background:${c}" aria-pressed="${cur===c}" aria-label="Cor ${c}"></button>`).join("");
-  $("org-c1").innerHTML = sw("c1", draft.c1); $("org-c2").innerHTML = sw("c2", draft.c2);
+  $("org-prev-fav").innerHTML = favBadge(draft);
+  const opt = (group, val, inner, label) => `<button type="button" class="opt" data-${group}="${val}" aria-pressed="${draft[group]===val}" aria-label="${label}" title="${label}">${inner}</button>`;
+  $("org-shapes").innerHTML = Object.keys(SHAPES).map(k => opt("shape", k, `<svg width="30" height="30" viewBox="0 0 100 100"><g fill="#ffffff22" stroke="#ece8e1" stroke-width="5">${SHAPES[k]}</g></svg>`, SHAPE_NAMES[k])).join("");
+  $("org-symbols").innerHTML = Object.keys(SYMBOLS).map(k => opt("symbol", k, k==="monograma"
+      ? `<span style="font-family:${FONTS[draft.font]};font-size:13px;font-weight:700">${esc((draft.tag||"AB").slice(0,3))}</span>`
+      : `<svg width="28" height="28" viewBox="0 0 100 100"><g fill="#ece8e1" stroke="#ece8e1">${SYMBOLS[k]}</g></svg>`, SYMBOL_NAMES[k])).join("");
+  const seg = (group, map) => Object.entries(map).map(([k,n]) => opt(group, k, n, n)).join("");
+  $("org-borders").innerHTML = seg("border", BORDERS);
+  $("org-fills").innerHTML = seg("fill", FILLS);
+  $("org-shines").innerHTML = seg("shine", SHINES);
+  $("org-fonts").innerHTML = Object.entries(FONT_NAMES).map(([k,n]) => opt("font", k, `<span style="font-family:${FONTS[k]};font-size:15px">${n}</span>`, n)).join("");
+  const sw = g => COLORS.map(c => `<button type="button" class="sw" data-${g}="${c}" style="background:${c}" aria-pressed="${draft[g]===c}" aria-label="Cor ${c}"></button>`).join("");
+  $("org-c1").innerHTML = sw("c1"); $("org-c2").innerHTML = sw("c2"); $("org-c3").innerHTML = sw("c3");
+  $("org-palettes").innerHTML = PALETTES.map(p => `<button type="button" class="pal" data-pal="${p.join(",")}" aria-label="Combinação ${p.join(", ")}">${p.map(c=>`<span style="background:${c}"></span>`).join("")}</button>`).join("");
+  $("org-favs").innerHTML = [`<button type="button" class="fav-opt" data-fav="" aria-pressed="${!draft.fav}">Nenhum</button>`,
+    ...TEAMS_FAV().map(t => `<button type="button" class="fav-opt" data-fav="${esc(t)}" aria-pressed="${draft.fav===t}">${teamImg(t)}<span>${esc(t)}</span></button>`)].join("");
+  document.querySelectorAll(".org-tabs [data-tab]").forEach(b => b.setAttribute("aria-selected", b.dataset.tab===orgTab));
+  document.querySelectorAll(".org-pane").forEach(p => p.hidden = p.dataset.pane!==orgTab);
 }
 function openWelcome(){
   draft = {...ORG_DEFAULT, ...(ORG||{})};
   $("org-name").value = draft.name; $("org-tag").value = draft.tag;
   $("org-save").textContent = ORG ? "Salvar ORG" : "Criar minha ORG";
   $("org-msg").textContent = "";
-  renderOrgBuilder(); $("welcome").hidden = false;
+  orgTab = "escudo"; renderOrgBuilder(); $("welcome").hidden = false;
   setTimeout(()=>$("org-name").focus(), 50);
 }
 function renderOrg(){
   const o = ORG || {...ORG_DEFAULT, name:"Sua ORG"};
-  $("org-chip").innerHTML = `${logoSVG(o, 40)}<span><b>${esc(o.name||"Sua ORG")}</b><small>${ORG ? esc(o.tag)+" · editar" : "criar ORG"}</small></span>`;
-  $("esc-logo").innerHTML = ORG ? logoSVG(ORG, 54) : "";
-  $("esc-org").textContent = ORG ? ORG.name : "Monte seu time";
+  $("org-chip").innerHTML = `${logoSVG(o, 42)}<span><b style="font-family:${FONTS[o.font]}">${esc(o.name||"Sua ORG")}</b><small>${ORG ? esc(o.tag)+" · editar" : "criar ORG"}</small>${favBadge(ORG)}</span>`;
+  $("esc-logo").innerHTML = ORG ? logoSVG(ORG, 58) : "";
+  $("esc-org").innerHTML = ORG ? `${esc(ORG.name)} ${favBadge(ORG)}` : "Monte seu time";
 }
 $("org-form").addEventListener("click", e => {
-  const b = e.target.closest("[data-shape],[data-symbol],[data-c1],[data-c2]"); if(!b) return;
-  ["shape","symbol","c1","c2"].forEach(k => { if(b.dataset[k]) draft[k] = b.dataset[k]; });
+  const tab = e.target.closest("[data-tab]");
+  if(tab){ orgTab = tab.dataset.tab; renderOrgBuilder(); return; }
+  const pal = e.target.closest("[data-pal]");
+  if(pal){ [draft.c1, draft.c2, draft.c3] = pal.dataset.pal.split(","); renderOrgBuilder(); return; }
+  const b = e.target.closest("[data-shape],[data-symbol],[data-c1],[data-c2],[data-c3],[data-fill],[data-border],[data-font],[data-shine],[data-fav]"); if(!b) return;
+  ["shape","symbol","c1","c2","c3","fill","border","font","shine","fav"].forEach(k => { if(b.dataset[k]!==undefined) draft[k] = b.dataset[k]; });
   renderOrgBuilder();
 });
 let tagTouched = false;
@@ -1413,6 +1520,7 @@ async function boot(){
   if(saved && SLOTS.some(s=>saved[s] && findById(saved[s]))) lineup = {...saved};
   canSave = true;
   renderAll();
+  renderOrg(); if(!$("welcome").hidden) renderOrgBuilder();
   if(location.hash==="#admin") renderAdmin();
 }
 boot();
