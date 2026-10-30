@@ -15,6 +15,10 @@ on:
         description: "IDs de séries separados por espaço (opcional, no lugar do evento)"
         required: false
         default: ""
+      eventos_temporada:
+        description: "IDs dos eventos da temporada para as cartas e preços"
+        required: false
+        default: "2682 2860 2977"
       salvar_html:
         description: "Guardar as páginas cruas do VLR (diagnóstico)"
         type: boolean
@@ -66,6 +70,11 @@ jobs:
         run: |
           EXTRA=""; [ "${{ inputs.salvar_html }}" = "true" ] && EXTRA="--salvar-html"
           python3 scripts/coletar.py --event-id "$EVENT_ID" --semana "$SEMANA" $EXTRA --matches $MATCHES
+
+      - name: Temporada e próximas partidas
+        env:
+          EVENTOS: ${{ inputs.eventos_temporada }}
+        run: python3 scripts/temporada.py --eventos $EVENTOS
 
       - name: Desligar a API
         if: always()

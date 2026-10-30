@@ -147,6 +147,9 @@ def main():
         print(f"{len(ids)} série(s) concluída(s) encontrada(s).", file=sys.stderr)
 
     if not ids:
+        if not a.event_id:
+            print("Sem rodada para coletar (nenhum evento nem série informados).", file=sys.stderr)
+            return
         sys.exit("Nenhuma série encontrada. Confira o ID do evento e o nome da semana.")
 
     series = []
