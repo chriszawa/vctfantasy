@@ -2,7 +2,7 @@
  "rotulo": "VCT 2026: Americas Stage 2 Group Stage: Week 4 · Week 4",
  "event_id": "2977",
  "semana": "Week 4",
- "coletado_em": "2026-10-30T01:42:12+00:00",
+ "coletado_em": "2026-10-30T01:45:33+00:00",
  "series": [
   {
    "match_id": "706372",
@@ -21,7 +21,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/667462f046618.png",
      "score": "2",
-     "is_winner": true
+     "is_winner": true,
+     "coach": ""
     },
     {
      "id": "2406",
@@ -29,7 +30,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/632be843b7d51.png",
      "score": "0",
-     "is_winner": false
+     "is_winner": false,
+     "coach": ""
     }
    ],
    "streams": [
@@ -2401,7 +2403,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/5f3ca822464a3.png",
      "score": "0",
-     "is_winner": false
+     "is_winner": false,
+     "coach": ""
     },
     {
      "id": "1034",
@@ -2409,7 +2412,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/6610f026c1a9e.png",
      "score": "2",
-     "is_winner": true
+     "is_winner": true,
+     "coach": ""
     }
    ],
    "streams": [
@@ -4787,7 +4791,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/603c00d5c5a08.png",
      "score": "0",
-     "is_winner": false
+     "is_winner": false,
+     "coach": ""
     },
     {
      "id": "188",
@@ -4795,7 +4800,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/628addcbd509e.png",
      "score": "2",
-     "is_winner": true
+     "is_winner": true,
+     "coach": ""
     }
    ],
    "streams": [
@@ -7239,7 +7245,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/633822848a741.png",
      "score": "0",
-     "is_winner": false
+     "is_winner": false,
+     "coach": ""
     },
     {
      "id": "6961",
@@ -7247,7 +7254,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/62bbec8dc1b9f.png",
      "score": "2",
-     "is_winner": true
+     "is_winner": true,
+     "coach": ""
     }
    ],
    "streams": [
@@ -9631,7 +9639,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/63976677069e1.png",
      "score": "2",
-     "is_winner": true
+     "is_winner": true,
+     "coach": ""
     },
     {
      "id": "2",
@@ -9639,7 +9648,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/62875027c8e06.png",
      "score": "1",
-     "is_winner": false
+     "is_winner": false,
+     "coach": ""
     }
    ],
    "streams": [
@@ -12601,7 +12611,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/61b8888cc3860.png",
      "score": "2",
-     "is_winner": true
+     "is_winner": true,
+     "coach": ""
     },
     {
      "id": "7386",
@@ -12609,7 +12620,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/632be7626d6d9.png",
      "score": "0",
-     "is_winner": false
+     "is_winner": false,
+     "coach": ""
     }
    ],
    "streams": [
@@ -15005,7 +15017,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/667462f046618.png",
      "score": "0",
-     "is_winner": false
+     "is_winner": false,
+     "coach": ""
     },
     {
      "id": "1034",
@@ -15013,7 +15026,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/6610f026c1a9e.png",
      "score": "2",
-     "is_winner": true
+     "is_winner": true,
+     "coach": ""
     }
    ],
    "streams": [
@@ -17349,7 +17363,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/62bbec8dc1b9f.png",
      "score": "0",
-     "is_winner": false
+     "is_winner": false,
+     "coach": ""
     },
     {
      "id": "120",
@@ -17357,7 +17372,8 @@
      "tag": "",
      "logo": "https://owcdn.net/img/603c00d5c5a08.png",
      "score": "2",
-     "is_winner": true
+     "is_winner": true,
+     "coach": ""
     }
    ],
    "streams": [
