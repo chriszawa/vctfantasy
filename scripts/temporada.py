@@ -12,6 +12,7 @@ Roda no workflow "Coletar rodada", com a vlrggapi ligada em 127.0.0.1:3001.
 
 import argparse
 import json
+import re
 import pathlib
 import sys
 import time
@@ -29,15 +30,49 @@ def segmentos(dados):
     return dados if isinstance(dados, list) else []
 
 
+PADRAO_2026 = re.compile(r"^(VCT 2026: Americas|Valorant Masters .*2026|Valorant Champions 2026)", re.I)
+
+
+def eventos_do_ano():
+    """Procura nos eventos concluídos os da temporada 2026: liga Americas, Masters e Champions."""
+    achados = []
+    for pagina in range(1, 6):
+        try:
+            time.sleep(3.5)
+            lista = segmentos(buscar(f"/v2/events?q=completed&page={pagina}"))
+        except Exception as e:
+            print(f"Aviso: falhou a página {pagina} de eventos: {e}", file=sys.stderr)
+            break
+        if not lista:
+            break
+        for ev in lista:
+            titulo = ev.get("title", "")
+            if PADRAO_2026.search(titulo) and ev.get("event_id"):
+                achados.append((str(ev["event_id"]), titulo))
+    vistos, saida = set(), []
+    for eid, t in achados:
+        if eid not in vistos:
+            vistos.add(eid)
+            saida.append((eid, t))
+    return saida
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--eventos", nargs="*", default=[])
+    ap.add_argument("--eventos", nargs="*", default=[], help="IDs fixos (somados aos encontrados)")
+    ap.add_argument("--sem-busca", action="store_true", help="não procurar os eventos de 2026 automaticamente")
     ap.add_argument("--filtro-proximas", default="Americas",
                     help="trecho do nome do evento para as próximas partidas")
     a = ap.parse_args()
 
+    alvo = {} if a.sem_busca else dict(eventos_do_ano())
+    for e in a.eventos:
+        if e:
+            alvo.setdefault(e, "")
+    print(f"Eventos da temporada: {alvo}", file=sys.stderr)
+
     eventos = []
-    for i, ev in enumerate(e for e in a.eventos if e):
+    for i, (ev, titulo) in enumerate(alvo.items()):
         if i:
             time.sleep(3.5)
         print(f"Stats do evento {ev}...", file=sys.stderr)
@@ -46,15 +81,7 @@ def main():
         except Exception as e:
             print(f"Aviso: falhou o evento {ev}: {e}", file=sys.stderr)
             continue
-        nome = ""
-        try:
-            time.sleep(3.5)
-            info = buscar(f"/v2/event/{ev}")
-            info = segmentos(info)[0] if segmentos(info) else info
-            nome = (info.get("title") or info.get("name") or "") if isinstance(info, dict) else ""
-        except Exception:
-            pass
-        eventos.append({"event_id": ev, "nome": nome, "jogadores": linhas})
+        eventos.append({"event_id": ev, "nome": titulo, "jogadores": linhas})
         print(f"  {len(linhas)} jogadores", file=sys.stderr)
 
     if eventos:

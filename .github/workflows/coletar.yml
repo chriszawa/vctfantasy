@@ -16,9 +16,9 @@ on:
         required: false
         default: ""
       eventos_temporada:
-        description: "IDs dos eventos da temporada para as cartas e preços"
+        description: "IDs extras de eventos da temporada (os de 2026 são encontrados sozinhos)"
         required: false
-        default: "2682 2860 2977"
+        default: "2682 2860 2977 2766"
       salvar_html:
         description: "Guardar as páginas cruas do VLR (diagnóstico)"
         type: boolean
