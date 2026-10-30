@@ -1,1384 +1,428 @@
 {
- "rotulo": "Rodada",
+ "rotulo": "VCT 2026: Americas Stage 2 Group Stage: Week 4",
  "event_id": "",
  "semana": "",
- "coletado_em": "2026-10-30T01:19:45+00:00",
+ "coletado_em": "2026-10-30T01:25:01+00:00",
  "series": [
   {
-   "status": 200,
-   "segments": [
+   "match_id": "706375",
+   "event": {
+    "name": "VCT 2026: Americas Stage 2 Group Stage: Week 4",
+    "series": "Group Stage: Week 4",
+    "logo": "https://owcdn.net/img/640f5ab71dfbb.png"
+   },
+   "date": "Friday, August 7 6:40 PM CDT Patch 13.01",
+   "map_vetos": "LOUD ban Split; G2 ban Summit; LOUD pick Sunset; G2 pick Lotus; LOUD ban Breeze; G2 ban Ascent; Haven remains",
+   "status": "final",
+   "teams": [
     {
-     "match_id": "706375",
-     "event": {
-      "name": "VCT 2026: Americas Stage 2 Group Stage: Week 4",
-      "series": "Group Stage: Week 4",
-      "logo": "https://owcdn.net/img/640f5ab71dfbb.png"
+     "id": "11058",
+     "name": "G2 Esports",
+     "tag": "",
+     "logo": "https://owcdn.net/img/633822848a741.png",
+     "score": "0",
+     "is_winner": false
+    },
+    {
+     "id": "6961",
+     "name": "LOUD",
+     "tag": "",
+     "logo": "https://owcdn.net/img/62bbec8dc1b9f.png",
+     "score": "2",
+     "is_winner": true
+    }
+   ],
+   "streams": [
+    {
+     "name": "VCT Americas",
+     "url": "https://www.twitch.tv/valorant_americas"
+    },
+    {
+     "name": "VAL BR",
+     "url": "https://www.twitch.tv/valorant_br"
+    },
+    {
+     "name": "VAL LATAM",
+     "url": "https://www.twitch.tv/valorant_la"
+    },
+    {
+     "name": "VCT Americas",
+     "url": "https://www.youtube.com/@valorant_americas/live"
+    },
+    {
+     "name": "VCT BR",
+     "url": "https://www.youtube.com/@valesportsbr/live"
+    },
+    {
+     "name": "VCT LATAM",
+     "url": "https://www.youtube.com/@VALORANTEsportsLA/live"
+    }
+   ],
+   "vods": [
+    {
+     "name": "Sunset",
+     "url": "https://youtu.be/d1JL8lgodl0?t=1"
+    },
+    {
+     "name": "Lotus",
+     "url": "https://youtu.be/d1JL8lgodl0?t=3697"
+    }
+   ],
+   "maps": [
+    {
+     "map_name": "Sunset",
+     "picked_by": "LOUD",
+     "duration": "1:03:49",
+     "score": {
+      "team1": 13,
+      "team2": 15
      },
-     "date": "Friday, August 7 6:40 PM CDT Patch 13.01",
-     "map_vetos": "LOUD ban Split; G2 ban Summit; LOUD pick Sunset; G2 pick Lotus; LOUD ban Breeze; G2 ban Ascent; Haven remains",
-     "status": "final",
-     "teams": [
-      {
-       "id": "11058",
-       "name": "G2 Esports",
-       "tag": "",
-       "logo": "https://owcdn.net/img/633822848a741.png",
-       "score": "0",
-       "is_winner": false
-      },
-      {
-       "id": "6961",
-       "name": "LOUD",
-       "tag": "",
-       "logo": "https://owcdn.net/img/62bbec8dc1b9f.png",
-       "score": "2",
-       "is_winner": true
-      }
-     ],
-     "streams": [
-      {
-       "name": "VCT Americas",
-       "url": "https://www.twitch.tv/valorant_americas"
-      },
-      {
-       "name": "VAL BR",
-       "url": "https://www.twitch.tv/valorant_br"
-      },
-      {
-       "name": "VAL LATAM",
-       "url": "https://www.twitch.tv/valorant_la"
-      },
-      {
-       "name": "VCT Americas",
-       "url": "https://www.youtube.com/@valorant_americas/live"
-      },
-      {
-       "name": "VCT BR",
-       "url": "https://www.youtube.com/@valesportsbr/live"
-      },
-      {
-       "name": "VCT LATAM",
-       "url": "https://www.youtube.com/@VALORANTEsportsLA/live"
-      }
-     ],
-     "vods": [
-      {
-       "name": "Sunset",
-       "url": "https://youtu.be/d1JL8lgodl0?t=1"
-      },
-      {
-       "name": "Lotus",
-       "url": "https://youtu.be/d1JL8lgodl0?t=3697"
-      }
-     ],
-     "maps": [
-      {
-       "map_name": "Sunset",
-       "picked_by": "LOUD",
-       "duration": "1:03:49",
-       "score": {
-        "team1": 13,
-        "team2": 15
+     "score_ct": {
+      "team1": "5",
+      "team2": "5"
+     },
+     "score_t": {
+      "team1": "7",
+      "team2": "7"
+     },
+     "score_ot": {
+      "team1": "1",
+      "team2": "3"
+     },
+     "players": {
+      "team1": [
+       {
+        "name": "valyn",
+        "agent": "",
+        "rating": "1.28",
+        "acs": "253",
+        "kills": "26",
+        "deaths": "18",
+        "assists": "7",
+        "kd_diff": "+8",
+        "kast": "75%",
+        "adr": "167",
+        "hs_pct": "41%",
+        "fk": "3",
+        "fd": "1",
+        "fk_diff": "+2"
        },
-       "score_ct": {
-        "team1": "5",
-        "team2": "5"
+       {
+        "name": "trent",
+        "agent": "",
+        "rating": "0.99",
+        "acs": "174",
+        "kills": "18",
+        "deaths": "18",
+        "assists": "7",
+        "kd_diff": "0",
+        "kast": "71%",
+        "adr": "104",
+        "hs_pct": "40%",
+        "fk": "0",
+        "fd": "2",
+        "fk_diff": "-2"
        },
-       "score_t": {
-        "team1": "7",
-        "team2": "7"
+       {
+        "name": "BABYBAY",
+        "agent": "",
+        "rating": "0.80",
+        "acs": "198",
+        "kills": "20",
+        "deaths": "23",
+        "assists": "1",
+        "kd_diff": "-3",
+        "kast": "64%",
+        "adr": "131",
+        "hs_pct": "14%",
+        "fk": "4",
+        "fd": "3",
+        "fk_diff": "+1"
        },
-       "score_ot": {
-        "team1": "1",
-        "team2": "3"
+       {
+        "name": "jawgemo",
+        "agent": "",
+        "rating": "0.67",
+        "acs": "178",
+        "kills": "15",
+        "deaths": "24",
+        "assists": "9",
+        "kd_diff": "-9",
+        "kast": "68%",
+        "adr": "120",
+        "hs_pct": "24%",
+        "fk": "2",
+        "fd": "6",
+        "fk_diff": "-4"
        },
-       "players": {
-        "team1": [
-         {
-          "name": "valyn",
-          "agent": "",
-          "rating": "1.28",
-          "acs": "253",
-          "kills": "26",
-          "deaths": "18",
-          "assists": "7",
-          "kd_diff": "+8",
-          "kast": "75%",
-          "adr": "167",
-          "hs_pct": "41%",
-          "fk": "3",
-          "fd": "1",
-          "fk_diff": "+2"
-         },
-         {
-          "name": "trent",
-          "agent": "",
-          "rating": "0.99",
-          "acs": "174",
-          "kills": "18",
-          "deaths": "18",
-          "assists": "7",
-          "kd_diff": "0",
-          "kast": "71%",
-          "adr": "104",
-          "hs_pct": "40%",
-          "fk": "0",
-          "fd": "2",
-          "fk_diff": "-2"
-         },
-         {
-          "name": "BABYBAY",
-          "agent": "",
-          "rating": "0.80",
-          "acs": "198",
-          "kills": "20",
-          "deaths": "23",
-          "assists": "1",
-          "kd_diff": "-3",
-          "kast": "64%",
-          "adr": "131",
-          "hs_pct": "14%",
-          "fk": "4",
-          "fd": "3",
-          "fk_diff": "+1"
-         },
-         {
-          "name": "jawgemo",
-          "agent": "",
-          "rating": "0.67",
-          "acs": "178",
-          "kills": "15",
-          "deaths": "24",
-          "assists": "9",
-          "kd_diff": "-9",
-          "kast": "68%",
-          "adr": "120",
-          "hs_pct": "24%",
-          "fk": "2",
-          "fd": "6",
-          "fk_diff": "-4"
-         },
-         {
-          "name": "leaf",
-          "agent": "",
-          "rating": "0.60",
-          "acs": "137",
-          "kills": "14",
-          "deaths": "20",
-          "assists": "6",
-          "kd_diff": "-6",
-          "kast": "64%",
-          "adr": "93",
-          "hs_pct": "35%",
-          "fk": "2",
-          "fd": "5",
-          "fk_diff": "-3"
-         }
-        ],
-        "team2": [
-         {
-          "name": "lukxo",
-          "agent": "",
-          "rating": "1.62",
-          "acs": "313",
-          "kills": "31",
-          "deaths": "15",
-          "assists": "2",
-          "kd_diff": "+16",
-          "kast": "75%",
-          "adr": "183",
-          "hs_pct": "18%",
-          "fk": "8",
-          "fd": "4",
-          "fk_diff": "+4"
-         },
-         {
-          "name": "Darker",
-          "agent": "",
-          "rating": "1.13",
-          "acs": "187",
-          "kills": "19",
-          "deaths": "18",
-          "assists": "16",
-          "kd_diff": "+1",
-          "kast": "79%",
-          "adr": "120",
-          "hs_pct": "51%",
-          "fk": "1",
-          "fd": "0",
-          "fk_diff": "+1"
-         },
-         {
-          "name": "DaviH",
-          "agent": "",
-          "rating": "1.05",
-          "acs": "200",
-          "kills": "18",
-          "deaths": "18",
-          "assists": "13",
-          "kd_diff": "0",
-          "kast": "79%",
-          "adr": "134",
-          "hs_pct": "22%",
-          "fk": "3",
-          "fd": "1",
-          "fk_diff": "+2"
-         },
-         {
-          "name": "erde",
-          "agent": "",
-          "rating": "0.91",
-          "acs": "176",
-          "kills": "16",
-          "deaths": "20",
-          "assists": "9",
-          "kd_diff": "-4",
-          "kast": "71%",
-          "adr": "123",
-          "hs_pct": "40%",
-          "fk": "3",
-          "fd": "2",
-          "fk_diff": "+1"
-         },
-         {
-          "name": "tkzin",
-          "agent": "",
-          "rating": "0.87",
-          "acs": "187",
-          "kills": "19",
-          "deaths": "22",
-          "assists": "6",
-          "kd_diff": "-3",
-          "kast": "75%",
-          "adr": "121",
-          "hs_pct": "51%",
-          "fk": "2",
-          "fd": "4",
-          "fk_diff": "-2"
-         }
-        ]
+       {
+        "name": "leaf",
+        "agent": "",
+        "rating": "0.60",
+        "acs": "137",
+        "kills": "14",
+        "deaths": "20",
+        "assists": "6",
+        "kd_diff": "-6",
+        "kast": "64%",
+        "adr": "93",
+        "hs_pct": "35%",
+        "fk": "2",
+        "fd": "5",
+        "fk_diff": "-3"
+       }
+      ],
+      "team2": [
+       {
+        "name": "lukxo",
+        "agent": "",
+        "rating": "1.62",
+        "acs": "313",
+        "kills": "31",
+        "deaths": "15",
+        "assists": "2",
+        "kd_diff": "+16",
+        "kast": "75%",
+        "adr": "183",
+        "hs_pct": "18%",
+        "fk": "8",
+        "fd": "4",
+        "fk_diff": "+4"
        },
-       "rounds": [
-        {
-         "round_num": 1,
-         "winner": "team1",
-         "side": "ct",
-         "win_type": "defuse"
-        },
-        {
-         "round_num": 2,
-         "winner": "team1",
-         "side": "ct",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 3,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "boom"
-        },
-        {
-         "round_num": 4,
-         "winner": "team1",
-         "side": "ct",
-         "win_type": "defuse"
-        },
-        {
-         "round_num": 5,
-         "winner": "team1",
-         "side": "ct",
-         "win_type": "defuse"
-        },
-        {
-         "round_num": 6,
-         "winner": "team1",
-         "side": "ct",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 7,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 8,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 9,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "boom"
-        },
-        {
-         "round_num": 10,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 11,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 12,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "boom"
-        },
-        {
-         "round_num": 13,
-         "winner": "team2",
-         "side": "ct",
-         "win_type": "defuse"
-        },
-        {
-         "round_num": 14,
-         "winner": "team1",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 15,
-         "winner": "team2",
-         "side": "ct",
-         "win_type": "defuse"
-        },
-        {
-         "round_num": 16,
-         "winner": "team1",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 17,
-         "winner": "team1",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 18,
-         "winner": "team1",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 19,
-         "winner": "team2",
-         "side": "ct",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 20,
-         "winner": "team1",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 21,
-         "winner": "team1",
-         "side": "t",
-         "win_type": "boom"
-        },
-        {
-         "round_num": 22,
-         "winner": "team1",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 23,
-         "winner": "team2",
-         "side": "ct",
-         "win_type": "defuse"
-        },
-        {
-         "round_num": 24,
-         "winner": "team2",
-         "side": "ct",
-         "win_type": "defuse"
-        },
-        {
-         "round_num": 25,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 26,
-         "winner": "team1",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 27,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 28,
-         "winner": "team2",
-         "side": "ct",
-         "win_type": "defuse"
-        }
-       ],
-       "performance": {
-        "kill_matrix": [
-         {
-          "player": "",
-          "kills_vs": {
-           "1": "Darker LOUD",
-           "2": "erde LOUD",
-           "3": "DaviH LOUD",
-           "4": "lukxo LOUD",
-           "5": "tkzin LOUD"
-          }
-         },
-         {
-          "player": "jawgemo G2",
-          "kills_vs": {
-           "1": "3 11 -8",
-           "2": "6 4 +2",
-           "3": "4 5 -1",
-           "4": "4 10 -6",
-           "5": "6 8 -2"
-          }
-         },
-         {
-          "player": "leaf G2",
-          "kills_vs": {
-           "1": "6 4 +2",
-           "2": "2 4 -2",
-           "3": "3 9 -6",
-           "4": "1 11 -10",
-           "5": "4 6 -2"
-          }
-         },
-         {
-          "player": "trent G2",
-          "kills_vs": {
-           "1": "6 4 +2",
-           "2": "3 7 -4",
-           "3": "4 5 -1",
-           "4": "4 7 -3",
-           "5": "9 7 +2"
-          }
-         },
-         {
-          "player": "valyn G2",
-          "kills_vs": {
-           "1": "5 10 -5",
-           "2": "7 4 +3",
-           "3": "4 4 +0",
-           "4": "5 6 -1",
-           "5": "10 8 +2"
-          }
-         },
-         {
-          "player": "BABYBAY G2",
-          "kills_vs": {
-           "1": "5 3 +2",
-           "2": "6 8 -2",
-           "3": "7 5 +2",
-           "4": "8 11 -3",
-           "5": "2 8 -6"
-          }
-         }
-        ],
-        "advanced_stats": [
-         {
-          "player": "BABYBAY G2",
-          "1": "",
-          "2": "8",
-          "3": "",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "50",
-          "12": "1",
-          "13": "0"
-         },
-         {
-          "player": "valyn G2",
-          "1": "",
-          "2": "3",
-          "3": "",
-          "4": "2",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "41",
-          "12": "1",
-          "13": "0"
-         },
-         {
-          "player": "jawgemo G2",
-          "1": "",
-          "2": "5",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "43",
-          "12": "0",
-          "13": "0"
-         },
-         {
-          "player": "leaf G2",
-          "1": "",
-          "2": "2",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "29",
-          "12": "3",
-          "13": "1"
-         },
-         {
-          "player": "trent G2",
-          "1": "",
-          "2": "6",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "3",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "44",
-          "12": "8",
-          "13": "2"
-         },
-         {
-          "player": "Darker LOUD",
-          "1": "",
-          "2": "6",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "2",
-          "7": "1",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "52",
-          "12": "2",
-          "13": "1"
-         },
-         {
-          "player": "DaviH LOUD",
-          "1": "",
-          "2": "5",
-          "3": "1",
-          "4": "1",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "48",
-          "12": "13",
-          "13": "2"
-         },
-         {
-          "player": "lukxo LOUD",
-          "1": "",
-          "2": "8",
-          "3": "3",
-          "4": "",
-          "5": "1",
-          "6": "1",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "68",
-          "12": "0",
-          "13": "1"
-         },
-         {
-          "player": "erde LOUD",
-          "1": "",
-          "2": "3",
-          "3": "3",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "55",
-          "12": "6",
-          "13": "1"
-         },
-         {
-          "player": "tkzin LOUD",
-          "1": "",
-          "2": "9",
-          "3": "",
-          "4": "1",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "61",
-          "12": "1",
-          "13": "0"
-         }
-        ]
+       {
+        "name": "Darker",
+        "agent": "",
+        "rating": "1.13",
+        "acs": "187",
+        "kills": "19",
+        "deaths": "18",
+        "assists": "16",
+        "kd_diff": "+1",
+        "kast": "79%",
+        "adr": "120",
+        "hs_pct": "51%",
+        "fk": "1",
+        "fd": "0",
+        "fk_diff": "+1"
        },
-       "economy": [
-        {
-         "Team": "G2",
-         "Pistol": "1/2",
-         "Conv.": "1/1",
-         "Bonus": "0/1",
-         "On Eco <10k: vs. Eco": "",
-         "On Eco <10k: vs. Half": "",
-         "On Eco <10k: vs. Full": "1/1",
-         "On Half buy 10–18k: vs. Eco": "",
-         "On Half buy 10–18k: vs. Half": "",
-         "On Half buy 10–18k: vs. Full": "0/1",
-         "On Full buy 18k+: vs. Eco": "2/2",
-         "On Full buy 18k+: vs. Half": "",
-         "On Full buy 18k+: vs. Full": "6/14"
-        },
-        {
-         "Team": "LOUD",
-         "Pistol": "1/2",
-         "Conv.": "0/1",
-         "Bonus": "",
-         "On Eco <10k: vs. Eco": "",
-         "On Eco <10k: vs. Half": "",
-         "On Eco <10k: vs. Full": "0/2",
-         "On Half buy 10–18k: vs. Eco": "",
-         "On Half buy 10–18k: vs. Half": "",
-         "On Half buy 10–18k: vs. Full": "",
-         "On Full buy 18k+: vs. Eco": "0/1",
-         "On Full buy 18k+: vs. Half": "1/1",
-         "On Full buy 18k+: vs. Full": "8/14"
-        }
-       ]
+       {
+        "name": "DaviH",
+        "agent": "",
+        "rating": "1.05",
+        "acs": "200",
+        "kills": "18",
+        "deaths": "18",
+        "assists": "13",
+        "kd_diff": "0",
+        "kast": "79%",
+        "adr": "134",
+        "hs_pct": "22%",
+        "fk": "3",
+        "fd": "1",
+        "fk_diff": "+2"
+       },
+       {
+        "name": "erde",
+        "agent": "",
+        "rating": "0.91",
+        "acs": "176",
+        "kills": "16",
+        "deaths": "20",
+        "assists": "9",
+        "kd_diff": "-4",
+        "kast": "71%",
+        "adr": "123",
+        "hs_pct": "40%",
+        "fk": "3",
+        "fd": "2",
+        "fk_diff": "+1"
+       },
+       {
+        "name": "tkzin",
+        "agent": "",
+        "rating": "0.87",
+        "acs": "187",
+        "kills": "19",
+        "deaths": "22",
+        "assists": "6",
+        "kd_diff": "-3",
+        "kast": "75%",
+        "adr": "121",
+        "hs_pct": "51%",
+        "fk": "2",
+        "fd": "4",
+        "fk_diff": "-2"
+       }
+      ]
+     },
+     "rounds": [
+      {
+       "round_num": 1,
+       "winner": "team1",
+       "side": "ct",
+       "win_type": "defuse"
       },
       {
-       "map_name": "Lotus",
-       "picked_by": "G2 Esports",
-       "duration": "31:40",
-       "score": {
-        "team1": 1,
-        "team2": 13
-       },
-       "score_ct": {
-        "team1": "1",
-        "team2": "2"
-       },
-       "score_t": {
-        "team1": "0",
-        "team2": "11"
-       },
-       "score_ot": {
-        "team1": "",
-        "team2": ""
-       },
-       "players": {
-        "team1": [
-         {
-          "name": "trent",
-          "agent": "",
-          "rating": "0.98",
-          "acs": "176",
-          "kills": "8",
-          "deaths": "12",
-          "assists": "4",
-          "kd_diff": "-4",
-          "kast": "57%",
-          "adr": "119",
-          "hs_pct": "35%",
-          "fk": "0",
-          "fd": "0",
-          "fk_diff": "0"
-         },
-         {
-          "name": "BABYBAY",
-          "agent": "",
-          "rating": "0.83",
-          "acs": "185",
-          "kills": "8",
-          "deaths": "12",
-          "assists": "3",
-          "kd_diff": "-4",
-          "kast": "57%",
-          "adr": "127",
-          "hs_pct": "23%",
-          "fk": "1",
-          "fd": "3",
-          "fk_diff": "-2"
-         },
-         {
-          "name": "jawgemo",
-          "agent": "",
-          "rating": "0.66",
-          "acs": "177",
-          "kills": "8",
-          "deaths": "14",
-          "assists": "2",
-          "kd_diff": "-6",
-          "kast": "57%",
-          "adr": "109",
-          "hs_pct": "16%",
-          "fk": "1",
-          "fd": "2",
-          "fk_diff": "-1"
-         },
-         {
-          "name": "valyn",
-          "agent": "",
-          "rating": "0.32",
-          "acs": "86",
-          "kills": "5",
-          "deaths": "14",
-          "assists": "1",
-          "kd_diff": "-9",
-          "kast": "43%",
-          "adr": "43",
-          "hs_pct": "11%",
-          "fk": "2",
-          "fd": "2",
-          "fk_diff": "0"
-         },
-         {
-          "name": "leaf",
-          "agent": "",
-          "rating": "0.20",
-          "acs": "74",
-          "kills": "2",
-          "deaths": "14",
-          "assists": "3",
-          "kd_diff": "-12",
-          "kast": "29%",
-          "adr": "59",
-          "hs_pct": "16%",
-          "fk": "1",
-          "fd": "2",
-          "fk_diff": "-1"
-         }
-        ],
-        "team2": [
-         {
-          "name": "tkzin",
-          "agent": "",
-          "rating": "1.52",
-          "acs": "351",
-          "kills": "18",
-          "deaths": "9",
-          "assists": "2",
-          "kd_diff": "+9",
-          "kast": "79%",
-          "adr": "236",
-          "hs_pct": "51%",
-          "fk": "6",
-          "fd": "1",
-          "fk_diff": "+5"
-         },
-         {
-          "name": "DaviH",
-          "agent": "",
-          "rating": "1.48",
-          "acs": "227",
-          "kills": "10",
-          "deaths": "4",
-          "assists": "12",
-          "kd_diff": "+6",
-          "kast": "100%",
-          "adr": "121",
-          "hs_pct": "15%",
-          "fk": "1",
-          "fd": "0",
-          "fk_diff": "+1"
-         },
-         {
-          "name": "erde",
-          "agent": "",
-          "rating": "1.45",
-          "acs": "203",
-          "kills": "11",
-          "deaths": "4",
-          "assists": "5",
-          "kd_diff": "+7",
-          "kast": "86%",
-          "adr": "146",
-          "hs_pct": "33%",
-          "fk": "0",
-          "fd": "1",
-          "fk_diff": "-1"
-         },
-         {
-          "name": "lukxo",
-          "agent": "",
-          "rating": "1.26",
-          "acs": "257",
-          "kills": "14",
-          "deaths": "7",
-          "assists": "1",
-          "kd_diff": "+7",
-          "kast": "86%",
-          "adr": "162",
-          "hs_pct": "16%",
-          "fk": "1",
-          "fd": "1",
-          "fk_diff": "0"
-         },
-         {
-          "name": "Darker",
-          "agent": "",
-          "rating": "1.14",
-          "acs": "214",
-          "kills": "13",
-          "deaths": "7",
-          "assists": "4",
-          "kd_diff": "+6",
-          "kast": "93%",
-          "adr": "132",
-          "hs_pct": "8%",
-          "fk": "1",
-          "fd": "2",
-          "fk_diff": "-1"
-         }
-        ]
-       },
-       "rounds": [
-        {
-         "round_num": 1,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 2,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 3,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "boom"
-        },
-        {
-         "round_num": 4,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "boom"
-        },
-        {
-         "round_num": 5,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 6,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "boom"
-        },
-        {
-         "round_num": 7,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 8,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 9,
-         "winner": "team1",
-         "side": "ct",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 10,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 11,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 12,
-         "winner": "team2",
-         "side": "t",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 13,
-         "winner": "team2",
-         "side": "ct",
-         "win_type": "elim"
-        },
-        {
-         "round_num": 14,
-         "winner": "team2",
-         "side": "ct",
-         "win_type": "elim"
-        }
-       ],
-       "performance": {
-        "kill_matrix": [
-         {
-          "player": "",
-          "kills_vs": {
-           "1": "Darker LOUD",
-           "2": "erde LOUD",
-           "3": "DaviH LOUD",
-           "4": "lukxo LOUD",
-           "5": "tkzin LOUD"
-          }
-         },
-         {
-          "player": "jawgemo G2",
-          "kills_vs": {
-           "1": "3 11 -8",
-           "2": "6 4 +2",
-           "3": "4 5 -1",
-           "4": "4 10 -6",
-           "5": "6 8 -2"
-          }
-         },
-         {
-          "player": "leaf G2",
-          "kills_vs": {
-           "1": "6 4 +2",
-           "2": "2 4 -2",
-           "3": "3 9 -6",
-           "4": "1 11 -10",
-           "5": "4 6 -2"
-          }
-         },
-         {
-          "player": "trent G2",
-          "kills_vs": {
-           "1": "6 4 +2",
-           "2": "3 7 -4",
-           "3": "4 5 -1",
-           "4": "4 7 -3",
-           "5": "9 7 +2"
-          }
-         },
-         {
-          "player": "valyn G2",
-          "kills_vs": {
-           "1": "5 10 -5",
-           "2": "7 4 +3",
-           "3": "4 4 +0",
-           "4": "5 6 -1",
-           "5": "10 8 +2"
-          }
-         },
-         {
-          "player": "BABYBAY G2",
-          "kills_vs": {
-           "1": "5 3 +2",
-           "2": "6 8 -2",
-           "3": "7 5 +2",
-           "4": "8 11 -3",
-           "5": "2 8 -6"
-          }
-         }
-        ],
-        "advanced_stats": [
-         {
-          "player": "BABYBAY G2",
-          "1": "",
-          "2": "8",
-          "3": "",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "50",
-          "12": "1",
-          "13": "0"
-         },
-         {
-          "player": "valyn G2",
-          "1": "",
-          "2": "3",
-          "3": "",
-          "4": "2",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "41",
-          "12": "1",
-          "13": "0"
-         },
-         {
-          "player": "jawgemo G2",
-          "1": "",
-          "2": "5",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "43",
-          "12": "0",
-          "13": "0"
-         },
-         {
-          "player": "leaf G2",
-          "1": "",
-          "2": "2",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "29",
-          "12": "3",
-          "13": "1"
-         },
-         {
-          "player": "trent G2",
-          "1": "",
-          "2": "6",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "3",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "44",
-          "12": "8",
-          "13": "2"
-         },
-         {
-          "player": "Darker LOUD",
-          "1": "",
-          "2": "6",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "2",
-          "7": "1",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "52",
-          "12": "2",
-          "13": "1"
-         },
-         {
-          "player": "DaviH LOUD",
-          "1": "",
-          "2": "5",
-          "3": "1",
-          "4": "1",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "48",
-          "12": "13",
-          "13": "2"
-         },
-         {
-          "player": "lukxo LOUD",
-          "1": "",
-          "2": "8",
-          "3": "3",
-          "4": "",
-          "5": "1",
-          "6": "1",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "68",
-          "12": "0",
-          "13": "1"
-         },
-         {
-          "player": "erde LOUD",
-          "1": "",
-          "2": "3",
-          "3": "3",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "55",
-          "12": "6",
-          "13": "1"
-         },
-         {
-          "player": "tkzin LOUD",
-          "1": "",
-          "2": "9",
-          "3": "",
-          "4": "1",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "61",
-          "12": "1",
-          "13": "0"
-         }
-        ]
-       },
-       "economy": [
-        {
-         "Team": "G2",
-         "Pistol": "0/2",
-         "Conv.": "",
-         "Bonus": "",
-         "On Eco <10k: vs. Eco": "",
-         "On Eco <10k: vs. Half": "",
-         "On Eco <10k: vs. Full": "0/1",
-         "On Half buy 10–18k: vs. Eco": "",
-         "On Half buy 10–18k: vs. Half": "",
-         "On Half buy 10–18k: vs. Full": "0/4",
-         "On Full buy 18k+: vs. Eco": "",
-         "On Full buy 18k+: vs. Half": "",
-         "On Full buy 18k+: vs. Full": "1/4"
-        },
-        {
-         "Team": "LOUD",
-         "Pistol": "2/2",
-         "Conv.": "2/2",
-         "Bonus": "1/2",
-         "On Eco <10k: vs. Eco": "",
-         "On Eco <10k: vs. Half": "",
-         "On Eco <10k: vs. Full": "",
-         "On Half buy 10–18k: vs. Eco": "",
-         "On Half buy 10–18k: vs. Half": "",
-         "On Half buy 10–18k: vs. Full": "",
-         "On Full buy 18k+: vs. Eco": "1/1",
-         "On Full buy 18k+: vs. Half": "4/4",
-         "On Full buy 18k+: vs. Full": "3/4"
-        }
-       ]
-      }
-     ],
-     "head_to_head": [
-      {
-       "event": "",
-       "date": "2026/08/02",
-       "teams": [
-        {
-         "name": "",
-         "is_winner": true
-        },
-        {
-         "name": "Sentinels",
-         "is_winner": false
-        }
-       ],
-       "score": "2 - 1",
-       "url": "https://www.vlr.gg/706371/g2-esports-vs-sentinels-vct-2026-americas-stage-2-w3"
+       "round_num": 2,
+       "winner": "team1",
+       "side": "ct",
+       "win_type": "elim"
       },
       {
-       "event": "",
-       "date": "2026/07/30",
-       "teams": [
-        {
-         "name": "",
-         "is_winner": true
-        },
-        {
-         "name": "KRÜ Esports",
-         "is_winner": false
-        }
-       ],
-       "score": "2 - 0",
-       "url": "https://www.vlr.gg/706364/kr-esports-vs-g2-esports-vct-2026-americas-stage-2-w3"
+       "round_num": 3,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "boom"
       },
       {
-       "event": "",
-       "date": "2026/07/25",
-       "teams": [
-        {
-         "name": "",
-         "is_winner": true
-        },
-        {
-         "name": "Cloud9",
-         "is_winner": false
-        }
-       ],
-       "score": "2 - 0",
-       "url": "https://www.vlr.gg/706359/g2-esports-vs-cloud9-vct-2026-americas-stage-2-w2"
+       "round_num": 4,
+       "winner": "team1",
+       "side": "ct",
+       "win_type": "defuse"
       },
       {
-       "event": "",
-       "date": "2026/07/18",
-       "teams": [
-        {
-         "name": "",
-         "is_winner": false
-        },
-        {
-         "name": "100 Thieves",
-         "is_winner": true
-        }
-       ],
-       "score": "1 - 2",
-       "url": "https://www.vlr.gg/706353/g2-esports-vs-100-thieves-vct-2026-americas-stage-2-w1"
+       "round_num": 5,
+       "winner": "team1",
+       "side": "ct",
+       "win_type": "defuse"
       },
       {
-       "event": "",
-       "date": "2026/07/07",
-       "teams": [
-        {
-         "name": "",
-         "is_winner": false
-        },
-        {
-         "name": "Nongshim RedForce",
-         "is_winner": true
-        }
-       ],
-       "score": "1 - 2",
-       "url": "https://www.vlr.gg/706768/nongshim-redforce-vs-g2-esports-esports-world-cup-2026-decider-c"
+       "round_num": 6,
+       "winner": "team1",
+       "side": "ct",
+       "win_type": "elim"
       },
       {
-       "event": "",
-       "date": "2026/07/31",
-       "teams": [
-        {
-         "name": "",
-         "is_winner": true
-        },
-        {
-         "name": "Cloud9",
-         "is_winner": false
-        }
-       ],
-       "score": "2 - 1",
-       "url": "https://www.vlr.gg/706366/cloud9-vs-loud-vct-2026-americas-stage-2-w3"
+       "round_num": 7,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
       },
       {
-       "event": "",
-       "date": "2026/07/25",
-       "teams": [
-        {
-         "name": "",
-         "is_winner": false
-        },
-        {
-         "name": "Sentinels",
-         "is_winner": true
-        }
-       ],
-       "score": "0 - 2",
-       "url": "https://www.vlr.gg/706360/sentinels-vs-loud-vct-2026-americas-stage-2-w2"
+       "round_num": 8,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
       },
       {
-       "event": "",
-       "date": "2026/07/17",
-       "teams": [
-        {
-         "name": "",
-         "is_winner": true
-        },
-        {
-         "name": "KRÜ Esports",
-         "is_winner": false
-        }
-       ],
-       "score": "2 - 1",
-       "url": "https://www.vlr.gg/706352/kr-esports-vs-loud-vct-2026-americas-stage-2-w1"
+       "round_num": 9,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "boom"
       },
       {
-       "event": "",
-       "date": "2026/05/31",
-       "teams": [
-        {
-         "name": "",
-         "is_winner": false
-        },
-        {
-         "name": "NRG",
-         "is_winner": true
-        }
-       ],
-       "score": "0 - 3",
-       "url": "https://www.vlr.gg/681338/loud-vs-nrg-esports-world-cup-2026-americas-qualifier-stage-2-lbf"
+       "round_num": 10,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
       },
       {
-       "event": "",
-       "date": "2026/05/30",
-       "teams": [
-        {
-         "name": "",
-         "is_winner": true
-        },
-        {
-         "name": "Sentinels",
-         "is_winner": false
-        }
-       ],
-       "score": "2 - 1",
-       "url": "https://www.vlr.gg/681336/loud-vs-sentinels-esports-world-cup-2026-americas-qualifier-stage-2-lr2"
+       "round_num": 11,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 12,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "boom"
+      },
+      {
+       "round_num": 13,
+       "winner": "team2",
+       "side": "ct",
+       "win_type": "defuse"
+      },
+      {
+       "round_num": 14,
+       "winner": "team1",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 15,
+       "winner": "team2",
+       "side": "ct",
+       "win_type": "defuse"
+      },
+      {
+       "round_num": 16,
+       "winner": "team1",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 17,
+       "winner": "team1",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 18,
+       "winner": "team1",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 19,
+       "winner": "team2",
+       "side": "ct",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 20,
+       "winner": "team1",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 21,
+       "winner": "team1",
+       "side": "t",
+       "win_type": "boom"
+      },
+      {
+       "round_num": 22,
+       "winner": "team1",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 23,
+       "winner": "team2",
+       "side": "ct",
+       "win_type": "defuse"
+      },
+      {
+       "round_num": 24,
+       "winner": "team2",
+       "side": "ct",
+       "win_type": "defuse"
+      },
+      {
+       "round_num": 25,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 26,
+       "winner": "team1",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 27,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 28,
+       "winner": "team2",
+       "side": "ct",
+       "win_type": "defuse"
       }
      ],
      "performance": {
@@ -1605,689 +649,6 @@
         "12": "1",
         "13": "0"
        }
-      ],
-      "by_map": [
-       {
-        "game_id": "275139",
-        "kill_matrix": [
-         {
-          "player": "",
-          "kills_vs": {
-           "1": "Darker LOUD",
-           "2": "erde LOUD",
-           "3": "DaviH LOUD",
-           "4": "lukxo LOUD",
-           "5": "tkzin LOUD"
-          }
-         },
-         {
-          "player": "jawgemo G2",
-          "kills_vs": {
-           "1": "3 11 -8",
-           "2": "6 4 +2",
-           "3": "4 5 -1",
-           "4": "4 10 -6",
-           "5": "6 8 -2"
-          }
-         },
-         {
-          "player": "leaf G2",
-          "kills_vs": {
-           "1": "6 4 +2",
-           "2": "2 4 -2",
-           "3": "3 9 -6",
-           "4": "1 11 -10",
-           "5": "4 6 -2"
-          }
-         },
-         {
-          "player": "trent G2",
-          "kills_vs": {
-           "1": "6 4 +2",
-           "2": "3 7 -4",
-           "3": "4 5 -1",
-           "4": "4 7 -3",
-           "5": "9 7 +2"
-          }
-         },
-         {
-          "player": "valyn G2",
-          "kills_vs": {
-           "1": "5 10 -5",
-           "2": "7 4 +3",
-           "3": "4 4 +0",
-           "4": "5 6 -1",
-           "5": "10 8 +2"
-          }
-         },
-         {
-          "player": "BABYBAY G2",
-          "kills_vs": {
-           "1": "5 3 +2",
-           "2": "6 8 -2",
-           "3": "7 5 +2",
-           "4": "8 11 -3",
-           "5": "2 8 -6"
-          }
-         }
-        ],
-        "advanced_stats": [
-         {
-          "player": "BABYBAY G2",
-          "1": "",
-          "2": "8",
-          "3": "",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "50",
-          "12": "1",
-          "13": "0"
-         },
-         {
-          "player": "valyn G2",
-          "1": "",
-          "2": "3",
-          "3": "",
-          "4": "2",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "41",
-          "12": "1",
-          "13": "0"
-         },
-         {
-          "player": "jawgemo G2",
-          "1": "",
-          "2": "5",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "43",
-          "12": "0",
-          "13": "0"
-         },
-         {
-          "player": "leaf G2",
-          "1": "",
-          "2": "2",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "29",
-          "12": "3",
-          "13": "1"
-         },
-         {
-          "player": "trent G2",
-          "1": "",
-          "2": "6",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "3",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "44",
-          "12": "8",
-          "13": "2"
-         },
-         {
-          "player": "Darker LOUD",
-          "1": "",
-          "2": "6",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "2",
-          "7": "1",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "52",
-          "12": "2",
-          "13": "1"
-         },
-         {
-          "player": "DaviH LOUD",
-          "1": "",
-          "2": "5",
-          "3": "1",
-          "4": "1",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "48",
-          "12": "13",
-          "13": "2"
-         },
-         {
-          "player": "lukxo LOUD",
-          "1": "",
-          "2": "8",
-          "3": "3",
-          "4": "",
-          "5": "1",
-          "6": "1",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "68",
-          "12": "0",
-          "13": "1"
-         },
-         {
-          "player": "erde LOUD",
-          "1": "",
-          "2": "3",
-          "3": "3",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "55",
-          "12": "6",
-          "13": "1"
-         },
-         {
-          "player": "tkzin LOUD",
-          "1": "",
-          "2": "9",
-          "3": "",
-          "4": "1",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "61",
-          "12": "1",
-          "13": "0"
-         }
-        ]
-       },
-       {
-        "game_id": "275140",
-        "kill_matrix": [
-         {
-          "player": "",
-          "kills_vs": {
-           "1": "Darker LOUD",
-           "2": "erde LOUD",
-           "3": "DaviH LOUD",
-           "4": "lukxo LOUD",
-           "5": "tkzin LOUD"
-          }
-         },
-         {
-          "player": "jawgemo G2",
-          "kills_vs": {
-           "1": "3 11 -8",
-           "2": "6 4 +2",
-           "3": "4 5 -1",
-           "4": "4 10 -6",
-           "5": "6 8 -2"
-          }
-         },
-         {
-          "player": "leaf G2",
-          "kills_vs": {
-           "1": "6 4 +2",
-           "2": "2 4 -2",
-           "3": "3 9 -6",
-           "4": "1 11 -10",
-           "5": "4 6 -2"
-          }
-         },
-         {
-          "player": "trent G2",
-          "kills_vs": {
-           "1": "6 4 +2",
-           "2": "3 7 -4",
-           "3": "4 5 -1",
-           "4": "4 7 -3",
-           "5": "9 7 +2"
-          }
-         },
-         {
-          "player": "valyn G2",
-          "kills_vs": {
-           "1": "5 10 -5",
-           "2": "7 4 +3",
-           "3": "4 4 +0",
-           "4": "5 6 -1",
-           "5": "10 8 +2"
-          }
-         },
-         {
-          "player": "BABYBAY G2",
-          "kills_vs": {
-           "1": "5 3 +2",
-           "2": "6 8 -2",
-           "3": "7 5 +2",
-           "4": "8 11 -3",
-           "5": "2 8 -6"
-          }
-         }
-        ],
-        "advanced_stats": [
-         {
-          "player": "BABYBAY G2",
-          "1": "",
-          "2": "8",
-          "3": "",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "50",
-          "12": "1",
-          "13": "0"
-         },
-         {
-          "player": "valyn G2",
-          "1": "",
-          "2": "3",
-          "3": "",
-          "4": "2",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "41",
-          "12": "1",
-          "13": "0"
-         },
-         {
-          "player": "jawgemo G2",
-          "1": "",
-          "2": "5",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "43",
-          "12": "0",
-          "13": "0"
-         },
-         {
-          "player": "leaf G2",
-          "1": "",
-          "2": "2",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "29",
-          "12": "3",
-          "13": "1"
-         },
-         {
-          "player": "trent G2",
-          "1": "",
-          "2": "6",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "3",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "44",
-          "12": "8",
-          "13": "2"
-         },
-         {
-          "player": "Darker LOUD",
-          "1": "",
-          "2": "6",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "2",
-          "7": "1",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "52",
-          "12": "2",
-          "13": "1"
-         },
-         {
-          "player": "DaviH LOUD",
-          "1": "",
-          "2": "5",
-          "3": "1",
-          "4": "1",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "48",
-          "12": "13",
-          "13": "2"
-         },
-         {
-          "player": "lukxo LOUD",
-          "1": "",
-          "2": "8",
-          "3": "3",
-          "4": "",
-          "5": "1",
-          "6": "1",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "68",
-          "12": "0",
-          "13": "1"
-         },
-         {
-          "player": "erde LOUD",
-          "1": "",
-          "2": "3",
-          "3": "3",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "55",
-          "12": "6",
-          "13": "1"
-         },
-         {
-          "player": "tkzin LOUD",
-          "1": "",
-          "2": "9",
-          "3": "",
-          "4": "1",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "61",
-          "12": "1",
-          "13": "0"
-         }
-        ]
-       },
-       {
-        "game_id": "275141",
-        "kill_matrix": [
-         {
-          "player": "",
-          "kills_vs": {
-           "1": "Darker LOUD",
-           "2": "erde LOUD",
-           "3": "DaviH LOUD",
-           "4": "lukxo LOUD",
-           "5": "tkzin LOUD"
-          }
-         },
-         {
-          "player": "jawgemo G2",
-          "kills_vs": {
-           "1": "3 11 -8",
-           "2": "6 4 +2",
-           "3": "4 5 -1",
-           "4": "4 10 -6",
-           "5": "6 8 -2"
-          }
-         },
-         {
-          "player": "leaf G2",
-          "kills_vs": {
-           "1": "6 4 +2",
-           "2": "2 4 -2",
-           "3": "3 9 -6",
-           "4": "1 11 -10",
-           "5": "4 6 -2"
-          }
-         },
-         {
-          "player": "trent G2",
-          "kills_vs": {
-           "1": "6 4 +2",
-           "2": "3 7 -4",
-           "3": "4 5 -1",
-           "4": "4 7 -3",
-           "5": "9 7 +2"
-          }
-         },
-         {
-          "player": "valyn G2",
-          "kills_vs": {
-           "1": "5 10 -5",
-           "2": "7 4 +3",
-           "3": "4 4 +0",
-           "4": "5 6 -1",
-           "5": "10 8 +2"
-          }
-         },
-         {
-          "player": "BABYBAY G2",
-          "kills_vs": {
-           "1": "5 3 +2",
-           "2": "6 8 -2",
-           "3": "7 5 +2",
-           "4": "8 11 -3",
-           "5": "2 8 -6"
-          }
-         }
-        ],
-        "advanced_stats": [
-         {
-          "player": "BABYBAY G2",
-          "1": "",
-          "2": "8",
-          "3": "",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "50",
-          "12": "1",
-          "13": "0"
-         },
-         {
-          "player": "valyn G2",
-          "1": "",
-          "2": "3",
-          "3": "",
-          "4": "2",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "41",
-          "12": "1",
-          "13": "0"
-         },
-         {
-          "player": "jawgemo G2",
-          "1": "",
-          "2": "5",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "43",
-          "12": "0",
-          "13": "0"
-         },
-         {
-          "player": "leaf G2",
-          "1": "",
-          "2": "2",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "29",
-          "12": "3",
-          "13": "1"
-         },
-         {
-          "player": "trent G2",
-          "1": "",
-          "2": "6",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "3",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "44",
-          "12": "8",
-          "13": "2"
-         },
-         {
-          "player": "Darker LOUD",
-          "1": "",
-          "2": "6",
-          "3": "1",
-          "4": "",
-          "5": "",
-          "6": "2",
-          "7": "1",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "52",
-          "12": "2",
-          "13": "1"
-         },
-         {
-          "player": "DaviH LOUD",
-          "1": "",
-          "2": "5",
-          "3": "1",
-          "4": "1",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "48",
-          "12": "13",
-          "13": "2"
-         },
-         {
-          "player": "lukxo LOUD",
-          "1": "",
-          "2": "8",
-          "3": "3",
-          "4": "",
-          "5": "1",
-          "6": "1",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "68",
-          "12": "0",
-          "13": "1"
-         },
-         {
-          "player": "erde LOUD",
-          "1": "",
-          "2": "3",
-          "3": "3",
-          "4": "",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "55",
-          "12": "6",
-          "13": "1"
-         },
-         {
-          "player": "tkzin LOUD",
-          "1": "",
-          "2": "9",
-          "3": "",
-          "4": "1",
-          "5": "",
-          "6": "",
-          "7": "",
-          "8": "",
-          "9": "",
-          "10": "",
-          "11": "61",
-          "12": "1",
-          "13": "0"
-         }
-        ]
-       }
       ]
      },
      "economy": [
@@ -2321,83 +682,1717 @@
        "On Full buy 18k+: vs. Half": "1/1",
        "On Full buy 18k+: vs. Full": "8/14"
       }
+     ]
+    },
+    {
+     "map_name": "Lotus",
+     "picked_by": "G2 Esports",
+     "duration": "31:40",
+     "score": {
+      "team1": 1,
+      "team2": 13
+     },
+     "score_ct": {
+      "team1": "1",
+      "team2": "2"
+     },
+     "score_t": {
+      "team1": "0",
+      "team2": "11"
+     },
+     "score_ot": {
+      "team1": "",
+      "team2": ""
+     },
+     "players": {
+      "team1": [
+       {
+        "name": "trent",
+        "agent": "",
+        "rating": "0.98",
+        "acs": "176",
+        "kills": "8",
+        "deaths": "12",
+        "assists": "4",
+        "kd_diff": "-4",
+        "kast": "57%",
+        "adr": "119",
+        "hs_pct": "35%",
+        "fk": "0",
+        "fd": "0",
+        "fk_diff": "0"
+       },
+       {
+        "name": "BABYBAY",
+        "agent": "",
+        "rating": "0.83",
+        "acs": "185",
+        "kills": "8",
+        "deaths": "12",
+        "assists": "3",
+        "kd_diff": "-4",
+        "kast": "57%",
+        "adr": "127",
+        "hs_pct": "23%",
+        "fk": "1",
+        "fd": "3",
+        "fk_diff": "-2"
+       },
+       {
+        "name": "jawgemo",
+        "agent": "",
+        "rating": "0.66",
+        "acs": "177",
+        "kills": "8",
+        "deaths": "14",
+        "assists": "2",
+        "kd_diff": "-6",
+        "kast": "57%",
+        "adr": "109",
+        "hs_pct": "16%",
+        "fk": "1",
+        "fd": "2",
+        "fk_diff": "-1"
+       },
+       {
+        "name": "valyn",
+        "agent": "",
+        "rating": "0.32",
+        "acs": "86",
+        "kills": "5",
+        "deaths": "14",
+        "assists": "1",
+        "kd_diff": "-9",
+        "kast": "43%",
+        "adr": "43",
+        "hs_pct": "11%",
+        "fk": "2",
+        "fd": "2",
+        "fk_diff": "0"
+       },
+       {
+        "name": "leaf",
+        "agent": "",
+        "rating": "0.20",
+        "acs": "74",
+        "kills": "2",
+        "deaths": "14",
+        "assists": "3",
+        "kd_diff": "-12",
+        "kast": "29%",
+        "adr": "59",
+        "hs_pct": "16%",
+        "fk": "1",
+        "fd": "2",
+        "fk_diff": "-1"
+       }
+      ],
+      "team2": [
+       {
+        "name": "tkzin",
+        "agent": "",
+        "rating": "1.52",
+        "acs": "351",
+        "kills": "18",
+        "deaths": "9",
+        "assists": "2",
+        "kd_diff": "+9",
+        "kast": "79%",
+        "adr": "236",
+        "hs_pct": "51%",
+        "fk": "6",
+        "fd": "1",
+        "fk_diff": "+5"
+       },
+       {
+        "name": "DaviH",
+        "agent": "",
+        "rating": "1.48",
+        "acs": "227",
+        "kills": "10",
+        "deaths": "4",
+        "assists": "12",
+        "kd_diff": "+6",
+        "kast": "100%",
+        "adr": "121",
+        "hs_pct": "15%",
+        "fk": "1",
+        "fd": "0",
+        "fk_diff": "+1"
+       },
+       {
+        "name": "erde",
+        "agent": "",
+        "rating": "1.45",
+        "acs": "203",
+        "kills": "11",
+        "deaths": "4",
+        "assists": "5",
+        "kd_diff": "+7",
+        "kast": "86%",
+        "adr": "146",
+        "hs_pct": "33%",
+        "fk": "0",
+        "fd": "1",
+        "fk_diff": "-1"
+       },
+       {
+        "name": "lukxo",
+        "agent": "",
+        "rating": "1.26",
+        "acs": "257",
+        "kills": "14",
+        "deaths": "7",
+        "assists": "1",
+        "kd_diff": "+7",
+        "kast": "86%",
+        "adr": "162",
+        "hs_pct": "16%",
+        "fk": "1",
+        "fd": "1",
+        "fk_diff": "0"
+       },
+       {
+        "name": "Darker",
+        "agent": "",
+        "rating": "1.14",
+        "acs": "214",
+        "kills": "13",
+        "deaths": "7",
+        "assists": "4",
+        "kd_diff": "+6",
+        "kast": "93%",
+        "adr": "132",
+        "hs_pct": "8%",
+        "fk": "1",
+        "fd": "2",
+        "fk_diff": "-1"
+       }
+      ]
+     },
+     "rounds": [
+      {
+       "round_num": 1,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 2,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 3,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "boom"
+      },
+      {
+       "round_num": 4,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "boom"
+      },
+      {
+       "round_num": 5,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 6,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "boom"
+      },
+      {
+       "round_num": 7,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 8,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 9,
+       "winner": "team1",
+       "side": "ct",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 10,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 11,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 12,
+       "winner": "team2",
+       "side": "t",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 13,
+       "winner": "team2",
+       "side": "ct",
+       "win_type": "elim"
+      },
+      {
+       "round_num": 14,
+       "winner": "team2",
+       "side": "ct",
+       "win_type": "elim"
+      }
      ],
-     "economy_by_map": [
-      {
-       "game_id": "275139",
-       "rows": [
-        {
-         "Team": "G2",
-         "Pistol": "1/2",
-         "Conv.": "1/1",
-         "Bonus": "0/1",
-         "On Eco <10k: vs. Eco": "",
-         "On Eco <10k: vs. Half": "",
-         "On Eco <10k: vs. Full": "1/1",
-         "On Half buy 10–18k: vs. Eco": "",
-         "On Half buy 10–18k: vs. Half": "",
-         "On Half buy 10–18k: vs. Full": "0/1",
-         "On Full buy 18k+: vs. Eco": "2/2",
-         "On Full buy 18k+: vs. Half": "",
-         "On Full buy 18k+: vs. Full": "6/14"
-        },
-        {
-         "Team": "LOUD",
-         "Pistol": "1/2",
-         "Conv.": "0/1",
-         "Bonus": "",
-         "On Eco <10k: vs. Eco": "",
-         "On Eco <10k: vs. Half": "",
-         "On Eco <10k: vs. Full": "0/2",
-         "On Half buy 10–18k: vs. Eco": "",
-         "On Half buy 10–18k: vs. Half": "",
-         "On Half buy 10–18k: vs. Full": "",
-         "On Full buy 18k+: vs. Eco": "0/1",
-         "On Full buy 18k+: vs. Half": "1/1",
-         "On Full buy 18k+: vs. Full": "8/14"
+     "performance": {
+      "kill_matrix": [
+       {
+        "player": "",
+        "kills_vs": {
+         "1": "Darker LOUD",
+         "2": "erde LOUD",
+         "3": "DaviH LOUD",
+         "4": "lukxo LOUD",
+         "5": "tkzin LOUD"
         }
-       ]
+       },
+       {
+        "player": "jawgemo G2",
+        "kills_vs": {
+         "1": "3 11 -8",
+         "2": "6 4 +2",
+         "3": "4 5 -1",
+         "4": "4 10 -6",
+         "5": "6 8 -2"
+        }
+       },
+       {
+        "player": "leaf G2",
+        "kills_vs": {
+         "1": "6 4 +2",
+         "2": "2 4 -2",
+         "3": "3 9 -6",
+         "4": "1 11 -10",
+         "5": "4 6 -2"
+        }
+       },
+       {
+        "player": "trent G2",
+        "kills_vs": {
+         "1": "6 4 +2",
+         "2": "3 7 -4",
+         "3": "4 5 -1",
+         "4": "4 7 -3",
+         "5": "9 7 +2"
+        }
+       },
+       {
+        "player": "valyn G2",
+        "kills_vs": {
+         "1": "5 10 -5",
+         "2": "7 4 +3",
+         "3": "4 4 +0",
+         "4": "5 6 -1",
+         "5": "10 8 +2"
+        }
+       },
+       {
+        "player": "BABYBAY G2",
+        "kills_vs": {
+         "1": "5 3 +2",
+         "2": "6 8 -2",
+         "3": "7 5 +2",
+         "4": "8 11 -3",
+         "5": "2 8 -6"
+        }
+       }
+      ],
+      "advanced_stats": [
+       {
+        "player": "BABYBAY G2",
+        "1": "",
+        "2": "8",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "50",
+        "12": "1",
+        "13": "0"
+       },
+       {
+        "player": "valyn G2",
+        "1": "",
+        "2": "3",
+        "3": "",
+        "4": "2",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "41",
+        "12": "1",
+        "13": "0"
+       },
+       {
+        "player": "jawgemo G2",
+        "1": "",
+        "2": "5",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "43",
+        "12": "0",
+        "13": "0"
+       },
+       {
+        "player": "leaf G2",
+        "1": "",
+        "2": "2",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "29",
+        "12": "3",
+        "13": "1"
+       },
+       {
+        "player": "trent G2",
+        "1": "",
+        "2": "6",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "3",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "44",
+        "12": "8",
+        "13": "2"
+       },
+       {
+        "player": "Darker LOUD",
+        "1": "",
+        "2": "6",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "2",
+        "7": "1",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "52",
+        "12": "2",
+        "13": "1"
+       },
+       {
+        "player": "DaviH LOUD",
+        "1": "",
+        "2": "5",
+        "3": "1",
+        "4": "1",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "48",
+        "12": "13",
+        "13": "2"
+       },
+       {
+        "player": "lukxo LOUD",
+        "1": "",
+        "2": "8",
+        "3": "3",
+        "4": "",
+        "5": "1",
+        "6": "1",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "68",
+        "12": "0",
+        "13": "1"
+       },
+       {
+        "player": "erde LOUD",
+        "1": "",
+        "2": "3",
+        "3": "3",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "55",
+        "12": "6",
+        "13": "1"
+       },
+       {
+        "player": "tkzin LOUD",
+        "1": "",
+        "2": "9",
+        "3": "",
+        "4": "1",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "61",
+        "12": "1",
+        "13": "0"
+       }
+      ]
+     },
+     "economy": [
+      {
+       "Team": "G2",
+       "Pistol": "0/2",
+       "Conv.": "",
+       "Bonus": "",
+       "On Eco <10k: vs. Eco": "",
+       "On Eco <10k: vs. Half": "",
+       "On Eco <10k: vs. Full": "0/1",
+       "On Half buy 10–18k: vs. Eco": "",
+       "On Half buy 10–18k: vs. Half": "",
+       "On Half buy 10–18k: vs. Full": "0/4",
+       "On Full buy 18k+: vs. Eco": "",
+       "On Full buy 18k+: vs. Half": "",
+       "On Full buy 18k+: vs. Full": "1/4"
       },
       {
-       "game_id": "275140",
-       "rows": [
-        {
-         "Team": "G2",
-         "Pistol": "0/2",
-         "Conv.": "",
-         "Bonus": "",
-         "On Eco <10k: vs. Eco": "",
-         "On Eco <10k: vs. Half": "",
-         "On Eco <10k: vs. Full": "0/1",
-         "On Half buy 10–18k: vs. Eco": "",
-         "On Half buy 10–18k: vs. Half": "",
-         "On Half buy 10–18k: vs. Full": "0/4",
-         "On Full buy 18k+: vs. Eco": "",
-         "On Full buy 18k+: vs. Half": "",
-         "On Full buy 18k+: vs. Full": "1/4"
-        },
-        {
-         "Team": "LOUD",
-         "Pistol": "2/2",
-         "Conv.": "2/2",
-         "Bonus": "1/2",
-         "On Eco <10k: vs. Eco": "",
-         "On Eco <10k: vs. Half": "",
-         "On Eco <10k: vs. Full": "",
-         "On Half buy 10–18k: vs. Eco": "",
-         "On Half buy 10–18k: vs. Half": "",
-         "On Half buy 10–18k: vs. Full": "",
-         "On Full buy 18k+: vs. Eco": "1/1",
-         "On Full buy 18k+: vs. Half": "4/4",
-         "On Full buy 18k+: vs. Full": "3/4"
-        }
-       ]
-      },
-      {
-       "game_id": "275141",
-       "rows": []
+       "Team": "LOUD",
+       "Pistol": "2/2",
+       "Conv.": "2/2",
+       "Bonus": "1/2",
+       "On Eco <10k: vs. Eco": "",
+       "On Eco <10k: vs. Half": "",
+       "On Eco <10k: vs. Full": "",
+       "On Half buy 10–18k: vs. Eco": "",
+       "On Half buy 10–18k: vs. Half": "",
+       "On Half buy 10–18k: vs. Full": "",
+       "On Full buy 18k+: vs. Eco": "1/1",
+       "On Full buy 18k+: vs. Half": "4/4",
+       "On Full buy 18k+: vs. Full": "3/4"
       }
      ]
+    }
+   ],
+   "head_to_head": [
+    {
+     "event": "",
+     "date": "2026/08/02",
+     "teams": [
+      {
+       "name": "",
+       "is_winner": true
+      },
+      {
+       "name": "Sentinels",
+       "is_winner": false
+      }
+     ],
+     "score": "2 - 1",
+     "url": "https://www.vlr.gg/706371/g2-esports-vs-sentinels-vct-2026-americas-stage-2-w3"
+    },
+    {
+     "event": "",
+     "date": "2026/07/30",
+     "teams": [
+      {
+       "name": "",
+       "is_winner": true
+      },
+      {
+       "name": "KRÜ Esports",
+       "is_winner": false
+      }
+     ],
+     "score": "2 - 0",
+     "url": "https://www.vlr.gg/706364/kr-esports-vs-g2-esports-vct-2026-americas-stage-2-w3"
+    },
+    {
+     "event": "",
+     "date": "2026/07/25",
+     "teams": [
+      {
+       "name": "",
+       "is_winner": true
+      },
+      {
+       "name": "Cloud9",
+       "is_winner": false
+      }
+     ],
+     "score": "2 - 0",
+     "url": "https://www.vlr.gg/706359/g2-esports-vs-cloud9-vct-2026-americas-stage-2-w2"
+    },
+    {
+     "event": "",
+     "date": "2026/07/18",
+     "teams": [
+      {
+       "name": "",
+       "is_winner": false
+      },
+      {
+       "name": "100 Thieves",
+       "is_winner": true
+      }
+     ],
+     "score": "1 - 2",
+     "url": "https://www.vlr.gg/706353/g2-esports-vs-100-thieves-vct-2026-americas-stage-2-w1"
+    },
+    {
+     "event": "",
+     "date": "2026/07/07",
+     "teams": [
+      {
+       "name": "",
+       "is_winner": false
+      },
+      {
+       "name": "Nongshim RedForce",
+       "is_winner": true
+      }
+     ],
+     "score": "1 - 2",
+     "url": "https://www.vlr.gg/706768/nongshim-redforce-vs-g2-esports-esports-world-cup-2026-decider-c"
+    },
+    {
+     "event": "",
+     "date": "2026/07/31",
+     "teams": [
+      {
+       "name": "",
+       "is_winner": true
+      },
+      {
+       "name": "Cloud9",
+       "is_winner": false
+      }
+     ],
+     "score": "2 - 1",
+     "url": "https://www.vlr.gg/706366/cloud9-vs-loud-vct-2026-americas-stage-2-w3"
+    },
+    {
+     "event": "",
+     "date": "2026/07/25",
+     "teams": [
+      {
+       "name": "",
+       "is_winner": false
+      },
+      {
+       "name": "Sentinels",
+       "is_winner": true
+      }
+     ],
+     "score": "0 - 2",
+     "url": "https://www.vlr.gg/706360/sentinels-vs-loud-vct-2026-americas-stage-2-w2"
+    },
+    {
+     "event": "",
+     "date": "2026/07/17",
+     "teams": [
+      {
+       "name": "",
+       "is_winner": true
+      },
+      {
+       "name": "KRÜ Esports",
+       "is_winner": false
+      }
+     ],
+     "score": "2 - 1",
+     "url": "https://www.vlr.gg/706352/kr-esports-vs-loud-vct-2026-americas-stage-2-w1"
+    },
+    {
+     "event": "",
+     "date": "2026/05/31",
+     "teams": [
+      {
+       "name": "",
+       "is_winner": false
+      },
+      {
+       "name": "NRG",
+       "is_winner": true
+      }
+     ],
+     "score": "0 - 3",
+     "url": "https://www.vlr.gg/681338/loud-vs-nrg-esports-world-cup-2026-americas-qualifier-stage-2-lbf"
+    },
+    {
+     "event": "",
+     "date": "2026/05/30",
+     "teams": [
+      {
+       "name": "",
+       "is_winner": true
+      },
+      {
+       "name": "Sentinels",
+       "is_winner": false
+      }
+     ],
+     "score": "2 - 1",
+     "url": "https://www.vlr.gg/681336/loud-vs-sentinels-esports-world-cup-2026-americas-qualifier-stage-2-lr2"
+    }
+   ],
+   "performance": {
+    "kill_matrix": [
+     {
+      "player": "",
+      "kills_vs": {
+       "1": "Darker LOUD",
+       "2": "erde LOUD",
+       "3": "DaviH LOUD",
+       "4": "lukxo LOUD",
+       "5": "tkzin LOUD"
+      }
+     },
+     {
+      "player": "jawgemo G2",
+      "kills_vs": {
+       "1": "3 11 -8",
+       "2": "6 4 +2",
+       "3": "4 5 -1",
+       "4": "4 10 -6",
+       "5": "6 8 -2"
+      }
+     },
+     {
+      "player": "leaf G2",
+      "kills_vs": {
+       "1": "6 4 +2",
+       "2": "2 4 -2",
+       "3": "3 9 -6",
+       "4": "1 11 -10",
+       "5": "4 6 -2"
+      }
+     },
+     {
+      "player": "trent G2",
+      "kills_vs": {
+       "1": "6 4 +2",
+       "2": "3 7 -4",
+       "3": "4 5 -1",
+       "4": "4 7 -3",
+       "5": "9 7 +2"
+      }
+     },
+     {
+      "player": "valyn G2",
+      "kills_vs": {
+       "1": "5 10 -5",
+       "2": "7 4 +3",
+       "3": "4 4 +0",
+       "4": "5 6 -1",
+       "5": "10 8 +2"
+      }
+     },
+     {
+      "player": "BABYBAY G2",
+      "kills_vs": {
+       "1": "5 3 +2",
+       "2": "6 8 -2",
+       "3": "7 5 +2",
+       "4": "8 11 -3",
+       "5": "2 8 -6"
+      }
+     }
+    ],
+    "advanced_stats": [
+     {
+      "player": "BABYBAY G2",
+      "1": "",
+      "2": "8",
+      "3": "",
+      "4": "",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "11": "50",
+      "12": "1",
+      "13": "0"
+     },
+     {
+      "player": "valyn G2",
+      "1": "",
+      "2": "3",
+      "3": "",
+      "4": "2",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "11": "41",
+      "12": "1",
+      "13": "0"
+     },
+     {
+      "player": "jawgemo G2",
+      "1": "",
+      "2": "5",
+      "3": "1",
+      "4": "",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "11": "43",
+      "12": "0",
+      "13": "0"
+     },
+     {
+      "player": "leaf G2",
+      "1": "",
+      "2": "2",
+      "3": "1",
+      "4": "",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "11": "29",
+      "12": "3",
+      "13": "1"
+     },
+     {
+      "player": "trent G2",
+      "1": "",
+      "2": "6",
+      "3": "1",
+      "4": "",
+      "5": "",
+      "6": "3",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "11": "44",
+      "12": "8",
+      "13": "2"
+     },
+     {
+      "player": "Darker LOUD",
+      "1": "",
+      "2": "6",
+      "3": "1",
+      "4": "",
+      "5": "",
+      "6": "2",
+      "7": "1",
+      "8": "",
+      "9": "",
+      "10": "",
+      "11": "52",
+      "12": "2",
+      "13": "1"
+     },
+     {
+      "player": "DaviH LOUD",
+      "1": "",
+      "2": "5",
+      "3": "1",
+      "4": "1",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "11": "48",
+      "12": "13",
+      "13": "2"
+     },
+     {
+      "player": "lukxo LOUD",
+      "1": "",
+      "2": "8",
+      "3": "3",
+      "4": "",
+      "5": "1",
+      "6": "1",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "11": "68",
+      "12": "0",
+      "13": "1"
+     },
+     {
+      "player": "erde LOUD",
+      "1": "",
+      "2": "3",
+      "3": "3",
+      "4": "",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "11": "55",
+      "12": "6",
+      "13": "1"
+     },
+     {
+      "player": "tkzin LOUD",
+      "1": "",
+      "2": "9",
+      "3": "",
+      "4": "1",
+      "5": "",
+      "6": "",
+      "7": "",
+      "8": "",
+      "9": "",
+      "10": "",
+      "11": "61",
+      "12": "1",
+      "13": "0"
+     }
+    ],
+    "by_map": [
+     {
+      "game_id": "275139",
+      "kill_matrix": [
+       {
+        "player": "",
+        "kills_vs": {
+         "1": "Darker LOUD",
+         "2": "erde LOUD",
+         "3": "DaviH LOUD",
+         "4": "lukxo LOUD",
+         "5": "tkzin LOUD"
+        }
+       },
+       {
+        "player": "jawgemo G2",
+        "kills_vs": {
+         "1": "3 11 -8",
+         "2": "6 4 +2",
+         "3": "4 5 -1",
+         "4": "4 10 -6",
+         "5": "6 8 -2"
+        }
+       },
+       {
+        "player": "leaf G2",
+        "kills_vs": {
+         "1": "6 4 +2",
+         "2": "2 4 -2",
+         "3": "3 9 -6",
+         "4": "1 11 -10",
+         "5": "4 6 -2"
+        }
+       },
+       {
+        "player": "trent G2",
+        "kills_vs": {
+         "1": "6 4 +2",
+         "2": "3 7 -4",
+         "3": "4 5 -1",
+         "4": "4 7 -3",
+         "5": "9 7 +2"
+        }
+       },
+       {
+        "player": "valyn G2",
+        "kills_vs": {
+         "1": "5 10 -5",
+         "2": "7 4 +3",
+         "3": "4 4 +0",
+         "4": "5 6 -1",
+         "5": "10 8 +2"
+        }
+       },
+       {
+        "player": "BABYBAY G2",
+        "kills_vs": {
+         "1": "5 3 +2",
+         "2": "6 8 -2",
+         "3": "7 5 +2",
+         "4": "8 11 -3",
+         "5": "2 8 -6"
+        }
+       }
+      ],
+      "advanced_stats": [
+       {
+        "player": "BABYBAY G2",
+        "1": "",
+        "2": "8",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "50",
+        "12": "1",
+        "13": "0"
+       },
+       {
+        "player": "valyn G2",
+        "1": "",
+        "2": "3",
+        "3": "",
+        "4": "2",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "41",
+        "12": "1",
+        "13": "0"
+       },
+       {
+        "player": "jawgemo G2",
+        "1": "",
+        "2": "5",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "43",
+        "12": "0",
+        "13": "0"
+       },
+       {
+        "player": "leaf G2",
+        "1": "",
+        "2": "2",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "29",
+        "12": "3",
+        "13": "1"
+       },
+       {
+        "player": "trent G2",
+        "1": "",
+        "2": "6",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "3",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "44",
+        "12": "8",
+        "13": "2"
+       },
+       {
+        "player": "Darker LOUD",
+        "1": "",
+        "2": "6",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "2",
+        "7": "1",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "52",
+        "12": "2",
+        "13": "1"
+       },
+       {
+        "player": "DaviH LOUD",
+        "1": "",
+        "2": "5",
+        "3": "1",
+        "4": "1",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "48",
+        "12": "13",
+        "13": "2"
+       },
+       {
+        "player": "lukxo LOUD",
+        "1": "",
+        "2": "8",
+        "3": "3",
+        "4": "",
+        "5": "1",
+        "6": "1",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "68",
+        "12": "0",
+        "13": "1"
+       },
+       {
+        "player": "erde LOUD",
+        "1": "",
+        "2": "3",
+        "3": "3",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "55",
+        "12": "6",
+        "13": "1"
+       },
+       {
+        "player": "tkzin LOUD",
+        "1": "",
+        "2": "9",
+        "3": "",
+        "4": "1",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "61",
+        "12": "1",
+        "13": "0"
+       }
+      ]
+     },
+     {
+      "game_id": "275140",
+      "kill_matrix": [
+       {
+        "player": "",
+        "kills_vs": {
+         "1": "Darker LOUD",
+         "2": "erde LOUD",
+         "3": "DaviH LOUD",
+         "4": "lukxo LOUD",
+         "5": "tkzin LOUD"
+        }
+       },
+       {
+        "player": "jawgemo G2",
+        "kills_vs": {
+         "1": "3 11 -8",
+         "2": "6 4 +2",
+         "3": "4 5 -1",
+         "4": "4 10 -6",
+         "5": "6 8 -2"
+        }
+       },
+       {
+        "player": "leaf G2",
+        "kills_vs": {
+         "1": "6 4 +2",
+         "2": "2 4 -2",
+         "3": "3 9 -6",
+         "4": "1 11 -10",
+         "5": "4 6 -2"
+        }
+       },
+       {
+        "player": "trent G2",
+        "kills_vs": {
+         "1": "6 4 +2",
+         "2": "3 7 -4",
+         "3": "4 5 -1",
+         "4": "4 7 -3",
+         "5": "9 7 +2"
+        }
+       },
+       {
+        "player": "valyn G2",
+        "kills_vs": {
+         "1": "5 10 -5",
+         "2": "7 4 +3",
+         "3": "4 4 +0",
+         "4": "5 6 -1",
+         "5": "10 8 +2"
+        }
+       },
+       {
+        "player": "BABYBAY G2",
+        "kills_vs": {
+         "1": "5 3 +2",
+         "2": "6 8 -2",
+         "3": "7 5 +2",
+         "4": "8 11 -3",
+         "5": "2 8 -6"
+        }
+       }
+      ],
+      "advanced_stats": [
+       {
+        "player": "BABYBAY G2",
+        "1": "",
+        "2": "8",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "50",
+        "12": "1",
+        "13": "0"
+       },
+       {
+        "player": "valyn G2",
+        "1": "",
+        "2": "3",
+        "3": "",
+        "4": "2",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "41",
+        "12": "1",
+        "13": "0"
+       },
+       {
+        "player": "jawgemo G2",
+        "1": "",
+        "2": "5",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "43",
+        "12": "0",
+        "13": "0"
+       },
+       {
+        "player": "leaf G2",
+        "1": "",
+        "2": "2",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "29",
+        "12": "3",
+        "13": "1"
+       },
+       {
+        "player": "trent G2",
+        "1": "",
+        "2": "6",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "3",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "44",
+        "12": "8",
+        "13": "2"
+       },
+       {
+        "player": "Darker LOUD",
+        "1": "",
+        "2": "6",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "2",
+        "7": "1",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "52",
+        "12": "2",
+        "13": "1"
+       },
+       {
+        "player": "DaviH LOUD",
+        "1": "",
+        "2": "5",
+        "3": "1",
+        "4": "1",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "48",
+        "12": "13",
+        "13": "2"
+       },
+       {
+        "player": "lukxo LOUD",
+        "1": "",
+        "2": "8",
+        "3": "3",
+        "4": "",
+        "5": "1",
+        "6": "1",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "68",
+        "12": "0",
+        "13": "1"
+       },
+       {
+        "player": "erde LOUD",
+        "1": "",
+        "2": "3",
+        "3": "3",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "55",
+        "12": "6",
+        "13": "1"
+       },
+       {
+        "player": "tkzin LOUD",
+        "1": "",
+        "2": "9",
+        "3": "",
+        "4": "1",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "61",
+        "12": "1",
+        "13": "0"
+       }
+      ]
+     },
+     {
+      "game_id": "275141",
+      "kill_matrix": [
+       {
+        "player": "",
+        "kills_vs": {
+         "1": "Darker LOUD",
+         "2": "erde LOUD",
+         "3": "DaviH LOUD",
+         "4": "lukxo LOUD",
+         "5": "tkzin LOUD"
+        }
+       },
+       {
+        "player": "jawgemo G2",
+        "kills_vs": {
+         "1": "3 11 -8",
+         "2": "6 4 +2",
+         "3": "4 5 -1",
+         "4": "4 10 -6",
+         "5": "6 8 -2"
+        }
+       },
+       {
+        "player": "leaf G2",
+        "kills_vs": {
+         "1": "6 4 +2",
+         "2": "2 4 -2",
+         "3": "3 9 -6",
+         "4": "1 11 -10",
+         "5": "4 6 -2"
+        }
+       },
+       {
+        "player": "trent G2",
+        "kills_vs": {
+         "1": "6 4 +2",
+         "2": "3 7 -4",
+         "3": "4 5 -1",
+         "4": "4 7 -3",
+         "5": "9 7 +2"
+        }
+       },
+       {
+        "player": "valyn G2",
+        "kills_vs": {
+         "1": "5 10 -5",
+         "2": "7 4 +3",
+         "3": "4 4 +0",
+         "4": "5 6 -1",
+         "5": "10 8 +2"
+        }
+       },
+       {
+        "player": "BABYBAY G2",
+        "kills_vs": {
+         "1": "5 3 +2",
+         "2": "6 8 -2",
+         "3": "7 5 +2",
+         "4": "8 11 -3",
+         "5": "2 8 -6"
+        }
+       }
+      ],
+      "advanced_stats": [
+       {
+        "player": "BABYBAY G2",
+        "1": "",
+        "2": "8",
+        "3": "",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "50",
+        "12": "1",
+        "13": "0"
+       },
+       {
+        "player": "valyn G2",
+        "1": "",
+        "2": "3",
+        "3": "",
+        "4": "2",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "41",
+        "12": "1",
+        "13": "0"
+       },
+       {
+        "player": "jawgemo G2",
+        "1": "",
+        "2": "5",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "43",
+        "12": "0",
+        "13": "0"
+       },
+       {
+        "player": "leaf G2",
+        "1": "",
+        "2": "2",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "29",
+        "12": "3",
+        "13": "1"
+       },
+       {
+        "player": "trent G2",
+        "1": "",
+        "2": "6",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "3",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "44",
+        "12": "8",
+        "13": "2"
+       },
+       {
+        "player": "Darker LOUD",
+        "1": "",
+        "2": "6",
+        "3": "1",
+        "4": "",
+        "5": "",
+        "6": "2",
+        "7": "1",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "52",
+        "12": "2",
+        "13": "1"
+       },
+       {
+        "player": "DaviH LOUD",
+        "1": "",
+        "2": "5",
+        "3": "1",
+        "4": "1",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "48",
+        "12": "13",
+        "13": "2"
+       },
+       {
+        "player": "lukxo LOUD",
+        "1": "",
+        "2": "8",
+        "3": "3",
+        "4": "",
+        "5": "1",
+        "6": "1",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "68",
+        "12": "0",
+        "13": "1"
+       },
+       {
+        "player": "erde LOUD",
+        "1": "",
+        "2": "3",
+        "3": "3",
+        "4": "",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "55",
+        "12": "6",
+        "13": "1"
+       },
+       {
+        "player": "tkzin LOUD",
+        "1": "",
+        "2": "9",
+        "3": "",
+        "4": "1",
+        "5": "",
+        "6": "",
+        "7": "",
+        "8": "",
+        "9": "",
+        "10": "",
+        "11": "61",
+        "12": "1",
+        "13": "0"
+       }
+      ]
+     }
+    ]
+   },
+   "economy": [
+    {
+     "Team": "G2",
+     "Pistol": "1/2",
+     "Conv.": "1/1",
+     "Bonus": "0/1",
+     "On Eco <10k: vs. Eco": "",
+     "On Eco <10k: vs. Half": "",
+     "On Eco <10k: vs. Full": "1/1",
+     "On Half buy 10–18k: vs. Eco": "",
+     "On Half buy 10–18k: vs. Half": "",
+     "On Half buy 10–18k: vs. Full": "0/1",
+     "On Full buy 18k+: vs. Eco": "2/2",
+     "On Full buy 18k+: vs. Half": "",
+     "On Full buy 18k+: vs. Full": "6/14"
+    },
+    {
+     "Team": "LOUD",
+     "Pistol": "1/2",
+     "Conv.": "0/1",
+     "Bonus": "",
+     "On Eco <10k: vs. Eco": "",
+     "On Eco <10k: vs. Half": "",
+     "On Eco <10k: vs. Full": "0/2",
+     "On Half buy 10–18k: vs. Eco": "",
+     "On Half buy 10–18k: vs. Half": "",
+     "On Half buy 10–18k: vs. Full": "",
+     "On Full buy 18k+: vs. Eco": "0/1",
+     "On Full buy 18k+: vs. Half": "1/1",
+     "On Full buy 18k+: vs. Full": "8/14"
+    }
+   ],
+   "economy_by_map": [
+    {
+     "game_id": "275139",
+     "rows": [
+      {
+       "Team": "G2",
+       "Pistol": "1/2",
+       "Conv.": "1/1",
+       "Bonus": "0/1",
+       "On Eco <10k: vs. Eco": "",
+       "On Eco <10k: vs. Half": "",
+       "On Eco <10k: vs. Full": "1/1",
+       "On Half buy 10–18k: vs. Eco": "",
+       "On Half buy 10–18k: vs. Half": "",
+       "On Half buy 10–18k: vs. Full": "0/1",
+       "On Full buy 18k+: vs. Eco": "2/2",
+       "On Full buy 18k+: vs. Half": "",
+       "On Full buy 18k+: vs. Full": "6/14"
+      },
+      {
+       "Team": "LOUD",
+       "Pistol": "1/2",
+       "Conv.": "0/1",
+       "Bonus": "",
+       "On Eco <10k: vs. Eco": "",
+       "On Eco <10k: vs. Half": "",
+       "On Eco <10k: vs. Full": "0/2",
+       "On Half buy 10–18k: vs. Eco": "",
+       "On Half buy 10–18k: vs. Half": "",
+       "On Half buy 10–18k: vs. Full": "",
+       "On Full buy 18k+: vs. Eco": "0/1",
+       "On Full buy 18k+: vs. Half": "1/1",
+       "On Full buy 18k+: vs. Full": "8/14"
+      }
+     ]
+    },
+    {
+     "game_id": "275140",
+     "rows": [
+      {
+       "Team": "G2",
+       "Pistol": "0/2",
+       "Conv.": "",
+       "Bonus": "",
+       "On Eco <10k: vs. Eco": "",
+       "On Eco <10k: vs. Half": "",
+       "On Eco <10k: vs. Full": "0/1",
+       "On Half buy 10–18k: vs. Eco": "",
+       "On Half buy 10–18k: vs. Half": "",
+       "On Half buy 10–18k: vs. Full": "0/4",
+       "On Full buy 18k+: vs. Eco": "",
+       "On Full buy 18k+: vs. Half": "",
+       "On Full buy 18k+: vs. Full": "1/4"
+      },
+      {
+       "Team": "LOUD",
+       "Pistol": "2/2",
+       "Conv.": "2/2",
+       "Bonus": "1/2",
+       "On Eco <10k: vs. Eco": "",
+       "On Eco <10k: vs. Half": "",
+       "On Eco <10k: vs. Full": "",
+       "On Half buy 10–18k: vs. Eco": "",
+       "On Half buy 10–18k: vs. Half": "",
+       "On Half buy 10–18k: vs. Full": "",
+       "On Full buy 18k+: vs. Eco": "1/1",
+       "On Full buy 18k+: vs. Half": "4/4",
+       "On Full buy 18k+: vs. Full": "3/4"
+      }
+     ]
+    },
+    {
+     "game_id": "275141",
+     "rows": []
     }
    ]
   }
