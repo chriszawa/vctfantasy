@@ -1,0 +1,809 @@
+{
+ "status": 200,
+ "segments": [
+  {
+   "active": [
+    {
+     "id": "29242",
+     "url": "https://www.vlr.gg/player/29242/erde",
+     "alias": "erde",
+     "real_name": "Roberto Lobos",
+     "avatar": "https://www.vlr.gg/img/base/ph/sil.png",
+     "country": "cl",
+     "is_captain": true,
+     "role": "",
+     "is_staff": false
+    },
+    {
+     "id": "28716",
+     "url": "https://www.vlr.gg/player/28716/lukxo",
+     "alias": "lukxo",
+     "real_name": "Lucca Travaioli",
+     "avatar": "https://owcdn.net/img/69e023fe3a5b8.png",
+     "country": "br",
+     "is_captain": false,
+     "role": "",
+     "is_staff": false
+    },
+    {
+     "id": "10885",
+     "url": "https://www.vlr.gg/player/10885/davih",
+     "alias": "DaviH",
+     "real_name": "David Cruz",
+     "avatar": "https://owcdn.net/img/69a8be6cb643d.png",
+     "country": "pt",
+     "is_captain": false,
+     "role": "",
+     "is_staff": false
+    },
+    {
+     "id": "10557",
+     "url": "https://www.vlr.gg/player/10557/darker",
+     "alias": "Darker",
+     "real_name": "Sebastián Castro Cicuamia",
+     "avatar": "https://owcdn.net/img/69e02450abf75.png",
+     "country": "co",
+     "is_captain": false,
+     "role": "",
+     "is_staff": false
+    },
+    {
+     "id": "41224",
+     "url": "https://www.vlr.gg/player/41224/tkzin",
+     "alias": "tkzin",
+     "real_name": "Enzo Zimiani",
+     "avatar": "https://owcdn.net/img/69e655026b8a8.png",
+     "country": "br",
+     "is_captain": false,
+     "role": "loan",
+     "is_staff": false
+    },
+    {
+     "id": "57335",
+     "url": "https://www.vlr.gg/player/57335/wenty",
+     "alias": "Wenty",
+     "real_name": "Carlos Lira Portela",
+     "avatar": "https://owcdn.net/img/6889dbe04ee67.png",
+     "country": "br",
+     "is_captain": false,
+     "role": "manager",
+     "is_staff": false
+    },
+    {
+     "id": "20833",
+     "url": "https://www.vlr.gg/player/20833/romanilly",
+     "alias": "Romanilly",
+     "real_name": "Gonzalo Manzano",
+     "avatar": "https://owcdn.net/img/69e023eeafb62.png",
+     "country": "ar",
+     "is_captain": false,
+     "role": "head coach",
+     "is_staff": false
+    },
+    {
+     "id": "5203",
+     "url": "https://www.vlr.gg/player/5203/bati",
+     "alias": "Bati",
+     "real_name": "Miguel Batista",
+     "avatar": "https://owcdn.net/img/69e024e2a1f17.png",
+     "country": "pt",
+     "is_captain": false,
+     "role": "assistant coach",
+     "is_staff": false
+    },
+    {
+     "id": "57334",
+     "url": "https://www.vlr.gg/player/57334/bajerski",
+     "alias": "bajerski",
+     "real_name": "Lucas Bajerski Pereira",
+     "avatar": "https://owcdn.net/img/6889c7fc2b646.png",
+     "country": "br",
+     "is_captain": false,
+     "role": "performance coach",
+     "is_staff": false
+    }
+   ],
+   "staff": [],
+   "former": [],
+   "benched": [],
+   "transactions": [
+    {
+     "date": "Thong Chern Kwi",
+     "action": "leave",
+     "player": {
+      "name": "balax",
+      "id": "51670",
+      "url": "https://www.vlr.gg/player/51670/thong-chern-kwi",
+      "avatar": "",
+      "country": "sg"
+     },
+     "role": ""
+    },
+    {
+     "date": "Thong Chern Kwi",
+     "action": "join",
+     "player": {
+      "name": "balax",
+      "id": "51670",
+      "url": "https://www.vlr.gg/player/51670/thong-chern-kwi",
+      "avatar": "",
+      "country": "sg"
+     },
+     "role": "https://x.com/totallynotbalax/status/2101219751666368770"
+    },
+    {
+     "date": "Cauan Pereira",
+     "action": "leave",
+     "player": {
+      "name": "cauanzin",
+      "id": "6193",
+      "url": "https://www.vlr.gg/player/6193/cauan-pereira",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/cauanzinvlr/status/2099982364893954278"
+    },
+    {
+     "date": "David Cruz",
+     "action": "join",
+     "player": {
+      "name": "DaviH",
+      "id": "10885",
+      "url": "https://www.vlr.gg/player/10885/david-cruz",
+      "avatar": "",
+      "country": "pt"
+     },
+     "role": "https://x.com/LOUDgg/status/2077862048965484828"
+    },
+    {
+     "date": "Enzo Zimiani",
+     "action": "join",
+     "player": {
+      "name": "tkzin",
+      "id": "41224",
+      "url": "https://www.vlr.gg/player/41224/enzo-zimiani",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/LOUDgg/status/2077525885415043419?s=20"
+    },
+    {
+     "date": "Leandro Moreno",
+     "action": "leave",
+     "player": {
+      "name": "Virtyy",
+      "id": "3983",
+      "url": "https://www.vlr.gg/player/3983/leandro-moreno",
+      "avatar": "",
+      "country": "do"
+     },
+     "role": "https://x.com/LOUDgg/status/2077138844919472178?s=20"
+    },
+    {
+     "date": "Bryan Luna",
+     "action": "leave",
+     "player": {
+      "name": "pANcada",
+      "id": "683",
+      "url": "https://www.vlr.gg/player/683/bryan-luna",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/LOUDgg/status/2051410089999822975"
+    },
+    {
+     "date": "Miguel Batista",
+     "action": "join",
+     "player": {
+      "name": "Bati",
+      "id": "5203",
+      "url": "https://www.vlr.gg/player/5203/miguel-batista",
+      "avatar": "",
+      "country": "pt"
+     },
+     "role": "https://x.com/LOUDgg/status/2039464201849278592"
+    },
+    {
+     "date": "Bryan Luna",
+     "action": "inactive",
+     "player": {
+      "name": "pANcada",
+      "id": "683",
+      "url": "https://www.vlr.gg/player/683/bryan-luna",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Roberto Lobos",
+     "action": "join",
+     "player": {
+      "name": "erde",
+      "id": "29242",
+      "url": "https://www.vlr.gg/player/29242/roberto-lobos",
+      "avatar": "",
+      "country": "cl"
+     },
+     "role": "https://x.com/LOUDgg/status/2029315774108614696"
+    },
+    {
+     "date": "Tiago Táparo",
+     "action": "leave",
+     "player": {
+      "name": "Tigas",
+      "id": "15227",
+      "url": "https://www.vlr.gg/player/15227/tiago-t-paro",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Robbie Boerkamp",
+     "action": "leave",
+     "player": {
+      "name": "RobbieBk",
+      "id": "5893",
+      "url": "https://www.vlr.gg/player/5893/robbie-boerkamp",
+      "avatar": "",
+      "country": "nl"
+     },
+     "role": "https://x.com/LOUDgg/status/2001725529821712769"
+    },
+    {
+     "date": "Gonzalo Manzano",
+     "action": "join",
+     "player": {
+      "name": "Romanilly",
+      "id": "20833",
+      "url": "https://www.vlr.gg/player/20833/gonzalo-manzano",
+      "avatar": "",
+      "country": "ar"
+     },
+     "role": "https://x.com/LOUDgg/status/1997352743346770307"
+    },
+    {
+     "date": "Sebastián Castro Cicuamia",
+     "action": "join",
+     "player": {
+      "name": "Darker",
+      "id": "10557",
+      "url": "https://www.vlr.gg/player/10557/sebasti-n-castro-cicuamia",
+      "avatar": "",
+      "country": "co"
+     },
+     "role": "https://x.com/LOUDgg/status/1997063765246742641?t=Juko9PTKE5rR5l0P-2s0pA&s=19"
+    },
+    {
+     "date": "Kaan Taşpınar",
+     "action": "leave",
+     "player": {
+      "name": "Leader",
+      "id": "20945",
+      "url": "https://www.vlr.gg/player/20945/kaan-ta-p-nar",
+      "avatar": "",
+      "country": "tr"
+     },
+     "role": "https://x.com/LeaderVALO/status/1986500456038998421?t=WjM1_2Ix2yUoR-YRm8LKOw&s=19"
+    },
+    {
+     "date": "Kaan Taşpınar",
+     "action": "inactive",
+     "player": {
+      "name": "Leader",
+      "id": "20945",
+      "url": "https://www.vlr.gg/player/20945/kaan-ta-p-nar",
+      "avatar": "",
+      "country": "tr"
+     },
+     "role": ""
+    },
+    {
+     "date": "Matheus Dourado",
+     "action": "leave",
+     "player": {
+      "name": "mat",
+      "id": "5354",
+      "url": "https://www.vlr.gg/player/5354/matheus-dourado",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/matvlrr/status/1976748286036857135"
+    },
+    {
+     "date": "Robbie Boerkamp",
+     "action": "inactive",
+     "player": {
+      "name": "RobbieBk",
+      "id": "5893",
+      "url": "https://www.vlr.gg/player/5893/robbie-boerkamp",
+      "avatar": "",
+      "country": "nl"
+     },
+     "role": ""
+    },
+    {
+     "date": "Robbie Boerkamp",
+     "action": "join",
+     "player": {
+      "name": "RobbieBk",
+      "id": "5893",
+      "url": "https://www.vlr.gg/player/5893/robbie-boerkamp",
+      "avatar": "",
+      "country": "nl"
+     },
+     "role": "https://x.com/LOUDgg/status/1931505891905581337?t=t8-Hsq5_t3a7NOxA13GWKg&s=19"
+    },
+    {
+     "date": "Leandro Moreno",
+     "action": "join",
+     "player": {
+      "name": "Virtyy",
+      "id": "3983",
+      "url": "https://www.vlr.gg/player/3983/leandro-moreno",
+      "avatar": "",
+      "country": "do"
+     },
+     "role": "https://x.com/LOUDgg/status/1931505891905581337?t=t8-Hsq5_t3a7NOxA13GWKg&s=19"
+    },
+    {
+     "date": "Kaan Taşpınar",
+     "action": "join",
+     "player": {
+      "name": "Leader",
+      "id": "20945",
+      "url": "https://www.vlr.gg/player/20945/kaan-ta-p-nar",
+      "avatar": "",
+      "country": "tr"
+     },
+     "role": "https://x.com/LOUDgg/status/1930383000732078513"
+    },
+    {
+     "date": "Jordan Nunes",
+     "action": "leave",
+     "player": {
+      "name": "stkJ",
+      "id": "5709",
+      "url": "https://www.vlr.gg/player/5709/jordan-nunes",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/stkvlr/status/1925918401597182419"
+    },
+    {
+     "date": "Douglas Silva",
+     "action": "leave",
+     "player": {
+      "name": "dgzin",
+      "id": "8873",
+      "url": "https://www.vlr.gg/player/8873/douglas-silva",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/LOUDgg/status/1923845823970017516"
+    },
+    {
+     "date": "Arthur Andrade",
+     "action": "leave",
+     "player": {
+      "name": "tuyz",
+      "id": "2408",
+      "url": "https://www.vlr.gg/player/2408/arthur-andrade",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/LOUDgg/status/1923160253408932043?t=0h3HThzc6ZNrKUcDmsvO1Q&s=33"
+    },
+    {
+     "date": "Jordan Nunes",
+     "action": "inactive",
+     "player": {
+      "name": "stkJ",
+      "id": "5709",
+      "url": "https://www.vlr.gg/player/5709/jordan-nunes",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Vínicius Gonçalves",
+     "action": "leave",
+     "player": {
+      "name": "v1nny",
+      "id": "1586",
+      "url": "https://www.vlr.gg/player/1586/v-nicius-gon-alves",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/LOUDgg/status/1917597848994037972?t=tEwdXg22EKfyhg0ZPSGJFA&s=19"
+    },
+    {
+     "date": "Tiago Táparo",
+     "action": "join",
+     "player": {
+      "name": "Tigas",
+      "id": "15227",
+      "url": "https://www.vlr.gg/player/15227/tiago-t-paro",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/taparotiago/status/1891586581913301156"
+    },
+    {
+     "date": "Lucas Bajerski Pereira",
+     "action": "join",
+     "player": {
+      "name": "bajerski",
+      "id": "57334",
+      "url": "https://www.vlr.gg/player/57334/lucas-bajerski-pereira",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Lucca Travaioli",
+     "action": "join",
+     "player": {
+      "name": "lukxo",
+      "id": "28716",
+      "url": "https://www.vlr.gg/player/28716/lucca-travaioli",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/LOUDgg/status/1879650060583227399"
+    },
+    {
+     "date": "Carlos Lira Portela",
+     "action": "join",
+     "player": {
+      "name": "Wenty",
+      "id": "57335",
+      "url": "https://www.vlr.gg/player/57335/carlos-lira-portela",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/misterwenty/status/1866595292105281883"
+    },
+    {
+     "date": "Jordan Nunes",
+     "action": "join",
+     "player": {
+      "name": "stkJ",
+      "id": "5709",
+      "url": "https://www.vlr.gg/player/5709/jordan-nunes",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Matheus Dourado",
+     "action": "join",
+     "player": {
+      "name": "mat",
+      "id": "5354",
+      "url": "https://www.vlr.gg/player/5354/matheus-dourado",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Jordan Nunes",
+     "action": "leave",
+     "player": {
+      "name": "stkJ",
+      "id": "5709",
+      "url": "https://www.vlr.gg/player/5709/jordan-nunes",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Vínicius Gonçalves",
+     "action": "join",
+     "player": {
+      "name": "v1nny",
+      "id": "1586",
+      "url": "https://www.vlr.gg/player/1586/v-nicius-gon-alves",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/LOUDgg/status/1857908161086107745?t=LN8kL8cE-EdWWvVXvTMtQA&s=19"
+    },
+    {
+     "date": "Douglas Silva",
+     "action": "join",
+     "player": {
+      "name": "dgzin",
+      "id": "8873",
+      "url": "https://www.vlr.gg/player/8873/douglas-silva",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/LOUDgg/status/1857908161086107745?t=LN8kL8cE-EdWWvVXvTMtQA&s=19"
+    },
+    {
+     "date": "Matias Delipetro",
+     "action": "leave",
+     "player": {
+      "name": "saadhak",
+      "id": "727",
+      "url": "https://www.vlr.gg/player/727/matias-delipetro",
+      "avatar": "",
+      "country": "ar"
+     },
+     "role": ""
+    },
+    {
+     "date": "Felipe de Loyola Basso",
+     "action": "leave",
+     "player": {
+      "name": "Less",
+      "id": "8447",
+      "url": "https://www.vlr.gg/player/8447/felipe-de-loyola-basso",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/LOUDgg/status/1846672665819730018"
+    },
+    {
+     "date": "Pedro Lopes",
+     "action": "leave",
+     "player": {
+      "name": "peu",
+      "id": "25910",
+      "url": "https://www.vlr.gg/player/25910/pedro-lopes",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/peu_lg/status/1822015175211483164"
+    },
+    {
+     "date": "Bryan Luna",
+     "action": "join",
+     "player": {
+      "name": "pANcada",
+      "id": "683",
+      "url": "https://www.vlr.gg/player/683/bryan-luna",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://twitter.com/LOUDgg/status/1801011831567204605?s=19"
+    },
+    {
+     "date": "Gabriel Lima",
+     "action": "leave",
+     "player": {
+      "name": "qck",
+      "id": "1575",
+      "url": "https://www.vlr.gg/player/1575/gabriel-lima",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://x.com/LOUDgg/status/1791967312498528371"
+    },
+    {
+     "date": "Gabriel Lima",
+     "action": "inactive",
+     "player": {
+      "name": "qck",
+      "id": "1575",
+      "url": "https://www.vlr.gg/player/1575/gabriel-lima",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Pedro Lopes",
+     "action": "join",
+     "player": {
+      "name": "peu",
+      "id": "25910",
+      "url": "https://www.vlr.gg/player/25910/pedro-lopes",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://twitter.com/LOUDgg/status/1720930952942129661?s=19"
+    },
+    {
+     "date": "Gabriel Lima",
+     "action": "join",
+     "player": {
+      "name": "qck",
+      "id": "1575",
+      "url": "https://www.vlr.gg/player/1575/gabriel-lima",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://twitter.com/LOUDgg/status/1720929054356848741?s=19"
+    },
+    {
+     "date": "Daniel Montaner",
+     "action": "leave",
+     "player": {
+      "name": "fRoD",
+      "id": "145",
+      "url": "https://www.vlr.gg/player/145/daniel-montaner",
+      "avatar": "",
+      "country": "us"
+     },
+     "role": "https://twitter.com/MIBR/status/1713691221816902100?s=19"
+    },
+    {
+     "date": "Erick Santos",
+     "action": "leave",
+     "player": {
+      "name": "aspas",
+      "id": "8480",
+      "url": "https://www.vlr.gg/player/8480/erick-santos",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://twitter.com/loud_aspas/status/1701249784126816639?t=BRMRQa_HXntJeiO5jQ6G8A&s=19"
+    },
+    {
+     "date": "Jordan Nunes",
+     "action": "join",
+     "player": {
+      "name": "stkJ",
+      "id": "5709",
+      "url": "https://www.vlr.gg/player/5709/jordan-nunes",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://twitter.com/LOUDgg/status/1590853804706398209"
+    },
+    {
+     "date": "Daniel Montaner",
+     "action": "join",
+     "player": {
+      "name": "fRoD",
+      "id": "145",
+      "url": "https://www.vlr.gg/player/145/daniel-montaner",
+      "avatar": "",
+      "country": "us"
+     },
+     "role": "https://twitter.com/OfficialfRoD/status/1590861654824472577"
+    },
+    {
+     "date": "Cauan Pereira",
+     "action": "join",
+     "player": {
+      "name": "cauanzin",
+      "id": "6193",
+      "url": "https://www.vlr.gg/player/6193/cauan-pereira",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://twitter.com/LOUDgg/status/1590852497207197697"
+    },
+    {
+     "date": "Arthur Andrade",
+     "action": "join",
+     "player": {
+      "name": "tuyz",
+      "id": "2408",
+      "url": "https://www.vlr.gg/player/2408/arthur-andrade",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://twitter.com/LOUDgg/status/1590852497207197697"
+    },
+    {
+     "date": "Gustavo Rossi",
+     "action": "leave",
+     "player": {
+      "name": "Sacy",
+      "id": "659",
+      "url": "https://www.vlr.gg/player/659/gustavo-rossi",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://twitter.com/Sentinels/status/1581360516600995840"
+    },
+    {
+     "date": "Bryan Luna",
+     "action": "leave",
+     "player": {
+      "name": "pANcada",
+      "id": "683",
+      "url": "https://www.vlr.gg/player/683/bryan-luna",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://twitter.com/Sentinels/status/1581360516600995840"
+    },
+    {
+     "date": "Matheus Tarasconi",
+     "action": "leave",
+     "player": {
+      "name": "bzkA",
+      "id": "940",
+      "url": "https://www.vlr.gg/player/940/matheus-tarasconi",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": "https://twitter.com/LOUDgg/status/1575893262388191235"
+    },
+    {
+     "date": "Matheus Tarasconi",
+     "action": "join",
+     "player": {
+      "name": "bzkA",
+      "id": "940",
+      "url": "https://www.vlr.gg/player/940/matheus-tarasconi",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Felipe de Loyola Basso",
+     "action": "join",
+     "player": {
+      "name": "Less",
+      "id": "8447",
+      "url": "https://www.vlr.gg/player/8447/felipe-de-loyola-basso",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Bryan Luna",
+     "action": "join",
+     "player": {
+      "name": "pANcada",
+      "id": "683",
+      "url": "https://www.vlr.gg/player/683/bryan-luna",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Matias Delipetro",
+     "action": "join",
+     "player": {
+      "name": "saadhak",
+      "id": "727",
+      "url": "https://www.vlr.gg/player/727/matias-delipetro",
+      "avatar": "",
+      "country": "ar"
+     },
+     "role": ""
+    },
+    {
+     "date": "Erick Santos",
+     "action": "join",
+     "player": {
+      "name": "aspas",
+      "id": "8480",
+      "url": "https://www.vlr.gg/player/8480/erick-santos",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    },
+    {
+     "date": "Gustavo Rossi",
+     "action": "join",
+     "player": {
+      "name": "Sacy",
+      "id": "659",
+      "url": "https://www.vlr.gg/player/659/gustavo-rossi",
+      "avatar": "",
+      "country": "br"
+     },
+     "role": ""
+    }
+   ]
+  }
+ ]
+}
