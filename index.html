@@ -100,6 +100,19 @@ nav a:hover{background:#ffffff0d}
 .org-head{display:flex;align-items:center;gap:12px}
 
 /* ---- boas-vindas ---- */
+.adm-teams{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.adm-team{display:flex;align-items:center;gap:10px;padding:10px;background:#ffffff08;border:1px solid #ffffff14}
+.adm-team .pv{width:40px;height:40px;display:grid;place-items:center;background:#0006;flex:0 0 auto}
+.adm-team .pv img{max-width:34px;max-height:34px}
+.adm-team b{display:block;font-size:13.5px}
+.adm-team label{font-size:12px;color:var(--red);cursor:pointer}
+.adm-team input{display:none}
+.adm-team.changed{border-color:var(--gold)}
+.adm-editor{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.adm-editor label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.adm-editor input,.adm-editor select{background:#ffffff0a;border:1px solid #ffffff1f;padding:8px 10px;color:var(--text);font-size:14px;text-transform:none;letter-spacing:0}
+.adm-editor .auto{font-size:11px;color:var(--muted);text-transform:none;letter-spacing:0}
+.msg.ok{color:var(--good)}.msg.err{color:var(--bad)}
 .welcome{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;overflow-y:auto;
   background:radial-gradient(800px 500px at 20% 10%, #ff465540, transparent 60%),radial-gradient(700px 600px at 90% 90%, #6d4bff38, transparent 60%),#070c11e6;
   backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
@@ -320,7 +333,8 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
 .fc-top{display:flex;justify-content:space-between;align-items:flex-start;padding-top:8px}
 .fc-ovr{font-family:var(--f-display);font-weight:700;font-size:40px;line-height:.9;text-shadow:0 2px 10px #0008}
 .fc-pos{font-family:var(--f-display);font-weight:700;font-size:13px;letter-spacing:.12em;margin-top:2px}
-.fc-tag{font-family:var(--f-display);font-weight:700;font-size:12px;letter-spacing:.08em;background:#0007;padding:2px 6px;text-align:center}
+.fc-tag{font-family:var(--f-display);font-weight:700;font-size:12px;letter-spacing:.08em;background:#0007;padding:2px 6px;text-align:center;display:flex;align-items:center;gap:5px}
+.team-img{width:16px;height:16px;object-fit:contain;flex:0 0 auto}
 .fc-face{width:64px;height:64px;margin:2px auto 0;display:grid;place-items:center;font-family:var(--f-display);font-weight:700;font-size:22px;
   background:#0c111788;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%)}
 .fc-name{font-family:var(--f-display);font-weight:700;font-size:18px;text-transform:uppercase;text-align:center;letter-spacing:.04em;margin-top:6px;
@@ -506,6 +520,40 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
       </div>
     </section>
 
+    <!-- ADMIN -->
+    <section class="view" id="v-admin">
+      <div class="top"><div><div class="eyebrow">Só para você</div><h1>Admin</h1></div><span class="chip" id="adm-status">Sem conexão</span></div>
+
+      <div class="panel" style="margin-bottom:16px">
+        <h2>Conexão com o GitHub</h2>
+        <p class="muted" style="font-size:13.5px;margin-top:0">As alterações são salvas no repositório <b>chriszawa/vctfantasy</b>. O token fica só neste navegador.</p>
+        <div class="filters" style="margin:0">
+          <label for="adm-token">Token do GitHub<input id="adm-token" type="password" placeholder="github_pat_..." autocomplete="off" style="min-width:320px"></label>
+          <button class="btn" type="button" id="adm-connect">Conectar</button>
+          <button class="btn ghost small" type="button" id="adm-forget">Esquecer token</button>
+        </div>
+        <div class="msg" id="adm-conn-msg" style="font-size:13.5px;margin-top:8px"></div>
+      </div>
+
+      <div class="panel" style="margin-bottom:16px">
+        <div class="win-head"><h2 style="margin:0">Imagens dos times</h2><button class="btn small" type="button" id="adm-save-logos">Salvar imagens</button></div>
+        <p class="muted" style="font-size:13.5px">PNG, SVG, WEBP ou JPG de até 300 KB. A imagem aparece ao lado da tag do time nas cartas.</p>
+        <div class="adm-teams" id="adm-teams"></div>
+        <div class="msg" id="adm-logo-msg" style="font-size:13.5px;margin-top:8px"></div>
+      </div>
+
+      <div class="panel">
+        <div class="win-head"><h2 style="margin:0">Jogadores</h2><button class="btn small" type="button" id="adm-save-players">Salvar ajustes</button></div>
+        <p class="muted" style="font-size:13.5px">Campo vazio = valor automático. Os ajustes valem para as cartas, a escalação e os preços.</p>
+        <div class="filters">
+          <label for="adm-player">Jogador<select id="adm-player"></select></label>
+        </div>
+        <div class="adm-editor" id="adm-editor"></div>
+        <h3 class="sub-h" style="margin-top:18px">Jogadores ajustados</h3>
+        <ul class="list" id="adm-list"></ul>
+        <div class="msg" id="adm-player-msg" style="font-size:13.5px;margin-top:8px"></div>
+      </div>
+    </section>
   </main>
 
   <div class="welcome" id="welcome" hidden>
@@ -582,6 +630,8 @@ const DEFAULT_RULES = {acs:10,d:-0.5,a:0.3,fk:1,fd:-1,kastmin:75,kastb:2,adr1:12
 let R = {...DEFAULT_RULES};
 
 let SERIES = [], RODADA = null, TEMPORADA = null, PROXIMAS = null, FUNCOES = {};
+let AJUSTES = {jogadores:{}};   // data/ajustes.json — correções feitas na aba admin
+let TIMES = {};                 // data/times.json — imagem de cada time {nome do time: caminho}
 let STATE = {players:[], coaches:[], seriesInfo:[]};
 let CARDS = [], CARD_BY_NAME = {};
 let lineup = {cap:null};
@@ -674,6 +724,8 @@ function buildCards(){
   const cols = {}; [...ATTRS.map(x=>x[0]),"RAT"].forEach(a => cols[a] = base.map(c=>c.raw[a]));
   list.forEach(c => {
     c.attrs = {}; ATTRS.forEach(([a]) => c.attrs[a] = Math.round(40 + 59*pct(c.raw[a], cols[a])));
+    const aj = AJUSTES.jogadores[key(c.name)];
+    if(aj && aj.attrs) Object.entries(aj.attrs).forEach(([a,v]) => { if(v!=null && v!=="") c.attrs[a] = Math.max(1, Math.min(99, Math.round(+v))); });
     const rat = 40 + 59*pct(c.raw.RAT, cols.RAT);
     const funcao = Object.entries(WEIGHTS[c.role]).reduce((t,[a,w])=>t+w*c.attrs[a],0);
     // metade pelo rating geral do VLR, metade pelos atributos que importam na função
@@ -688,7 +740,11 @@ function buildCards(){
     if(c.org==="—" && nameTeam[key(c.name)]) c.org = TEAM_TAG[nameTeam[key(c.name)]] || nameTeam[key(c.name)];
     c.ovr = Math.round(curve(pct(c.wscore, ws)));
     if(c.prov) c.ovr = Math.min(c.ovr, 79);
-    c.tier = tierOf(c.ovr); c.price = priceOf(c.ovr);
+    const aj = AJUSTES.jogadores[key(c.name)] || {};
+    if(aj.ovr) c.ovr = Math.max(40, Math.min(99, Math.round(+aj.ovr)));
+    if(aj.org) c.org = aj.org;
+    c.tier = tierOf(c.ovr); c.price = aj.price ? Math.round(+aj.price*100)/100 : priceOf(c.ovr);
+    c.ajustado = !!Object.keys(aj).length;
   });
   list.sort((a,b)=>b.ovr-a.ovr || b.wscore-a.wscore);
   CARDS = list; list.forEach(c => CARD_BY_NAME[key(c.name)] = c);
@@ -699,7 +755,7 @@ function fcardHTML(c, opts={}){
     <div class="shape">
       <div class="fc-top">
         <div><div class="fc-ovr">${c.ovr}</div><div class="fc-pos">${ROLE_ABBR[c.role]}</div></div>
-        <div class="fc-tag">${esc(c.org)}</div>
+        ${tagHTML(c.org, c.org)}
       </div>
       <div class="fc-face">${esc(initials(c.name))}</div>
       <div class="fc-name">${esc(c.name)}</div>
@@ -767,7 +823,7 @@ function compute(){
     const card = CARD_BY_NAME[key(p.name)];
     const role = card ? card.role : roleOf(p.entries.flatMap(e=>e.agents||[]));
     const ovr = card ? card.ovr : 70;
-    return {...p, role, card, ovr, price: priceOf(ovr)};
+    return {...p, role, card, ovr, price: card ? card.price : priceOf(ovr)};
   });
   const C = group(coaches, e => "c:"+e.team).map(c => {
     const ovrs = c.entries[0].coachOf.map(n => CARD_BY_NAME[key(n)]?.ovr).filter(Boolean);
@@ -807,6 +863,12 @@ function cardStats(p){
   return {acs:Math.round(maps.reduce((t,m)=>t+m.acs,0)/maps.length), kda:`${k}/${d}/${a}`};
 }
 const TEAM_TAG_OF = t => TEAM_TAG[t] || String(t||"").slice(0,4).toUpperCase();
+function teamImg(teamOrTag){
+  const name = TIMES[teamOrTag] ? teamOrTag : Object.keys(TEAM_TAG).find(n => TEAM_TAG[n]===teamOrTag);
+  const src = name && TIMES[name];
+  return src ? `<img class="team-img" src="${esc(src)}" alt="">` : "";
+}
+const tagHTML = (team, label) => `<div class="fc-tag">${teamImg(team)}${esc(label)}</div>`;
 function lineupCardHTML(s){
   const sel = lineup[s] ? findById(lineup[s]) : null;
   const area = SLOT_AREA[s] || "";
@@ -818,7 +880,7 @@ function lineupCardHTML(s){
   const tier = tierOf(sel.ovr);
   if(s==="Coach"){
     return `<div class="fcard ${tier} lineup coach ${area}" ${open}><div class="shape">
-      <div class="fc-top"><div><div class="fc-ovr">${sel.ovr}</div><div class="fc-pos">COACH</div></div><div class="fc-tag">${esc(TEAM_TAG_OF(sel.team))}</div></div>
+      <div class="fc-top"><div><div class="fc-ovr">${sel.ovr}</div><div class="fc-pos">COACH</div></div>${tagHTML(sel.team, TEAM_TAG_OF(sel.team))}</div>
       <div class="fc-face">${esc(initials(sel.name))}</div>
       <div class="fc-name">${esc(sel.name)}</div>
       <div class="fc-lines"><div><span>Time</span><b>${esc(sel.team)}</b></div><div><span>Séries</span><b>${sel.entries.map(e=>e.score).join(" · ")}</b></div></div>
@@ -828,7 +890,7 @@ function lineupCardHTML(s){
   const c = sel.card;
   const attrs = c ? ["IMP","DAN","ENT","CON"].map(a=>`<div><b>${c.attrs[a]}</b><span>${a}</span></div>`).join("") : `<div style="grid-column:span 2" class="muted">sem carta da temporada</div>`;
   return `<div class="fcard ${tier} lineup${isCap?' cap':''} ${area}" ${open}><div class="shape">
-      <div class="fc-top"><div><div class="fc-ovr">${sel.ovr}</div><div class="fc-pos">${s==="Flex"?"FLX":ROLE_ABBR[sel.role]||"FLX"}</div></div><div class="fc-tag">${esc(TEAM_TAG_OF(sel.team))}</div></div>
+      <div class="fc-top"><div><div class="fc-ovr">${sel.ovr}</div><div class="fc-pos">${s==="Flex"?"FLX":ROLE_ABBR[sel.role]||"FLX"}</div></div>${tagHTML(sel.team, TEAM_TAG_OF(sel.team))}</div>
       <div class="fc-face">${esc(initials(sel.name))}</div>
       <div class="fc-name">${esc(sel.name)}</div>
       <div class="fc-attrs">${attrs}</div>
@@ -1062,11 +1124,137 @@ $("org-form").addEventListener("submit", () => {
 });
 $("org-chip").addEventListener("click", openWelcome);
 
+// ================================================================ admin
+const REPO = "chriszawa/vctfantasy";
+let GH_TOKEN = ""; try{ GH_TOKEN = localStorage.getItem("fvct-gh") || ""; }catch(e){}
+const pendingLogos = {};   // nome do time -> {b64, ext, dataUrl}
+let BASE_ROLE = {};        // função automática + funcoes.json, antes dos ajustes
+
+function applyRoleOverrides(){
+  Object.entries(AJUSTES.jogadores||{}).forEach(([n,a]) => { if(a.role) FUNCOES[n] = a.role; });
+}
+const b64utf8 = str => btoa(unescape(encodeURIComponent(str)));
+async function gh(path, opts={}){
+  const r = await fetch(`https://api.github.com/repos/${REPO}${path}`, {...opts, headers:{
+    "Authorization": `Bearer ${GH_TOKEN}`, "Accept":"application/vnd.github+json", "X-GitHub-Api-Version":"2022-11-28", ...(opts.headers||{})}});
+  if(!r.ok){ const t = await r.json().catch(()=>({})); throw new Error(`${r.status} ${t.message||""}`.trim()); }
+  return r.status===204 ? null : r.json();
+}
+async function ghPut(path, b64, message){
+  let sha;
+  try{ sha = (await gh(`/contents/${path}?ref=main`)).sha; }catch(e){ if(!String(e.message).startsWith("404")) throw e; }
+  return gh(`/contents/${path}`, {method:"PUT", body: JSON.stringify({message, content:b64, sha, branch:"main"})});
+}
+function admMsg(id, text, kind){ const m=$(id); m.className="msg"+(kind?" "+kind:""); m.textContent=text; }
+async function admConnect(){
+  GH_TOKEN = $("adm-token").value.trim() || GH_TOKEN;
+  if(!GH_TOKEN){ admMsg("adm-conn-msg","Cole um token do GitHub.","err"); return; }
+  try{
+    const repo = await gh("");
+    if(!repo.permissions?.push) throw new Error("o token não tem permissão de escrita neste repositório");
+    try{ localStorage.setItem("fvct-gh", GH_TOKEN); }catch(e){}
+    $("adm-status").textContent = "Conectado"; $("adm-status").style.color = "var(--good)";
+    admMsg("adm-conn-msg","Conectado. As alterações vão direto para o repositório.","ok");
+  }catch(e){
+    $("adm-status").textContent = "Sem conexão"; $("adm-status").style.color = "";
+    admMsg("adm-conn-msg",`Não consegui conectar: ${e.message}. Confira se o token tem acesso ao vctfantasy com Contents: Read and write.`,"err");
+  }
+}
+function admTeams(){
+  const names = [...new Set([...SERIES.flatMap(s=>s.teams.map(t=>t.name)), ...Object.keys(TEAM_TAG)])].sort();
+  $("adm-teams").innerHTML = names.map((n,i) => {
+    const src = pendingLogos[n]?.dataUrl || TIMES[n];
+    return `<div class="adm-team${pendingLogos[n]?' changed':''}">
+      <div class="pv">${src?`<img src="${esc(src)}" alt="">`:`<span class="muted" style="font-size:11px">${esc(TEAM_TAG_OF(n))}</span>`}</div>
+      <div><b>${esc(n)}</b><label for="lg-${i}">${src?'Trocar imagem':'Enviar imagem'}</label><input type="file" id="lg-${i}" accept=".png,.svg,.webp,.jpg,.jpeg" data-team="${esc(n)}"></div>
+    </div>`;
+  }).join("");
+}
+$("adm-teams").addEventListener("change", e => {
+  const inp = e.target.closest("input[type=file]"); if(!inp || !inp.files[0]) return;
+  const f = inp.files[0], team = inp.dataset.team;
+  if(f.size > 300*1024){ admMsg("adm-logo-msg",`${f.name} tem ${Math.round(f.size/1024)} KB. O limite é 300 KB.`,"err"); return; }
+  const ext = (f.name.split(".").pop()||"png").toLowerCase().replace("jpeg","jpg");
+  const rd = new FileReader();
+  rd.onload = () => { pendingLogos[team] = {dataUrl: rd.result, b64: String(rd.result).split(",")[1], ext}; admTeams(); admMsg("adm-logo-msg","Imagem pronta. Clique em Salvar imagens para enviar."); };
+  rd.readAsDataURL(f);
+});
+const slug = n => n.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
+$("adm-save-logos").addEventListener("click", async () => {
+  const teams = Object.keys(pendingLogos);
+  if(!teams.length){ admMsg("adm-logo-msg","Nenhuma imagem nova para salvar."); return; }
+  if(!GH_TOKEN){ admMsg("adm-logo-msg","Conecte o GitHub primeiro.","err"); return; }
+  try{
+    const novo = {...TIMES};
+    for(const t of teams){
+      const path = `data/times/${slug(t)}.${pendingLogos[t].ext}`;
+      admMsg("adm-logo-msg",`Enviando ${t}...`);
+      await ghPut(path, pendingLogos[t].b64, `Admin: imagem do time ${t}`);
+      novo[t] = path;
+    }
+    await ghPut("data/times.json", b64utf8(JSON.stringify(novo, null, 1)), "Admin: atualiza imagens dos times");
+    teams.forEach(t => { TIMES[t] = pendingLogos[t].dataUrl; delete pendingLogos[t]; });
+    admTeams(); renderAll();
+    admMsg("adm-logo-msg",`${teams.length} imagem(ns) salva(s). O site publicado atualiza em 1 a 2 minutos.`,"ok");
+  }catch(e){ admMsg("adm-logo-msg",`Erro ao salvar: ${e.message}`,"err"); }
+});
+
+function admPlayerOptions(){
+  const sel = $("adm-player"), cur = sel.value;
+  sel.innerHTML = CARDS.map(c=>`<option value="${esc(key(c.name))}">${esc(c.name)} · ${esc(c.org)}${c.ajustado?' · ajustado':''}</option>`).join("");
+  if(cur) sel.value = cur;
+}
+function admEditor(){
+  const k = $("adm-player").value, c = CARD_BY_NAME[k]; if(!c){ $("adm-editor").innerHTML=""; return; }
+  const aj = AJUSTES.jogadores[k] || {};
+  const roleOpts = ["","Duelista","Iniciador","Controlador","Sentinela","Flex"].map(r=>`<option value="${r}" ${ (aj.role||"")===r?'selected':''}>${r||"Automático"}</option>`).join("");
+  $("adm-editor").innerHTML = `
+    <label>Função<select data-f="role">${roleOpts}</select><span class="auto">atual: ${c.role}</span></label>
+    <label>Overall<input type="number" min="40" max="99" data-f="ovr" value="${aj.ovr??""}" placeholder="${c.ovr}"><span class="auto">automático: ${c.ovr}</span></label>
+    <label>Preço (C$)<input type="number" step="0.01" min="1" data-f="price" value="${aj.price??""}" placeholder="${c.price}"><span class="auto">atual: ${fmt(c.price)}</span></label>
+    <label>Tag do time<input data-f="org" maxlength="6" value="${esc(aj.org??"")}" placeholder="${esc(c.org)}"></label>
+    ${ATTRS.map(([a,n])=>`<label>${n}<input type="number" min="1" max="99" data-a="${a}" value="${aj.attrs?.[a]??""}" placeholder="${c.attrs[a]}"></label>`).join("")}`;
+}
+function admList(){
+  const ent = Object.entries(AJUSTES.jogadores||{});
+  $("adm-list").innerHTML = ent.map(([k,a]) => `<li><span>${esc(CARD_BY_NAME[k]?.name || k)} <span class="team">${esc(Object.entries(a).map(([f,v])=>f==="attrs"?Object.entries(v).map(([x,y])=>x+" "+y).join(", "):f+" "+v).join(" · "))}</span></span><button class="btn ghost small" type="button" data-unadjust="${esc(k)}">Remover</button></li>`).join("") || `<li class="muted">Nenhum ajuste ainda.</li>`;
+}
+function admReadEditor(){
+  const k = $("adm-player").value; if(!k) return;
+  const aj = {};
+  $("adm-editor").querySelectorAll("[data-f]").forEach(el => { const v = el.value.trim(); if(v!=="") aj[el.dataset.f] = el.dataset.f==="org" ? v.toUpperCase() : (el.dataset.f==="role" ? v : +v); });
+  const at = {}; $("adm-editor").querySelectorAll("[data-a]").forEach(el => { if(el.value.trim()!=="") at[el.dataset.a] = +el.value; });
+  if(Object.keys(at).length) aj.attrs = at;
+  if(Object.keys(aj).length) AJUSTES.jogadores[k] = aj; else delete AJUSTES.jogadores[k];
+}
+function admRecompute(){
+  FUNCOES = {...BASE_ROLE}; applyRoleOverrides();
+  buildCards(); renderAll(); admPlayerOptions(); admList();
+}
+$("adm-player").addEventListener("change", admEditor);
+$("adm-editor").addEventListener("change", () => { admReadEditor(); admRecompute(); admEditor(); admMsg("adm-player-msg","Ajuste aplicado aqui. Clique em Salvar ajustes para publicar."); });
+$("adm-list").addEventListener("click", e => {
+  const b = e.target.closest("[data-unadjust]"); if(!b) return;
+  delete AJUSTES.jogadores[b.dataset.unadjust]; admRecompute(); admEditor();
+  admMsg("adm-player-msg","Ajuste removido aqui. Clique em Salvar ajustes para publicar.");
+});
+$("adm-save-players").addEventListener("click", async () => {
+  if(!GH_TOKEN){ admMsg("adm-player-msg","Conecte o GitHub primeiro.","err"); return; }
+  try{
+    await ghPut("data/ajustes.json", b64utf8(JSON.stringify(AJUSTES, null, 1)), "Admin: ajustes de jogadores");
+    admMsg("adm-player-msg","Ajustes salvos. O site publicado atualiza em 1 a 2 minutos.","ok");
+  }catch(e){ admMsg("adm-player-msg",`Erro ao salvar: ${e.message}`,"err"); }
+});
+$("adm-connect").addEventListener("click", admConnect);
+$("adm-forget").addEventListener("click", () => { GH_TOKEN=""; try{ localStorage.removeItem("fvct-gh"); }catch(e){} $("adm-token").value=""; $("adm-status").textContent="Sem conexão"; $("adm-status").style.color=""; admMsg("adm-conn-msg","Token apagado deste navegador."); });
+function renderAdmin(){ admTeams(); admPlayerOptions(); admEditor(); admList(); if(GH_TOKEN && $("adm-status").textContent==="Sem conexão") admConnect(); }
+
 // ================================================================ rotas
-const VIEWS = ["inicio","escalacao","cartas","stats"];
+const VIEWS = ["inicio","escalacao","cartas","stats","admin"];
 function route(){
   const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "inicio";
   VIEWS.forEach(x => $("v-"+x).classList.toggle("on", x===v));
+  if(v==="admin" && CARDS.length) renderAdmin();
   document.querySelectorAll("#nav a").forEach(a => a.classList.toggle("on", a.dataset.v===v));
 }
 window.addEventListener("hashchange", route);
@@ -1078,9 +1266,13 @@ async function getJSON(path){
 async function boot(){
   route(); renderOrg();
   if(!ORG) openWelcome();
-  const [rod, tmp, prox, fun] = await Promise.all([getJSON("data/rodada.json"), getJSON("data/temporada.json"), getJSON("data/proximas.json"), getJSON("data/funcoes.json")]);
+  const [rod, tmp, prox, fun, aju, tim] = await Promise.all([getJSON("data/rodada.json"), getJSON("data/temporada.json"), getJSON("data/proximas.json"), getJSON("data/funcoes.json"), getJSON("data/ajustes.json"), getJSON("data/times.json")]);
+  if(aju && aju.jogadores) AJUSTES = aju;
+  if(tim && typeof tim==="object") TIMES = tim.times || tim;
   const VALIDAS = ["Duelista","Iniciador","Controlador","Sentinela","Flex"];
   Object.entries(fun||{}).forEach(([n,r]) => { if(VALIDAS.includes(r)) FUNCOES[key(n)] = r; });
+  BASE_ROLE = {...FUNCOES};
+  applyRoleOverrides();
   RODADA = rod; TEMPORADA = tmp; PROXIMAS = prox;
   if(rod && rod.semana && rod.rotulo){
     const suf = " · " + rod.semana;
@@ -1097,6 +1289,7 @@ async function boot(){
   if(saved && SLOTS.some(s=>saved[s] && findById(saved[s]))) lineup = {...saved};
   canSave = true;
   renderAll();
+  if(location.hash==="#admin") renderAdmin();
 }
 boot();
 </script>
