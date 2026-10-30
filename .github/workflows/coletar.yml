@@ -1,0 +1,75 @@
+name: Coletar rodada
+
+on:
+  workflow_dispatch:
+    inputs:
+      event_id:
+        description: "ID do evento no VLR (o número em vlr.gg/event/ID/...)"
+        required: false
+        default: ""
+      semana:
+        description: 'Trecho do nome da semana, ex.: "Week 4". Vazio = todas as séries concluídas do evento'
+        required: false
+        default: ""
+      matches:
+        description: "IDs de séries separados por espaço (opcional, no lugar do evento)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+
+concurrency:
+  group: coletar-rodada
+  cancel-in-progress: false
+
+jobs:
+  coletar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Baixar o repositório
+        uses: actions/checkout@v4
+
+      - name: Baixar a vlrggapi
+        uses: actions/checkout@v4
+        with:
+          repository: axsddlr/vlrggapi
+          path: vlrggapi
+
+      - name: Instalar o uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Ligar a API
+        working-directory: vlrggapi
+        run: |
+          uv sync --quiet
+          nohup uv run python main.py > ../api.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:3001/v2/health > /dev/null && echo "API no ar" && exit 0
+            sleep 2
+          done
+          echo "A API não subiu:"; cat ../api.log; exit 1
+
+      - name: Coletar as séries
+        env:
+          EVENT_ID: ${{ inputs.event_id }}
+          SEMANA: ${{ inputs.semana }}
+          MATCHES: ${{ inputs.matches }}
+        run: |
+          python3 scripts/coletar.py --event-id "$EVENT_ID" --semana "$SEMANA" --matches $MATCHES
+
+      - name: Log da API (se der erro)
+        if: failure()
+        run: cat api.log || true
+
+      - name: Salvar no repositório
+        env:
+          MSG: "Rodada ${{ inputs.event_id }} ${{ inputs.semana }} ${{ inputs.matches }}"
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/rodada.json
+          git diff --cached --quiet && echo "Nada mudou" && exit 0
+          git commit -m "$MSG"
+          git push

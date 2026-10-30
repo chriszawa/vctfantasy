@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Fantasy VCT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  /* layout: sidebar fixa à esquerda + área de trabalho; cortes angulares nos cantos como na UI do Valorant */
+  --bg:#0f1923;
+  --panel:#16222e;
+  --panel-2:#1d2b38;
+  --line:#2a3a48;
+  --text:#ece8e1;
+  --muted:#8b97a3;
+  --red:#ff4655;
+  --red-dim:#ff465522;
+  --good:#3ddc97;
+  --bad:#ff6b6b;
+  --gold:#f2c94c;
+  --f-display:"Chakra Petch", "Arial Narrow", sans-serif;
+  --f-body:"Barlow", "Segoe UI", system-ui, sans-serif;
+  --cut:12px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{background:var(--bg);color:var(--text);font-family:var(--f-body);font-size:15px;line-height:1.45}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--red);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+.app{display:grid;grid-template-columns:232px 1fr;min-height:100%}
+.side{background:#0b131b;border-right:1px solid var(--line);padding:22px 14px;display:flex;flex-direction:column;gap:24px;position:sticky;top:0;height:100vh}
+.logo{font-family:var(--f-display);font-weight:700;font-size:22px;letter-spacing:.06em;text-transform:uppercase;display:flex;align-items:center;gap:10px;padding:0 8px}
+.logo b{display:inline-block;width:26px;height:26px;background:var(--red);clip-path:polygon(0 0,100% 0,100% 70%,70% 100%,0 100%)}
+.logo span{color:var(--red)}
+nav{display:flex;flex-direction:column;gap:4px}
+nav a{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:11px 12px;color:var(--muted);text-decoration:none;font-family:var(--f-display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13.5px;border-left:3px solid transparent}
+nav a:hover{color:var(--text);background:var(--panel)}
+nav a.on{color:var(--text);background:var(--panel);border-left-color:var(--red)}
+nav a small{font-family:var(--f-body);font-size:10.5px;letter-spacing:.04em;color:var(--muted);border:1px solid var(--line);padding:1px 6px;text-transform:none}
+.side-foot{margin-top:auto;font-size:12px;color:var(--muted);padding:0 8px}
+
+main{padding:26px 32px 48px;min-width:0}
+.top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:22px}
+.eyebrow{font-family:var(--f-display);color:var(--red);letter-spacing:.14em;text-transform:uppercase;font-size:12px;font-weight:600}
+h1{font-family:var(--f-display);font-weight:700;font-size:34px;line-height:1.05;text-transform:uppercase;letter-spacing:.03em;margin:4px 0 0;text-wrap:balance}
+h2{font-family:var(--f-display);font-weight:600;font-size:17px;text-transform:uppercase;letter-spacing:.08em;margin:0 0 12px}
+.chip{display:inline-block;font-size:11.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.chip.test{border-color:var(--gold);color:var(--gold)}
+
+.panel{background:var(--panel);border:1px solid var(--line);padding:18px;clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,0 100%)}
+.grid{display:grid;gap:16px}
+.tiles{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}
+.tile .lbl{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.tile .val{font-family:var(--f-display);font-size:30px;font-weight:700;margin-top:4px;font-variant-numeric:tabular-nums}
+.tile .sub{font-size:13px;color:var(--muted)}
+
+.btn{background:var(--red);color:#fff;border:0;padding:10px 16px;font-family:var(--f-display);font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:13px;cursor:pointer;clip-path:polygon(0 0,100% 0,100% 70%,calc(100% - 9px) 100%,0 100%)}
+.btn:hover{filter:brightness(1.1)}
+.btn.ghost{background:transparent;color:var(--text);border:1px solid var(--line);clip-path:none}
+.btn.ghost:hover{border-color:var(--red)}
+
+/* tabela de pontuação */
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+th{font-family:var(--f-display);font-weight:600;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);text-align:right;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+th.l,td.l{text-align:left}
+td{padding:10px;text-align:right;border-bottom:1px solid #22313e;white-space:nowrap}
+tbody tr.row{cursor:pointer}
+tbody tr.row:hover{background:var(--panel-2)}
+tr.row.open{background:var(--panel-2)}
+td.final{font-family:var(--f-display);font-weight:700;font-size:17px}
+.pos{color:var(--muted);width:28px}
+.name{font-weight:600}
+.team{color:var(--muted);font-size:13px}
+.mult.up{color:var(--good)}
+.neg{color:var(--bad)}
+.role{font-size:10.5px;padding:1px 6px;border:1px solid var(--line);margin-left:6px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);vertical-align:2px}
+.role.Duelista{border-color:#ff8a5c;color:#ff8a5c}
+.role.Iniciador{border-color:#7cc4ff;color:#7cc4ff}
+.role.Controlador{border-color:#b49cff;color:#b49cff}
+.role.Sentinela{border-color:#3ddc97;color:#3ddc97}
+.role.Flex{border-color:var(--gold);color:var(--gold)}
+tr.detail td{padding:0;background:#121d27;white-space:normal}
+.breakdown{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding:14px}
+.bk{border:1px solid var(--line);padding:12px}
+.bk h3{margin:0 0 8px;font-family:var(--f-display);font-size:14px;letter-spacing:.08em;text-transform:uppercase;display:flex;justify-content:space-between}
+.bk dl{display:grid;grid-template-columns:1fr auto auto;gap:3px 12px;margin:0;font-size:13.5px}
+.bk dt{color:var(--muted);text-align:left;justify-self:start}
+.bk dd{margin:0;text-align:right}
+.bk .tot{border-top:1px solid var(--line);padding-top:6px;margin-top:4px;font-weight:600}
+.formula{font-size:13.5px;color:var(--muted);padding:0 14px 14px}
+.formula b{color:var(--text)}
+
+.layout-score{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:16px;align-items:start}
+.rules label{display:grid;grid-template-columns:1fr 84px;align-items:center;gap:10px;font-size:13.5px;padding:5px 0}
+.rules input{width:84px;background:var(--bg);border:1px solid var(--line);padding:6px 8px;text-align:right}
+.rules h3{font-family:var(--f-display);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin:14px 0 4px}
+.rules h3:first-of-type{margin-top:0}
+.rules .row-btns{display:flex;gap:8px;margin-top:14px}
+
+.series-bar{display:flex;flex-wrap:wrap;gap:10px;margin:16px 0}
+.series{display:flex;align-items:center;gap:12px;background:var(--panel);border:1px solid var(--line);padding:10px 14px}
+.series .sc{font-family:var(--f-display);font-weight:700;font-size:20px}
+.series .w{color:var(--text)} .series .lz{color:var(--muted)}
+.series .maps{font-size:12.5px;color:var(--muted)}
+
+/* escalação */
+.pitch{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.slot{background:var(--panel);border:1px solid var(--line);padding:16px;display:flex;flex-direction:column;gap:10px;clip-path:polygon(0 0,calc(100% - var(--cut)) 0,100% var(--cut),100% 100%,0 100%);position:relative}
+.slot.cap{border-color:var(--red);box-shadow:inset 0 0 0 1px var(--red)}
+.slot .slot-role{font-family:var(--f-display);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.slot select{background:var(--bg);border:1px solid var(--line);padding:8px}
+.slot .pts{font-family:var(--f-display);font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+.slot .pts small{font-size:13px;color:var(--muted);font-weight:500;margin-left:4px}
+.slot .cap-btn{background:none;border:1px solid var(--line);padding:5px 8px;font-size:12px;letter-spacing:.06em;text-transform:uppercase;cursor:pointer;color:var(--muted)}
+.slot.cap .cap-btn{background:var(--red);border-color:var(--red);color:#fff}
+.total{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+.total .val{font-family:var(--f-display);font-size:42px;font-weight:700}
+
+textarea{width:100%;min-height:220px;background:var(--bg);border:1px solid var(--line);padding:12px;font-family:ui-monospace,Consolas,monospace;font-size:12.5px}
+.msg{font-size:14px;margin-top:10px}
+.msg.ok{color:var(--good)} .msg.err{color:var(--bad)}
+.steps{margin:0;padding-left:20px;color:var(--muted);font-size:14px;max-width:70ch}
+.steps code,p code{background:var(--bg);border:1px solid var(--line);padding:1px 5px;font-size:12.5px;color:var(--text)}
+p{max-width:70ch}
+.muted{color:var(--muted)}
+.soon{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+.soon .panel p{margin:6px 0 0;color:var(--muted);font-size:14px}
+.top5 li{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #22313e}
+.top5{list-style:none;margin:0;padding:0;font-variant-numeric:tabular-nums}
+.top5 b{font-family:var(--f-display)}
+
+.api-form{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end;margin-top:14px}
+.api-form label{display:flex;flex-direction:column;gap:5px;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.api-form input{background:var(--bg);border:1px solid var(--line);padding:9px 10px;min-width:220px;text-transform:none;letter-spacing:0;font-size:14px;color:var(--text)}
+.chip.ok{border-color:var(--good);color:var(--good)} .chip.err{border-color:var(--bad);color:var(--bad)}
+.mgroup{margin-top:16px}
+.mgroup-h{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px;border-bottom:1px solid var(--line);padding-bottom:6px;margin-bottom:6px}
+.mgroup-h b{font-family:var(--f-display);letter-spacing:.08em;text-transform:uppercase;font-size:13px}
+.mrow{display:flex;align-items:center;gap:10px;padding:6px 0;font-size:14px}
+.mrow input{accent-color:var(--red);width:16px;height:16px}
+.mrow .sc{font-family:var(--f-display);font-weight:700;color:var(--muted)}
+.mrow.na{opacity:.45}
+.link-btn{background:none;border:0;color:var(--red);cursor:pointer;font-size:13px;padding:2px 0}
+@media (max-width:960px){.layout-score{grid-template-columns:1fr}}
+@media (max-width:760px){
+  .app{grid-template-columns:1fr}
+  .side{position:static;height:auto;padding:14px;gap:12px}
+  nav{flex-direction:row;overflow-x:auto}
+  nav a{white-space:nowrap;border-left:0;border-bottom:3px solid transparent}
+  nav a.on{border-bottom-color:var(--red)}
+  .side-foot{display:none}
+  main{padding:20px 16px 40px}
+  h1{font-size:27px}
+}
+.view{display:none}.view.on{display:block}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="logo"><b></b>Fantasy<span>VCT</span></div>
+    <nav id="nav">
+      <a href="#inicio" data-v="inicio">Início</a>
+      <a href="#escalacao" data-v="escalacao">Escalação</a>
+      <a href="#pontuacao" data-v="pontuacao">Pontuação</a>
+      <a href="#importar" data-v="importar">Importar série</a>
+      <a href="#mercado" data-v="mercado">Mercado <small>em breve</small></a>
+      <a href="#cartas" data-v="cartas">Cartas <small>em breve</small></a>
+    </nav>
+    <div class="side-foot">MVP de teste do sistema de pontuação. Dados: VLR.gg via vlrggapi.</div>
+  </aside>
+
+  <main>
+    <!-- INÍCIO -->
+    <section class="view" id="v-inicio">
+      <div class="top">
+        <div><div class="eyebrow">VCT Americas · Rodada de teste</div><h1>Painel da rodada</h1></div>
+        <span class="chip test" id="data-chip">Dados de teste</span>
+      </div>
+      <div class="grid tiles" id="tiles"></div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr));margin-top:16px">
+        <div class="panel"><h2>Top 5 da rodada</h2><ol class="top5" id="top5"></ol></div>
+        <div class="panel"><h2>Coaches</h2><ol class="top5" id="topc"></ol></div>
+      </div>
+    </section>
+
+    <!-- ESCALAÇÃO -->
+    <section class="view" id="v-escalacao">
+      <div class="top">
+        <div><div class="eyebrow">Monte seu time</div><h1>Escalação</h1></div>
+        <button class="btn ghost" id="auto">Escalar os melhores</button>
+      </div>
+      <p class="muted">Um jogador por função, um flex de qualquer função e um coach. O capitão pontua 1,5x. O limite de 2 jogadores por time fica desligado no teste, porque só há uma série carregada.</p>
+      <div class="pitch" id="pitch"></div>
+      <div class="panel total">
+        <div><div class="eyebrow">Pontuação do time</div><div class="val" id="team-total">0,00</div></div>
+        <div class="muted" id="team-note"></div>
+      </div>
+    </section>
+
+    <!-- PONTUAÇÃO -->
+    <section class="view" id="v-pontuacao">
+      <div class="top">
+        <div><div class="eyebrow">Média da série × multiplicadores</div><h1>Pontuação da rodada</h1></div>
+      </div>
+      <div class="series-bar" id="series-bar"></div>
+      <div class="layout-score">
+        <div class="panel" style="padding:6px 0 0">
+          <div class="tbl-wrap">
+            <table>
+              <thead><tr>
+                <th class="l">#</th><th class="l">Jogador</th><th class="l">Mapas</th>
+                <th>Média</th><th>Kills/rd</th><th>× Kill</th><th>× Série</th><th>Final</th>
+              </tr></thead>
+              <tbody id="tbody"></tbody>
+            </table>
+          </div>
+          <p class="muted" style="padding:10px 14px;margin:0;font-size:13px">Clique num jogador para ver a conta de cada mapa.</p>
+        </div>
+        <form class="panel rules" id="rules" onsubmit="return false">
+          <h2>Regras</h2>
+          <p class="muted" style="font-size:13px;margin:0 0 8px">Mude um valor e a tabela recalcula na hora.</p>
+          <h3>Por mapa</h3>
+          <label for="r-acs">ACS dividido por <input id="r-acs" type="number" step="1"></label>
+          <label for="r-d">Morte <input id="r-d" type="number" step="0.1"></label>
+          <label for="r-a">Assistência <input id="r-a" type="number" step="0.1"></label>
+          <label for="r-fk">First kill <input id="r-fk" type="number" step="0.1"></label>
+          <label for="r-fd">First death <input id="r-fd" type="number" step="0.1"></label>
+          <label for="r-kastmin">KAST mínimo (%) <input id="r-kastmin" type="number" step="1"></label>
+          <label for="r-kastb">Bônus KAST <input id="r-kastb" type="number" step="0.5"></label>
+          <label for="r-adr1">ADR faixa 1 <input id="r-adr1" type="number" step="5"></label>
+          <label for="r-adr1b">Bônus faixa 1 <input id="r-adr1b" type="number" step="0.5"></label>
+          <label for="r-adr2">ADR faixa 2 <input id="r-adr2" type="number" step="5"></label>
+          <label for="r-adr2b">Bônus faixa 2 <input id="r-adr2b" type="number" step="0.5"></label>
+          <h3>Multiplicador de kill</h3>
+          <label for="r-k1">Kills/round faixa 1 <input id="r-k1" type="number" step="0.05"></label>
+          <label for="r-k1m">Mult. faixa 1 <input id="r-k1m" type="number" step="0.05"></label>
+          <label for="r-k2">Kills/round faixa 2 <input id="r-k2" type="number" step="0.05"></label>
+          <label for="r-k2m">Mult. faixa 2 <input id="r-k2m" type="number" step="0.05"></label>
+          <h3>Multiplicador da série (Bo3)</h3>
+          <label for="r-s20">2-0 <input id="r-s20" type="number" step="0.05"></label>
+          <label for="r-s21">2-1 <input id="r-s21" type="number" step="0.05"></label>
+          <label for="r-s12">1-2 <input id="r-s12" type="number" step="0.05"></label>
+          <label for="r-s02">0-2 <input id="r-s02" type="number" step="0.05"></label>
+          <h3>Escalação</h3>
+          <label for="r-cap">Capitão <input id="r-cap" type="number" step="0.1"></label>
+          <div class="row-btns"><button class="btn ghost" type="button" id="reset">Restaurar padrão</button></div>
+        </form>
+      </div>
+    </section>
+
+    <!-- IMPORTAR -->
+    <section class="view" id="v-importar">
+      <div class="top"><div><div class="eyebrow">Dados reais</div><h1>Importar série</h1></div></div>
+      <div class="panel" style="margin-bottom:16px">
+        <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center">
+          <h2 style="margin:0">Buscar da API</h2>
+          <span class="chip" id="api-status">Não verificada</span>
+        </div>
+        <div class="api-form">
+          <label for="api-url">Endereço da API<input id="api-url" value="http://127.0.0.1:3001"></label>
+          <label for="api-event">ID do evento no VLR<input id="api-event" placeholder="ex.: 2501" inputmode="numeric"></label>
+          <button class="btn" id="api-list" type="button">Listar jogos</button>
+        </div>
+        <p class="muted" style="font-size:13px;margin:8px 0 0">O ID é o número no link do evento: vlr.gg/event/<b>2501</b>/... Funciona com o site aberto no seu computador e a API ligada.</p>
+        <div id="api-matches"></div>
+        <div class="msg" id="api-msg"></div>
+      </div>
+      <div class="grid" style="grid-template-columns:minmax(0,1fr) minmax(260px,360px);align-items:start">
+        <div class="panel">
+          <h2>Ou cole o JSON da série</h2>
+          <textarea id="json-in" spellcheck="false" placeholder='{"status":"success","data":{"match_id":"706375", ...}}'></textarea>
+          <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap">
+            <button class="btn" id="do-import">Adicionar à rodada</button>
+            <button class="btn ghost" id="do-clear">Limpar rodada</button>
+            <button class="btn ghost" id="do-sample">Recarregar G2 x LOUD de teste</button>
+          </div>
+          <div class="msg" id="import-msg"></div>
+        </div>
+        <div class="panel">
+          <h2>Como pegar</h2>
+          <ol class="steps">
+            <li>Suba a vlrggapi na sua máquina com <code>uv run python main.py</code>.</li>
+            <li>Abra no navegador <code>127.0.0.1:3001/v2/match/details?match_id=ID</code>. O ID é o número do link da série no VLR.</li>
+            <li>Copie tudo e cole aqui. Repita para cada série da semana.</li>
+          </ol>
+          <p class="muted" style="font-size:13px">Aceita a resposta inteira da API, só o campo <code>data</code> ou uma lista de séries.</p>
+          <h2 style="margin-top:18px">No site online</h2>
+          <p class="muted" style="font-size:13px">No GitHub, abra Actions → Coletar rodada → Run workflow, informe o ID do evento e a semana. Em uns 2 minutos a rodada aparece aqui sozinha.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- MERCADO / CARTAS -->
+    <section class="view" id="v-mercado">
+      <div class="top"><div><div class="eyebrow">Próxima etapa</div><h1>Mercado</h1></div></div>
+      <div class="soon">
+        <div class="panel"><h2>Preço inicial</h2><p>Sai do overall de cada jogador, calculado com a temporada 2026: 4 + 0,017 × (overall − 60)². Overall 90 custa C$ 19,30.</p></div>
+        <div class="panel"><h2>Valorização</h2><p>Depois de cada rodada: 0,15 × (pontos − preço), com limite de 15% de variação.</p></div>
+        <div class="panel"><h2>Patrimônio</h2><p>C$ 80 para 5 jogadores e 1 coach. Dá para levar uns dois craques e completar o time.</p></div>
+      </div>
+    </section>
+    <section class="view" id="v-cartas">
+      <div class="top"><div><div class="eyebrow">Próxima etapa</div><h1>Cartas</h1></div></div>
+      <div class="soon">
+        <div class="panel"><h2>Atributos</h2><p>Mira, Dano, Impacto, Entrada, Suporte, Consistência e Sobrevivência, de 40 a 99 por percentil na liga.</p></div>
+        <div class="panel"><h2>Overall por função</h2><p>Pesos diferentes para duelista, iniciador, controlador e sentinela, como posição no FIFA.</p></div>
+        <div class="panel"><h2>Manutenção</h2><p>Recalculado a cada 3 rodadas misturando 2026 com o ano novo, pelo peso de rounds jogados.</p></div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+// ------------------------------------------------------------------ dados
+const AGENT_ROLE = {
+  Jett:"Duelista",Raze:"Duelista",Reyna:"Duelista",Phoenix:"Duelista",Yoru:"Duelista",Neon:"Duelista",Iso:"Duelista",Waylay:"Duelista",
+  Sova:"Iniciador",Breach:"Iniciador",Skye:"Iniciador","KAY/O":"Iniciador",Fade:"Iniciador",Gekko:"Iniciador",Tejo:"Iniciador",
+  Brimstone:"Controlador",Omen:"Controlador",Viper:"Controlador",Astra:"Controlador",Harbor:"Controlador",Clove:"Controlador",
+  Killjoy:"Sentinela",Cypher:"Sentinela",Sage:"Sentinela",Chamber:"Sentinela",Deadlock:"Sentinela",Vyse:"Sentinela",Veto:"Sentinela"
+};
+
+// G2 x LOUD — VCT 2026 Americas Stage 2 W4. Teste: ACS por mapa = ACS da série (o print só mostrava o total).
+const SAMPLE = {"match_id":"706375","teams":[{"name":"G2 Esports"},{"name":"LOUD"}],"maps":[
+ {"map_name":"Sunset","score":{"team1":{"total":13},"team2":{"total":15}},"players":{
+  "team1":[
+   {"name":"valyn","agent":"Omen","acs":"197","kills":"26","deaths":"18","assists":"7","kast":"75%","adr":"167","fk":"3","fd":"1"},
+   {"name":"trent","agent":"Skye","acs":"175","kills":"18","deaths":"18","assists":"7","kast":"71%","adr":"104","fk":"0","fd":"2"},
+   {"name":"BABYBAY","agent":"Chamber","acs":"194","kills":"20","deaths":"23","assists":"1","kast":"64%","adr":"131","fk":"4","fd":"3"},
+   {"name":"jawgemo","agent":"Neon","acs":"178","kills":"15","deaths":"24","assists":"9","kast":"68%","adr":"120","fk":"2","fd":"6"},
+   {"name":"leaf","agent":"Sage","acs":"116","kills":"14","deaths":"20","assists":"6","kast":"64%","adr":"93","fk":"2","fd":"5"}],
+  "team2":[
+   {"name":"lukxo","agent":"Chamber","acs":"294","kills":"31","deaths":"15","assists":"2","kast":"75%","adr":"183","fk":"8","fd":"4"},
+   {"name":"Darker","agent":"Omen","acs":"196","kills":"19","deaths":"18","assists":"16","kast":"79%","adr":"120","fk":"1","fd":"0"},
+   {"name":"DaviH","agent":"Sova","acs":"209","kills":"18","deaths":"18","assists":"13","kast":"79%","adr":"134","fk":"3","fd":"1"},
+   {"name":"erde","agent":"Sage","acs":"185","kills":"16","deaths":"20","assists":"9","kast":"71%","adr":"123","fk":"3","fd":"2"},
+   {"name":"tkzin","agent":"Neon","acs":"242","kills":"19","deaths":"22","assists":"6","kast":"75%","adr":"121","fk":"2","fd":"4"}]}},
+ {"map_name":"Lotus","score":{"team1":{"total":1},"team2":{"total":13}},"players":{
+  "team1":[
+   {"name":"trent","agent":"Skye","acs":"175","kills":"8","deaths":"12","assists":"4","kast":"57%","adr":"119","fk":"0","fd":"0"},
+   {"name":"BABYBAY","agent":"Vyse","acs":"194","kills":"8","deaths":"12","assists":"3","kast":"57%","adr":"127","fk":"1","fd":"3"},
+   {"name":"jawgemo","agent":"Raze","acs":"178","kills":"8","deaths":"14","assists":"2","kast":"57%","adr":"109","fk":"1","fd":"2"},
+   {"name":"valyn","agent":"Omen","acs":"197","kills":"5","deaths":"14","assists":"1","kast":"43%","adr":"43","fk":"2","fd":"2"},
+   {"name":"leaf","agent":"Viper","acs":"116","kills":"2","deaths":"14","assists":"3","kast":"29%","adr":"59","fk":"1","fd":"2"}],
+  "team2":[
+   {"name":"tkzin","agent":"Neon","acs":"242","kills":"18","deaths":"9","assists":"2","kast":"79%","adr":"236","fk":"6","fd":"1"},
+   {"name":"DaviH","agent":"Fade","acs":"209","kills":"10","deaths":"4","assists":"12","kast":"100%","adr":"121","fk":"1","fd":"0"},
+   {"name":"erde","agent":"Omen","acs":"185","kills":"11","deaths":"4","assists":"5","kast":"86%","adr":"146","fk":"0","fd":"1"},
+   {"name":"lukxo","agent":"Chamber","acs":"294","kills":"14","deaths":"7","assists":"1","kast":"86%","adr":"162","fk":"1","fd":"1"},
+   {"name":"Darker","agent":"Viper","acs":"196","kills":"13","deaths":"7","assists":"4","kast":"93%","adr":"132","fk":"1","fd":"2"}]}}
+]};
+
+const DEFAULT_RULES = {acs:10,d:-0.5,a:0.3,fk:1,fd:-1,kastmin:75,kastb:2,adr1:120,adr1b:1,adr2:150,adr2b:2,
+  k1:1.0,k1m:1.1,k2:1.2,k2m:1.2,s20:1.25,s21:1.15,s12:1.05,s02:1.00,cap:1.5};
+let R = {...DEFAULT_RULES};
+let SERIES = [SAMPLE];
+let isSample = true;
+let DATA_LABEL = "";
+let lineup = {Duelista:null,Iniciador:null,Controlador:null,Sentinela:null,Flex:null,Coach:null,cap:null};
+
+// ------------------------------------------------------------------ cálculo
+const num = v => { const n = parseFloat(String(v ?? "").replace("%","").replace("+","")); return isNaN(n) ? 0 : n; };
+const fmt = n => n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
+const fx = n => n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + "x";
+
+function mapPoints(p){
+  const parts = [];
+  const acs = num(p.acs)/R.acs; parts.push(["ACS "+num(p.acs)+" ÷ "+R.acs, "", acs]);
+  parts.push(["Mortes", num(p.deaths), num(p.deaths)*R.d]);
+  parts.push(["Assistências", num(p.assists), num(p.assists)*R.a]);
+  parts.push(["First kills", num(p.fk), num(p.fk)*R.fk]);
+  parts.push(["First deaths", num(p.fd), num(p.fd)*R.fd]);
+  const kast = num(p.kast); parts.push(["KAST", kast+"%", kast>=R.kastmin ? R.kastb : 0]);
+  const adr = num(p.adr); const ab = adr>=R.adr2 ? R.adr2b : adr>=R.adr1 ? R.adr1b : 0;
+  parts.push(["ADR", Math.round(adr), ab]);
+  return {parts, total: parts.reduce((s,x)=>s+x[2],0)};
+}
+function seriesMult(w,l){
+  const t = {"2-0":R.s20,"2-1":R.s21,"1-2":R.s12,"0-2":R.s02,"3-0":1.30,"3-1":1.20,"3-2":1.15,"2-3":1.05,"1-3":1,"0-3":1};
+  return t[w+"-"+l] ?? 1;
+}
+function roleOf(agents){
+  const c = {}; agents.forEach(a => { const r = AGENT_ROLE[a]; if(r) c[r]=(c[r]||0)+1; });
+  const e = Object.entries(c).sort((a,b)=>b[1]-a[1]);
+  if(!e.length) return "Flex";
+  if(e.length>1 && e[0][1]===e[1][1]) return "Flex";
+  return e[0][0];
+}
+function compute(){
+  const players = [], coaches = [], seriesInfo = [];
+  SERIES.forEach(s => {
+    const teams = [s.teams[0].name, s.teams[1].name];
+    const maps = (s.maps||[]).filter(m => m.players && m.players.team1 && m.players.team1.length);
+    const wins = {[teams[0]]:0,[teams[1]]:0};
+    maps.forEach(m => { const a=num(m.score.team1.total), b=num(m.score.team2.total); wins[a>b?teams[0]:teams[1]]++; });
+    seriesInfo.push({teams, wins, maps: maps.map(m=>m.map_name+" "+num(m.score.team1.total)+"-"+num(m.score.team2.total))});
+    const acc = {};
+    maps.forEach(m => {
+      const rounds = num(m.score.team1.total)+num(m.score.team2.total);
+      [["team1",teams[0]],["team2",teams[1]]].forEach(([side,team]) => {
+        m.players[side].forEach(p => {
+          const j = acc[p.name] ||= {name:p.name, team, maps:[], kills:0, rounds:0, agents:[]};
+          j.maps.push({map:m.map_name, agent:p.agent, ...mapPoints(p)});
+          j.kills += num(p.kills); j.rounds += rounds; j.agents.push(p.agent);
+        });
+      });
+    });
+    const local = Object.values(acc).map(j => {
+      const opp = j.team===teams[0]?teams[1]:teams[0];
+      const avg = j.maps.reduce((s,m)=>s+m.total,0)/j.maps.length;
+      const kpr = j.rounds ? j.kills/j.rounds : 0;
+      const mk = kpr>=R.k2 ? R.k2m : kpr>=R.k1 ? R.k1m : 1;
+      const ms = seriesMult(wins[j.team], wins[opp]);
+      const final = avg>0 ? avg*mk*ms : avg;
+      return {...j, id:s.match_id+":"+j.name, opp, score:wins[j.team]+"-"+wins[opp], avg, kpr, mk, ms, final, role:roleOf(j.agents)};
+    });
+    players.push(...local);
+    teams.forEach(t => {
+      const tp = local.filter(p=>p.team===t); const opp = t===teams[0]?teams[1]:teams[0];
+      const avg = tp.reduce((s,p)=>s+p.avg,0)/(tp.length||1); const ms = seriesMult(wins[t],wins[opp]);
+      coaches.push({id:s.match_id+":coach:"+t, name:"Coach "+t, team:t, score:wins[t]+"-"+wins[opp], avg, ms, final: avg>0?avg*ms:avg});
+    });
+  });
+  players.sort((a,b)=>b.final-a.final); coaches.sort((a,b)=>b.final-a.final);
+  return {players, coaches, seriesInfo};
+}
+
+// ------------------------------------------------------------------ render
+let STATE = compute();
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+let openRow = null;
+
+function renderAll(){
+  STATE = compute();
+  renderHome(); renderTable(); renderSeries(); renderPitch();
+  $("data-chip").textContent = isSample ? "Dados de teste" : (DATA_LABEL || SERIES.length+" série(s) importada(s)");
+  $("data-chip").className = "chip" + (isSample ? " test" : "");
+}
+function renderHome(){
+  const {players, coaches} = STATE; const top = players[0];
+  const avgAll = players.reduce((s,p)=>s+p.final,0)/(players.length||1);
+  $("tiles").innerHTML = top ? `
+    <div class="panel tile"><div class="lbl">Maior pontuador</div><div class="val">${fmt(top.final)}</div><div class="sub">${esc(top.name)} · ${esc(top.team)}</div></div>
+    <div class="panel tile"><div class="lbl">Melhor coach</div><div class="val">${fmt(coaches[0].final)}</div><div class="sub">${esc(coaches[0].team)}</div></div>
+    <div class="panel tile"><div class="lbl">Média dos jogadores</div><div class="val">${fmt(avgAll)}</div><div class="sub">${players.length} jogadores</div></div>
+    <div class="panel tile"><div class="lbl">Séries na rodada</div><div class="val">${SERIES.length}</div><div class="sub">${STATE.seriesInfo.map(s=>esc(s.teams[0])+" x "+esc(s.teams[1])).join(", ")}</div></div>` : `<div class="panel">Nenhuma série carregada. Vá em Importar série.</div>`;
+  $("top5").innerHTML = players.slice(0,5).map((p,i)=>`<li><span>${i+1}. ${esc(p.name)} <span class="role ${p.role}">${p.role}</span></span><b>${fmt(p.final)}</b></li>`).join("");
+  $("topc").innerHTML = coaches.map((c,i)=>`<li><span>${i+1}. ${esc(c.team)} <span class="team">${c.score}</span></span><b>${fmt(c.final)}</b></li>`).join("");
+}
+function renderSeries(){
+  $("series-bar").innerHTML = STATE.seriesInfo.map(s => {
+    const [a,b] = s.teams; const wa = s.wins[a], wb = s.wins[b];
+    return `<div class="series"><span class="${wa>wb?'w':'lz'}">${esc(a)}</span><span class="sc">${wa} : ${wb}</span><span class="${wb>wa?'w':'lz'}">${esc(b)}</span><span class="maps">${s.maps.map(esc).join(" · ")}</span></div>`;
+  }).join("");
+}
+function renderTable(){
+  const rows = STATE.players.map((p,i) => {
+    const isOpen = openRow===p.id;
+    const mapsTxt = p.maps.map(m=>`${m.map} <span class="${m.total<0?'neg':''}">${fmt(m.total)}</span>`).join(" · ");
+    let html = `<tr class="row${isOpen?' open':''}" data-id="${esc(p.id)}" tabindex="0">
+      <td class="l pos">${i+1}</td>
+      <td class="l"><span class="name">${esc(p.name)}</span><span class="role ${p.role}">${p.role}</span><br><span class="team">${esc(p.team)} · ${p.score} vs ${esc(p.opp)}</span></td>
+      <td class="l" style="font-size:13px">${mapsTxt}</td>
+      <td class="${p.avg<0?'neg':''}">${fmt(p.avg)}</td>
+      <td>${p.kpr.toFixed(2).replace(".",",")}</td>
+      <td class="mult ${p.mk>1?'up':''}">${fx(p.mk)}</td>
+      <td class="mult ${p.ms>1?'up':''}">${fx(p.ms)}</td>
+      <td class="final ${p.final<0?'neg':''}">${fmt(p.final)}</td></tr>`;
+    if(isOpen){
+      html += `<tr class="detail"><td colspan="8"><div class="breakdown">${p.maps.map(m=>`
+        <div class="bk"><h3><span>${esc(m.map)} · ${esc(m.agent)}</span><span>${fmt(m.total)}</span></h3><dl>
+        ${m.parts.map(([k,v,pts])=>`<dt>${k}</dt><dd class="muted">${v}</dd><dd class="${pts<0?'neg':''}">${pts>=0?'+':''}${fmt(pts)}</dd>`).join("")}
+        <dt class="tot">Total do mapa</dt><dd class="tot"></dd><dd class="tot">${fmt(m.total)}</dd></dl></div>`).join("")}
+      </div><div class="formula">Média ${fmt(p.avg)} × kill ${fx(p.mk)} × série ${fx(p.ms)} = <b>${fmt(p.final)}</b>${p.avg<=0?' (pontuação negativa não recebe multiplicador)':''}</div></td></tr>`;
+    }
+    return html;
+  }).join("");
+  $("tbody").innerHTML = rows || `<tr><td colspan="8" class="l muted">Nenhuma série carregada.</td></tr>`;
+}
+$("tbody").addEventListener("click", e => {
+  const tr = e.target.closest("tr.row"); if(!tr) return;
+  openRow = openRow===tr.dataset.id ? null : tr.dataset.id; renderTable();
+});
+$("tbody").addEventListener("keydown", e => { if(e.key==="Enter"){ const tr=e.target.closest("tr.row"); if(tr){ openRow = openRow===tr.dataset.id?null:tr.dataset.id; renderTable(); } } });
+
+// ------------------------------------------------------------------ escalação
+const SLOTS = ["Duelista","Iniciador","Controlador","Sentinela","Flex","Coach"];
+function pool(slot){
+  if(slot==="Coach") return STATE.coaches;
+  if(slot==="Flex") return STATE.players;
+  return STATE.players.filter(p=>p.role===slot);
+}
+function findById(id){ return STATE.players.find(p=>p.id===id) || STATE.coaches.find(c=>c.id===id); }
+function renderPitch(){
+  // limpa escolhas que não existem mais
+  SLOTS.forEach(s => { if(lineup[s] && !findById(lineup[s])) lineup[s]=null; });
+  const used = SLOTS.filter(s=>s!=="Coach").map(s=>lineup[s]).filter(Boolean);
+  let total = 0;
+  $("pitch").innerHTML = SLOTS.map(s => {
+    const sel = lineup[s] ? findById(lineup[s]) : null;
+    const isCap = sel && lineup.cap===s && s!=="Coach";
+    const pts = sel ? sel.final*(isCap?R.cap:1) : 0; total += pts;
+    const opts = pool(s).filter(p => p.id===lineup[s] || !used.includes(p.id))
+      .map(p=>`<option value="${esc(p.id)}"${p.id===lineup[s]?' selected':''}>${esc(s==="Coach"?p.team:p.name)}${s==="Flex"?' ('+p.role+')':''} · ${fmt(p.final)}</option>`).join("");
+    return `<div class="slot${isCap?' cap':''}">
+      <div class="slot-role">${s}</div>
+      <label class="muted" for="sel-${s}" style="font-size:12px">Escolher</label>
+      <select id="sel-${s}" data-slot="${s}"><option value="">Vazio</option>${opts}</select>
+      <div class="pts">${sel?fmt(pts):"–"}${isCap?'<small>capitão</small>':''}</div>
+      ${s!=="Coach" && sel ? `<button class="cap-btn" type="button" data-cap="${s}">${isCap?'Capitão':'Tornar capitão'}</button>`:''}
+    </div>`;
+  }).join("");
+  $("team-total").textContent = fmt(total);
+  const filled = SLOTS.filter(s=>lineup[s]).length;
+  $("team-note").textContent = filled<6 ? `${filled} de 6 posições preenchidas` : (lineup.cap ? "Time completo" : "Time completo. Escolha um capitão.");
+}
+$("pitch").addEventListener("change", e => {
+  const s = e.target.dataset.slot; if(!s) return;
+  lineup[s] = e.target.value || null; if(!lineup[s] && lineup.cap===s) lineup.cap=null; renderPitch();
+});
+$("pitch").addEventListener("click", e => {
+  const s = e.target.dataset.cap; if(!s) return; lineup.cap = lineup.cap===s ? null : s; renderPitch();
+});
+$("auto").addEventListener("click", () => {
+  lineup = {cap:null}; const taken = new Set();
+  ["Duelista","Iniciador","Controlador","Sentinela","Flex"].forEach(s => {
+    const best = pool(s).find(p=>!taken.has(p.id)); lineup[s] = best?best.id:null; if(best) taken.add(best.id);
+  });
+  lineup.Coach = STATE.coaches[0]?.id || null;
+  const ranked = ["Duelista","Iniciador","Controlador","Sentinela","Flex"].filter(s=>lineup[s]).sort((a,b)=>findById(lineup[b]).final-findById(lineup[a]).final);
+  lineup.cap = ranked[0] || null;
+  renderPitch();
+});
+
+// ------------------------------------------------------------------ regras
+const RULE_IDS = Object.keys(DEFAULT_RULES);
+function fillRules(){ RULE_IDS.forEach(k => { $("r-"+k).value = R[k]; }); }
+$("rules").addEventListener("input", e => {
+  const k = e.target.id.replace("r-",""); if(!(k in R)) return;
+  const v = parseFloat(e.target.value); if(isNaN(v)) return;
+  if(k==="acs" && v<=0) return;
+  R[k] = v; renderAll();
+});
+$("reset").addEventListener("click", () => { R = {...DEFAULT_RULES}; fillRules(); renderAll(); });
+
+// ------------------------------------------------------------------ importar
+function normalize(obj){
+  if(Array.isArray(obj)) return obj.flatMap(normalize);
+  if(obj && obj.status==="success" && obj.data) return normalize(obj.data);
+  if(obj && Array.isArray(obj.maps) && Array.isArray(obj.teams)) return [obj];
+  throw new Error("Não encontrei os campos teams e maps. Cole a resposta de /v2/match/details.");
+}
+$("do-import").addEventListener("click", () => {
+  const msg = $("import-msg");
+  try{
+    const list = normalize(JSON.parse($("json-in").value));
+    if(isSample){ SERIES = []; isSample = false; }
+    let added = 0;
+    list.forEach(s => { if(!SERIES.some(x=>x.match_id && x.match_id===s.match_id)){ SERIES.push(s); added++; } });
+    renderAll();
+    msg.className = "msg ok";
+    msg.textContent = added ? `${added} série(s) adicionada(s). A rodada tem ${SERIES.length} série(s).` : "Essa série já estava na rodada.";
+    $("json-in").value = "";
+  }catch(err){
+    msg.className = "msg err";
+    msg.textContent = err instanceof SyntaxError ? "O texto colado não é um JSON válido. Copie a resposta inteira da API." : err.message;
+  }
+});
+$("do-clear").addEventListener("click", () => { SERIES = []; isSample = false; lineup = {cap:null}; renderAll(); $("import-msg").className="msg"; $("import-msg").textContent="Rodada limpa."; });
+$("do-sample").addEventListener("click", () => { SERIES = [SAMPLE]; isSample = true; renderAll(); $("import-msg").className="msg ok"; $("import-msg").textContent="G2 x LOUD de teste carregado."; });
+
+// ------------------------------------------------------------------ API local
+const apiBase = () => $("api-url").value.trim().replace(/\/+$/,"");
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+function apiMsg(text, kind){ const m=$("api-msg"); m.className="msg"+(kind?" "+kind:""); m.textContent=text; }
+function apiStatus(text, kind){ const c=$("api-status"); c.textContent=text; c.className="chip"+(kind?" "+kind:""); }
+try{ const saved = localStorage.getItem("fvct-api"); if(saved) $("api-url").value = saved;
+     const ev = localStorage.getItem("fvct-event"); if(ev) $("api-event").value = ev; }catch(e){}
+
+async function apiGet(path){
+  let r;
+  try{ r = await fetch(apiBase()+path); }
+  catch(e){ throw new Error("NOCONN"); }
+  if(r.status===429){
+    const wait = (parseInt(r.headers.get("Retry-After"))||20)*1000;
+    apiMsg(`Limite da API atingido. Esperando ${Math.round(wait/1000)}s para continuar...`);
+    await sleep(wait); return apiGet(path);
+  }
+  const body = await r.json().catch(()=>null);
+  if(!r.ok || !body || body.status!=="success") throw new Error(body?.detail || body?.message || `A API respondeu ${r.status}`);
+  return body.data;
+}
+function connError(){
+  apiStatus("Sem conexão","err");
+  apiMsg(location.protocol==="file:"
+    ? "Não consegui falar com a API. Confira se a janela preta da API está aberta e mostrando 'Uvicorn running'."
+    : "Esta versão online não consegue acessar a API do seu computador. Abra o arquivo index.html que está na pasta fantasy-vct, com a API ligada.","err");
+}
+
+$("api-list").addEventListener("click", async () => {
+  const id = $("api-event").value.trim();
+  if(!/^\d+$/.test(id)){ apiMsg("Digite só o número do evento, ex.: 2501.","err"); return; }
+  try{ localStorage.setItem("fvct-api",$("api-url").value); localStorage.setItem("fvct-event",id); }catch(e){}
+  apiMsg("Buscando jogos do evento..."); $("api-matches").innerHTML="";
+  try{
+    const data = await apiGet(`/v2/events/matches?event_id=${id}`);
+    apiStatus("Conectada","ok");
+    const list = data.segments || [];
+    if(!list.length){ apiMsg("O evento não tem jogos listados.","err"); return; }
+    const groups = {};
+    list.forEach(m => { const g = [m.stage, m.event_series].filter(Boolean).join(" · ") || "Jogos"; (groups[g] ||= []).push(m); });
+    $("api-matches").innerHTML = Object.entries(groups).map(([g,ms],gi) => `
+      <div class="mgroup"><div class="mgroup-h"><b>${esc(g)}</b><button class="link-btn" type="button" data-group="${gi}">Marcar todos concluídos</button></div>
+      ${ms.map(m => { const done = (m.status||"").toLowerCase()==="completed";
+        return `<label class="mrow${done?'':' na'}"><input type="checkbox" data-g="${gi}" value="${esc(m.match_id)}" ${done?'':'disabled'}>
+          <span>${esc(m.team1.name)} <span class="sc">${esc(m.team1.score||"-")} : ${esc(m.team2.score||"-")}</span> ${esc(m.team2.name)}</span>
+          <span class="muted" style="font-size:12.5px">${esc(m.date||"")}${done?"":" · não jogado"}</span></label>`; }).join("")}
+      </div>`).join("") + `<div style="margin-top:14px"><button class="btn" id="api-import" type="button">Importar selecionadas</button></div>`;
+    apiMsg(`${list.length} jogos encontrados. Marque as séries da rodada e importe.`,"ok");
+  }catch(e){ e.message==="NOCONN" ? connError() : (apiStatus("Erro","err"), apiMsg(e.message,"err")); }
+});
+
+$("api-matches").addEventListener("click", async e => {
+  if(e.target.dataset.group!==undefined){
+    $("api-matches").querySelectorAll(`input[data-g="${e.target.dataset.group}"]:not(:disabled)`).forEach(c=>c.checked=true);
+    return;
+  }
+  if(e.target.id!=="api-import") return;
+  const ids = [...$("api-matches").querySelectorAll("input:checked")].map(c=>c.value);
+  if(!ids.length){ apiMsg("Marque pelo menos uma série.","err"); return; }
+  e.target.disabled = true;
+  const got = [];
+  try{
+    for(let i=0;i<ids.length;i++){
+      apiMsg(`Baixando série ${i+1} de ${ids.length}...`);
+      if(i) await sleep(3200); // limite de 20 req/min da API
+      got.push(await apiGet(`/v2/match/details?match_id=${ids[i]}`));
+    }
+    if(isSample){ SERIES=[]; isSample=false; }
+    let added=0; got.forEach(s => { if(!SERIES.some(x=>x.match_id===s.match_id)){ SERIES.push(s); added++; } });
+    renderAll();
+    apiMsg(`${added} série(s) importada(s). A rodada tem ${SERIES.length}. Veja em Pontuação.`,"ok");
+  }catch(err){ err.message==="NOCONN" ? connError() : apiMsg(`Parou na série ${got.length+1}: ${err.message}`,"err"); }
+  finally{ e.target.disabled=false; }
+});
+
+// ------------------------------------------------------------------ rotas
+const VIEWS = ["inicio","escalacao","pontuacao","importar","mercado","cartas"];
+function route(){
+  const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "inicio";
+  VIEWS.forEach(x => $("v-"+x).classList.toggle("on", x===v));
+  document.querySelectorAll("#nav a").forEach(a => a.classList.toggle("on", a.dataset.v===v));
+}
+window.addEventListener("hashchange", route);
+
+async function loadPublished(){
+  // No GitHub Pages, o workflow "Coletar rodada" salva a rodada em data/rodada.json
+  try{
+    const r = await fetch("data/rodada.json", {cache:"no-store"});
+    if(!r.ok) return;
+    const d = await r.json();
+    const list = Array.isArray(d) ? d : (d.series || []);
+    if(!list.length) return;
+    SERIES = list; isSample = false;
+    DATA_LABEL = (d.rotulo || "Rodada publicada") + " · " + list.length + " série(s)";
+    renderAll(); $("auto").click();
+  }catch(e){}
+}
+fillRules(); renderAll(); $("auto").click(); route(); loadPublished();
+</script>
+</body>
+</html>
