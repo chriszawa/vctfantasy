@@ -97,6 +97,32 @@ def preencher_agentes(serie, html):
         print(f"Aviso: {faltando} jogador(es) sem agente na série {serie.get('match_id')}", file=sys.stderr)
 
 
+_coaches = {}
+
+
+def coach_do_time(team_id):
+    """Nome do head coach atual do time, pela comissão técnica no VLR."""
+    if not team_id:
+        return ""
+    if team_id in _coaches:
+        return _coaches[team_id]
+    time.sleep(3.5)  # limite de 20 req/min da API
+    try:
+        dados = buscar(f"/v2/team?id={team_id}&q=roster")
+    except Exception as e:
+        print(f"Aviso: não consegui ler a comissão do time {team_id}: {e}", file=sys.stderr)
+        _coaches[team_id] = ""
+        return ""
+    staff = dados.get("staff") or []
+    def papel(p):
+        return (p.get("role") or "").lower()
+    escolhido = (next((p for p in staff if "head coach" in papel(p)), None)
+                 or next((p for p in staff if "coach" in papel(p) and "assistant" not in papel(p)), None)
+                 or next((p for p in staff if "coach" in papel(p)), None))
+    _coaches[team_id] = (escolhido or {}).get("alias", "")
+    return _coaches[team_id]
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--event-id", default="")
@@ -135,6 +161,8 @@ def main():
         except Exception as e:  # sem agente a pontuação continua valendo; só a função vira Flex
             print(f"Aviso: não consegui ler os agentes da série {mid}: {e}", file=sys.stderr)
         evento_nome = evento_nome or (s.get("event") or {}).get("name", "")
+        for t in s.get("teams", []):
+            t["coach"] = coach_do_time(t.get("id"))
         series.append(s)
 
     SAIDA.parent.mkdir(parents=True, exist_ok=True)

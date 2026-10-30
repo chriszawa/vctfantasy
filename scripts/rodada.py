@@ -172,6 +172,7 @@ def calcular_serie(match):
             "mult_kill": m_kill, "mult_serie": m_serie, "final": round(final, 2),
         })
 
+    nomes_coach = {t["name"]: (t.get("coach") or "") for t in match["teams"]}
     coaches = []
     for t in times:
         do_time = [l for l in linhas if l["time"] == t]
@@ -180,7 +181,7 @@ def calcular_serie(match):
         media = sum(l["media_serie"] for l in do_time) / len(do_time)
         m_serie = MULT_SERIE.get(placar, 1.0)
         coaches.append({
-            "coach": t, "placar": f"{placar[0]}-{placar[1]}",
+            "coach": nomes_coach.get(t) or f"Coach {t}", "time": t, "placar": f"{placar[0]}-{placar[1]}",
             "media_time": round(media, 2), "mult_serie": m_serie,
             "final": round(media * m_serie if media > 0 else media, 2),
         })
@@ -198,7 +199,7 @@ def imprimir(jogadores, coaches):
               f'{l["kpr"]:>7.2f}{l["mult_kill"]:>7.2f}{l["mult_serie"]:>8.2f}{l["final"]:>9.2f}')
     print(f'\n{"COACH":<32}{"PLACAR":<8}{"MÉDIA":>8}{"xSÉRIE":>8}{"FINAL":>9}')
     for c in sorted(coaches, key=lambda x: -x["final"]):
-        print(f'{c["coach"][:31]:<32}{c["placar"]:<8}{c["media_time"]:>8.2f}'
+        print(f'{(c["coach"] + " (" + c["time"] + ")")[:31]:<32}{c["placar"]:<8}{c["media_time"]:>8.2f}'
               f'{c["mult_serie"]:>8.2f}{c["final"]:>9.2f}')
 
 

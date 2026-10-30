@@ -170,7 +170,7 @@ p{max-width:70ch}
       <a href="#inicio" data-v="inicio">Início</a>
       <a href="#escalacao" data-v="escalacao">Escalação</a>
       <a href="#pontuacao" data-v="pontuacao">Pontuação</a>
-      <a href="#importar" data-v="importar">Importar série</a>
+      <a href="#importar" data-v="importar">Atualizar rodada</a>
       <a href="#mercado" data-v="mercado">Mercado <small>em breve</small></a>
       <a href="#cartas" data-v="cartas">Cartas <small>em breve</small></a>
     </nav>
@@ -258,7 +258,22 @@ p{max-width:70ch}
 
     <!-- IMPORTAR -->
     <section class="view" id="v-importar">
-      <div class="top"><div><div class="eyebrow">Dados reais</div><h1>Importar série</h1></div></div>
+      <div class="top"><div><div class="eyebrow">Dados do VLR</div><h1>Atualizar rodada</h1></div></div>
+      <div class="grid" style="grid-template-columns:minmax(0,1fr) minmax(260px,420px);align-items:start;margin-bottom:28px">
+        <div class="panel">
+          <h2>Rodada no ar</h2>
+          <div id="pub-info" class="muted">Nenhuma rodada publicada ainda. O site está mostrando o G2 x LOUD de teste.</div>
+        </div>
+        <div class="panel">
+          <h2>Puxar uma rodada nova</h2>
+          <ol class="steps">
+            <li>Abra o <a href="https://github.com/chriszawa/vctfantasy/actions/workflows/coletar.yml" style="color:var(--red)">workflow Coletar rodada</a> no GitHub.</li>
+            <li>Clique em <b>Run workflow</b>, informe o ID do evento (o número em vlr.gg/event/<b>2977</b>/...) e a semana, ex.: <code>Week 4</code>.</li>
+            <li>Em uns 3 minutos o GitHub baixa as séries, os agentes e os coaches, e o site atualiza sozinho.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="eyebrow" style="margin-bottom:10px">Modo local · para testar no seu computador com a API ligada</div>
       <div class="panel" style="margin-bottom:16px">
         <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px;align-items:center">
           <h2 style="margin:0">Buscar da API</h2>
@@ -423,10 +438,11 @@ function compute(){
       return {...j, id:s.match_id+":"+j.name, opp, score:wins[j.team]+"-"+wins[opp], avg, kpr, mk, ms, final, role:roleOf(j.agents)};
     });
     players.push(...local);
+    const coachName = {}; (s.teams||[]).forEach(t => { coachName[t.name] = t.coach || ""; });
     teams.forEach(t => {
       const tp = local.filter(p=>p.team===t); const opp = t===teams[0]?teams[1]:teams[0];
       const avg = tp.reduce((s,p)=>s+p.avg,0)/(tp.length||1); const ms = seriesMult(wins[t],wins[opp]);
-      coaches.push({id:s.match_id+":coach:"+t, name:"Coach "+t, team:t, score:wins[t]+"-"+wins[opp], avg, ms, final: avg>0?avg*ms:avg});
+      coaches.push({id:s.match_id+":coach:"+t, name: coachName[t] || "Coach "+t, team:t, score:wins[t]+"-"+wins[opp], avg, ms, final: avg>0?avg*ms:avg});
     });
   });
   // Na rodada, quem jogou mais de uma série pontua pela média das séries
@@ -462,11 +478,11 @@ function renderHome(){
   const avgAll = players.reduce((s,p)=>s+p.final,0)/(players.length||1);
   $("tiles").innerHTML = top ? `
     <div class="panel tile"><div class="lbl">Maior pontuador</div><div class="val">${fmt(top.final)}</div><div class="sub">${esc(top.name)} · ${esc(top.team)}</div></div>
-    <div class="panel tile"><div class="lbl">Melhor coach</div><div class="val">${fmt(coaches[0].final)}</div><div class="sub">${esc(coaches[0].team)}</div></div>
+    <div class="panel tile"><div class="lbl">Melhor coach</div><div class="val">${fmt(coaches[0].final)}</div><div class="sub">${esc(coaches[0].name)} · ${esc(coaches[0].team)}</div></div>
     <div class="panel tile"><div class="lbl">Média dos jogadores</div><div class="val">${fmt(avgAll)}</div><div class="sub">${players.length} jogadores</div></div>
     <div class="panel tile"><div class="lbl">Séries na rodada</div><div class="val">${SERIES.length}</div><div class="sub">${STATE.seriesInfo.map(s=>esc(s.teams[0])+" x "+esc(s.teams[1])).join(", ")}</div></div>` : `<div class="panel">Nenhuma série carregada. Vá em Importar série.</div>`;
   $("top5").innerHTML = players.slice(0,5).map((p,i)=>`<li><span>${i+1}. ${esc(p.name)} <span class="role ${p.role}">${p.role}</span></span><b>${fmt(p.final)}</b></li>`).join("");
-  $("topc").innerHTML = coaches.map((c,i)=>`<li><span>${i+1}. ${esc(c.team)} <span class="team">${c.entries.map(e=>e.score).join(" · ")}</span></span><b>${fmt(c.final)}</b></li>`).join("");
+  $("topc").innerHTML = coaches.map((c,i)=>`<li><span>${i+1}. ${esc(c.name)} <span class="team">${esc(c.team)} · ${c.entries.map(e=>e.score).join(" · ")}</span></span><b>${fmt(c.final)}</b></li>`).join("");
 }
 function renderSeries(){
   $("series-bar").innerHTML = STATE.seriesInfo.map(s => {
@@ -528,7 +544,7 @@ function renderPitch(){
     const isCap = sel && lineup.cap===s && s!=="Coach";
     const pts = sel ? sel.final*(isCap?R.cap:1) : 0; total += pts;
     const opts = pool(s).filter(p => p.id===lineup[s] || !used.includes(p.id))
-      .map(p=>`<option value="${esc(p.id)}"${p.id===lineup[s]?' selected':''}>${esc(s==="Coach"?p.team:p.name)}${s==="Flex"?' ('+p.role+')':''} · ${fmt(p.final)}</option>`).join("");
+      .map(p=>`<option value="${esc(p.id)}"${p.id===lineup[s]?' selected':''}>${esc(s==="Coach"?p.name+" ("+p.team+")":p.name)}${s==="Flex"?' ('+p.role+')':''} · ${fmt(p.final)}</option>`).join("");
     return `<div class="slot${isCap?' cap':''}">
       <div class="slot-role">${s}</div>
       <label class="muted" for="sel-${s}" style="font-size:12px">Escolher</label>
@@ -691,6 +707,10 @@ async function loadPublished(){
     if(!list.length) return;
     SERIES = list; isSample = false;
     DATA_LABEL = (d.rotulo || "Rodada publicada") + " · " + list.length + " série(s)";
+    const quando = d.coletado_em ? new Date(d.coletado_em).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"}) : "";
+    $("pub-info").innerHTML = `<div style="font-family:var(--f-display);font-size:20px;color:var(--text);text-transform:uppercase;letter-spacing:.04em">${esc(d.rotulo||"Rodada")}</div>
+      <div style="margin-top:6px">${list.length} séries${quando?" · coletada em "+esc(quando):""}</div>
+      <div style="margin-top:10px;font-size:13.5px">${list.map(x=>esc(x.teams[0].name)+" "+esc(x.teams[0].score??"")+" x "+esc(x.teams[1].score??"")+" "+esc(x.teams[1].name)).join("<br>")}</div>`;
     renderAll(); $("auto").click();
   }catch(e){}
 }
