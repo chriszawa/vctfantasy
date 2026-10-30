@@ -1,1 +1,14 @@
-{"times": {}}
+{
+ "100 Thieves": "data/times/100-thieves.png",
+ "Cloud9": "data/times/cloud9.png",
+ "ENVY": "data/times/envy.png",
+ "Evil Geniuses": "data/times/evil-geniuses.png",
+ "FURIA": "data/times/furia.png",
+ "G2 Esports": "data/times/g2-esports.png",
+ "KRÜ Esports": "data/times/kru-esports.png",
+ "LEVIATÁN": "data/times/leviatan.png",
+ "LOUD": "data/times/loud.png",
+ "MIBR": "data/times/mibr.png",
+ "NRG": "data/times/nrg.png",
+ "Sentinels": "data/times/sentinels.png"
+}
