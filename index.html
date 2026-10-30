@@ -108,6 +108,7 @@ nav a:hover{background:#ffffff0d}
 .adm-team label{font-size:12px;color:var(--red);cursor:pointer}
 .adm-team input{display:none}
 .adm-team.changed{border-color:var(--gold)}
+.adm-team.drop{border-color:var(--red);border-style:dashed;background:#ff465522}
 .adm-editor{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
 .adm-editor label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .adm-editor input,.adm-editor select{background:#ffffff0a;border:1px solid #ffffff1f;padding:8px 10px;color:var(--text);font-size:14px;text-transform:none;letter-spacing:0}
@@ -557,7 +558,7 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
       <div class="panel" style="margin-bottom:16px">
         <div class="win-head"><h2 style="margin:0">Imagens dos times</h2>      <div class="panel" style="margin-bottom:16px">
         <div class="win-head"><h2 style="margin:0">Imagens dos times</h2><button class="btn small" type="button" id="adm-save-logos">Salvar imagens</button></div>
-        <p class="muted" style="font-size:13.5px">PNG, SVG, WEBP ou JPG de até 300 KB. A imagem aparece ao lado da tag do time nas cartas.</p>
+        <p class="muted" style="font-size:13.5px">Arraste a imagem em cima do time (ou clique em Escolher). PNG, SVG, WEBP ou JPG de até 300 KB.</p>
         <div class="adm-teams" id="adm-teams"></div>
         <div class="msg" id="adm-logo-msg" style="font-size:13.5px;margin-top:8px"></div>
       </div>
@@ -653,6 +654,8 @@ let R = {...DEFAULT_RULES};
 let SERIES = [], RODADA = null, TEMPORADA = null, PROXIMAS = null, FUNCOES = {};
 let AJUSTES = {jogadores:{}};   // data/ajustes.json — correções feitas na aba admin
 let TIMES = {};                 // data/times.json — imagem de cada time {nome do time: caminho}
+let SERVER = false;             // true quando o site roda na Vercel com as funções /api
+let SESSION = ""; try{ SESSION = sessionStorage.getItem("fvct-sess") || ""; }catch(e){}
 let STATE = {players:[], coaches:[], seriesInfo:[]};
 let CARDS = [], CARD_BY_NAME = {};
 let lineup = {cap:null};
@@ -1184,9 +1187,23 @@ function admUnlock(){
   $("adm-status").textContent = "Conectado"; $("adm-status").style.color = "var(--good)";
   renderAdmin();
 }
+async function apiPost(path, body){
+  const r = await fetch(path, {method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(body)});
+  const j = await r.json().catch(()=>({}));
+  if(!r.ok) throw new Error(j.erro || `erro ${r.status}`);
+  return j;
+}
 $("adm-login-form").addEventListener("submit", async () => {
   const pass = $("adm-pass").value; if(!pass) return;
   admMsg("adm-login-msg","Entrando...");
+  if(SERVER){
+    try{
+      SESSION = (await apiPost("api/login", {senha: pass})).sessao;
+      try{ sessionStorage.setItem("fvct-sess", SESSION); }catch(e){}
+      $("adm-pass").value = ""; admMsg("adm-login-msg",""); admUnlock();
+    }catch(e){ admMsg("adm-login-msg", e.message, "err"); }
+    return;
+  }
   const cfg = await getJSON("data/admin.json");
   if(!cfg || !cfg.data){ admMsg("adm-login-msg","O acesso ainda não foi configurado. Abra \"Primeira vez?\" logo abaixo.","err"); $("adm-setup-box").open = true; return; }
   try{
@@ -1217,7 +1234,7 @@ $("adm-setup-form").addEventListener("submit", async () => {
   }catch(e){ admMsg("adm-setup-msg",`Não consegui salvar a configuração: ${e.message}`,"err"); }
 });
 $("adm-logout").addEventListener("click", () => {
-  GH_TOKEN = ""; try{ sessionStorage.removeItem("fvct-gh"); localStorage.removeItem("fvct-gh"); }catch(e){}
+  GH_TOKEN = ""; SESSION = ""; try{ sessionStorage.removeItem("fvct-gh"); sessionStorage.removeItem("fvct-sess"); localStorage.removeItem("fvct-gh"); }catch(e){}
   $("adm-area").hidden = true; $("adm-login").hidden = false;
   $("adm-status").textContent = "Sem conexão"; $("adm-status").style.color = "";
 });
@@ -1225,25 +1242,56 @@ function admTeams(){
   const names = [...new Set([...SERIES.flatMap(s=>s.teams.map(t=>t.name)), ...Object.keys(TEAM_TAG)])].sort();
   $("adm-teams").innerHTML = names.map((n,i) => {
     const src = pendingLogos[n]?.dataUrl || TIMES[n];
-    return `<div class="adm-team${pendingLogos[n]?' changed':''}">
+    return `<div class="adm-team${pendingLogos[n]?' changed':''}" data-team="${esc(n)}">
       <div class="pv">${src?`<img src="${esc(src)}" alt="">`:`<span class="muted" style="font-size:11px">${esc(TEAM_TAG_OF(n))}</span>`}</div>
-      <div><b>${esc(n)}</b><label for="lg-${i}">${src?'Trocar imagem':'Enviar imagem'}</label><input type="file" id="lg-${i}" accept=".png,.svg,.webp,.jpg,.jpeg" data-team="${esc(n)}"></div>
+      <div><b>${esc(n)}</b><label for="lg-${i}">${src?'Trocar':'Escolher'} ou arraste aqui</label><input type="file" id="lg-${i}" accept=".png,.svg,.webp,.jpg,.jpeg" data-team="${esc(n)}"></div>
     </div>`;
   }).join("");
 }
-$("adm-teams").addEventListener("change", e => {
-  const inp = e.target.closest("input[type=file]"); if(!inp || !inp.files[0]) return;
-  const f = inp.files[0], team = inp.dataset.team;
+function handleLogoFile(team, f){
+  if(!f || !/\.(png|svg|webp|jpe?g)$/i.test(f.name)){ admMsg("adm-logo-msg","Use uma imagem PNG, SVG, WEBP ou JPG.","err"); return; }
   if(f.size > 300*1024){ admMsg("adm-logo-msg",`${f.name} tem ${Math.round(f.size/1024)} KB. O limite é 300 KB.`,"err"); return; }
   const ext = (f.name.split(".").pop()||"png").toLowerCase().replace("jpeg","jpg");
   const rd = new FileReader();
   rd.onload = () => { pendingLogos[team] = {dataUrl: rd.result, b64: String(rd.result).split(",")[1], ext}; admTeams(); admMsg("adm-logo-msg","Imagem pronta. Clique em Salvar imagens para enviar."); };
   rd.readAsDataURL(f);
+}
+$("adm-teams").addEventListener("change", e => {
+  const inp = e.target.closest("input[type=file]"); if(!inp || !inp.files[0]) return;
+  handleLogoFile(inp.dataset.team, inp.files[0]);
 });
+// arrastar e soltar a imagem em cima do time
+$("adm-teams").addEventListener("dragover", e => {
+  const box = e.target.closest(".adm-team"); if(!box) return;
+  e.preventDefault(); e.dataTransfer.dropEffect = "copy";
+  document.querySelectorAll(".adm-team.drop").forEach(x => x !== box && x.classList.remove("drop"));
+  box.classList.add("drop");
+});
+$("adm-teams").addEventListener("dragleave", e => {
+  const box = e.target.closest(".adm-team"); if(box && !box.contains(e.relatedTarget)) box.classList.remove("drop");
+});
+$("adm-teams").addEventListener("drop", e => {
+  const box = e.target.closest(".adm-team"); if(!box) return;
+  e.preventDefault(); box.classList.remove("drop");
+  const f = e.dataTransfer.files && e.dataTransfer.files[0];
+  if(f) handleLogoFile(box.dataset.team, f);
+});
+// soltar fora de um time não abre a imagem no navegador
+["dragover","drop"].forEach(t => document.addEventListener(t, e => { if(location.hash==="#admin" && !e.target.closest(".adm-team")) e.preventDefault(); }));
 const slug = n => n.normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"");
 $("adm-save-logos").addEventListener("click", async () => {
   const teams = Object.keys(pendingLogos);
   if(!teams.length){ admMsg("adm-logo-msg","Nenhuma imagem nova para salvar."); return; }
+  if(SERVER){
+    try{
+      admMsg("adm-logo-msg","Enviando...");
+      const r = await apiPost("api/salvar", {sessao: SESSION, logos: teams.map(t => ({team:t, b64:pendingLogos[t].b64, ext:pendingLogos[t].ext}))});
+      TIMES = {...TIMES, ...r.times}; teams.forEach(t => delete pendingLogos[t]);
+      admTeams(); renderAll();
+      admMsg("adm-logo-msg",`${teams.length} imagem(ns) salva(s). Já aparece para todo mundo.`,"ok");
+    }catch(e){ admMsg("adm-logo-msg",`Erro ao salvar: ${e.message}`,"err"); }
+    return;
+  }
   if(!GH_TOKEN){ admMsg("adm-logo-msg","Entre com a senha primeiro.","err"); return; }
   try{
     const novo = {...TIMES};
@@ -1300,6 +1348,13 @@ $("adm-list").addEventListener("click", e => {
   admMsg("adm-player-msg","Ajuste removido aqui. Clique em Salvar ajustes para publicar.");
 });
 $("adm-save-players").addEventListener("click", async () => {
+  if(SERVER){
+    try{
+      await apiPost("api/salvar", {sessao: SESSION, jogadores: AJUSTES.jogadores});
+      admMsg("adm-player-msg","Ajustes salvos. Já aparece para todo mundo em até 1 minuto.","ok");
+    }catch(e){ admMsg("adm-player-msg",`Erro ao salvar: ${e.message}`,"err"); }
+    return;
+  }
   if(!GH_TOKEN){ admMsg("adm-player-msg","Entre com a senha primeiro.","err"); return; }
   try{
     await ghPut("data/ajustes.json", b64utf8(JSON.stringify(AJUSTES, null, 1)), "Admin: ajustes de jogadores");
@@ -1307,7 +1362,8 @@ $("adm-save-players").addEventListener("click", async () => {
   }catch(e){ admMsg("adm-player-msg",`Erro ao salvar: ${e.message}`,"err"); }
 });
 function renderAdmin(){
-  if(GH_TOKEN && $("adm-area").hidden){ $("adm-login").hidden = true; $("adm-area").hidden = false; $("adm-status").textContent = "Conectado"; $("adm-status").style.color = "var(--good)"; }
+  $("adm-setup-box").hidden = SERVER;
+  if((GH_TOKEN || (SERVER && SESSION)) && $("adm-area").hidden){ $("adm-login").hidden = true; $("adm-area").hidden = false; $("adm-status").textContent = "Conectado"; $("adm-status").style.color = "var(--good)"; }
   if(!$("adm-area").hidden){ admTeams(); admPlayerOptions(); admEditor(); admList(); }
 }
 
@@ -1331,6 +1387,12 @@ async function boot(){
   const [rod, tmp, prox, fun, aju, tim] = await Promise.all([getJSON("data/rodada.json"), getJSON("data/temporada.json"), getJSON("data/proximas.json"), getJSON("data/funcoes.json"), getJSON("data/ajustes.json"), getJSON("data/times.json")]);
   if(aju && aju.jogadores) AJUSTES = aju;
   if(tim && typeof tim==="object") TIMES = tim.times || tim;
+  const srv = await getJSON("api/dados");
+  if(srv && srv.servidor){
+    SERVER = true;
+    if(srv.jogadores && Object.keys(srv.jogadores).length) AJUSTES = {jogadores: srv.jogadores};
+    TIMES = {...TIMES, ...(srv.times||{})};
+  }
   const VALIDAS = ["Duelista","Iniciador","Controlador","Sentinela","Flex"];
   Object.entries(fun||{}).forEach(([n,r]) => { if(VALIDAS.includes(r)) FUNCOES[key(n)] = r; });
   BASE_ROLE = {...FUNCOES};

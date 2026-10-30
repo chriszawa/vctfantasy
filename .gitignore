@@ -2,3 +2,5 @@ __pycache__/
 *.csv
 vlrggapi/
 api.log
+node_modules/
+.vercel/
