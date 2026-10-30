@@ -267,7 +267,7 @@ p{max-width:70ch}
     <!-- INÍCIO -->
     <section class="view" id="v-inicio">
       <div class="top">
-        <div><div class="eyebrow">VCT Americas · Rodada de teste</div><h1>Painel da rodada</h1></div>
+        <div><div class="eyebrow">VCT Americas</div><h1>Painel da rodada</h1></div>
         <span class="chip test" id="data-chip">Dados de teste</span>
       </div>
       <div class="home-team panel">
@@ -929,7 +929,10 @@ async function loadPublishedInner(){
     const list = normalize(Array.isArray(d) ? d : (d.series || []));
     if(!list.length) return;
     SERIES = list; isSample = false;
-    DATA_LABEL = (d.rotulo || "Rodada publicada") + " · " + list.length + " série(s)";
+    let rot = d.rotulo || "Rodada publicada";
+    if(d.semana && rot.endsWith(" · "+d.semana) && rot.slice(0, -(d.semana.length+3)).includes(d.semana)) rot = rot.slice(0, -(d.semana.length+3));
+    d.rotulo = rot;
+    DATA_LABEL = rot + " · " + list.length + " séries";
     const quando = d.coletado_em ? new Date(d.coletado_em).toLocaleString("pt-BR",{dateStyle:"short",timeStyle:"short"}) : "";
     $("pub-info").innerHTML = `<div style="font-family:var(--f-display);font-size:20px;color:var(--text);text-transform:uppercase;letter-spacing:.04em">${esc(d.rotulo||"Rodada")}</div>
       <div style="margin-top:6px">${list.length} séries${quando?" · coletada em "+esc(quando):""}</div>

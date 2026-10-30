@@ -171,7 +171,8 @@ def main():
 
     SAIDA.parent.mkdir(parents=True, exist_ok=True)
     SAIDA.write_text(json.dumps({
-        "rotulo": " · ".join(x for x in [evento_nome, a.semana] if x) or "Rodada",
+        "rotulo": (evento_nome if a.semana and a.semana.lower() in evento_nome.lower()
+                   else " · ".join(x for x in [evento_nome, a.semana] if x)) or "Rodada",
         "event_id": a.event_id,
         "semana": a.semana,
         "coletado_em": datetime.now(timezone.utc).isoformat(timespec="seconds"),
