@@ -43,12 +43,15 @@ jobs:
 
       - name: Instalar o uv
         uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: false
 
       - name: Ligar a API
         working-directory: vlrggapi
         run: |
           uv sync --quiet
           nohup uv run python main.py > ../api.log 2>&1 &
+          echo $! > ../api.pid
           for i in $(seq 1 30); do
             curl -sf http://127.0.0.1:3001/v2/health > /dev/null && echo "API no ar" && exit 0
             sleep 2
@@ -63,6 +66,12 @@ jobs:
         run: |
           EXTRA=""; [ "${{ inputs.salvar_html }}" = "true" ] && EXTRA="--salvar-html"
           python3 scripts/coletar.py --event-id "$EVENT_ID" --semana "$SEMANA" $EXTRA --matches $MATCHES
+
+      - name: Desligar a API
+        if: always()
+        run: |
+          pkill -f "python main.py" || true
+          pkill -f "uv run" || true
 
       - name: Log da API (se der erro)
         if: failure()
