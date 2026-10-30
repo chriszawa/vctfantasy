@@ -36,7 +36,7 @@ PADRAO_2026 = re.compile(r"^(VCT 2026: Americas|Valorant Masters .*2026|Valorant
 def eventos_do_ano():
     """Procura nos eventos concluídos os da temporada 2026: liga Americas, Masters e Champions."""
     achados = []
-    for pagina in range(1, 6):
+    for pagina in range(1, 13):
         try:
             time.sleep(3.5)
             lista = segmentos(buscar(f"/v2/events?q=completed&page={pagina}"))

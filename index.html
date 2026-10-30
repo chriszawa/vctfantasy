@@ -95,6 +95,7 @@ h2{font-family:var(--f-display);font-weight:600;font-size:17px;text-transform:up
 .list b{font-family:var(--f-display)}
 .sub-h{font-family:var(--f-display);font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:2px 0 4px}
 .win-cards{display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.win-cards .fc-foot{visibility:hidden}
 
 /* ---- campo e cartas de escalação ---- */
 .lineup-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px;align-items:start}
@@ -281,7 +282,6 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
     <nav id="nav">
       <a href="#inicio" data-v="inicio">Início</a>
       <a href="#escalacao" data-v="escalacao">Escalação</a>
-      <a href="#mercado" data-v="mercado">Mercado</a>
       <a href="#cartas" data-v="cartas">Cartas</a>
       <a href="#stats" data-v="stats">Stats e partidas</a>
       <a href="#pontuacao" data-v="pontuacao">Pontuação</a>
@@ -306,11 +306,9 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
           <div class="mini-lineup" id="w-lineup"></div>
         </div>
         <div class="panel win">
-          <div class="win-head"><h2><i></i>Mercado</h2><a class="btn small ghost" href="#mercado">Abrir</a></div>
-          <div class="grid" style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
-            <div><div class="sub-h">Mais caros</div><ul class="list" id="w-caros"></ul></div>
-            <div><div class="sub-h">Custo-benefício da rodada</div><ul class="list" id="w-custo"></ul></div>
-          </div>
+          <div class="win-head"><h2><i></i>Pontuação da rodada</h2><a class="btn small ghost" href="#pontuacao">Abrir</a></div>
+          <div class="muted" id="w-rodada" style="font-size:13.5px"></div>
+          <ul class="list" id="w-destaques"></ul>
         </div>
         <div class="panel win">
           <div class="win-head"><h2><i></i>Cartas</h2><a class="btn small ghost" href="#cartas">Abrir</a></div>
@@ -320,8 +318,8 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
           <div class="win-head"><h2><i></i>Stats e partidas</h2><a class="btn small ghost" href="#stats">Abrir</a></div>
           <div class="sub-h">Próximas partidas</div>
           <div id="w-proximas"></div>
-          <div class="sub-h" style="margin-top:8px">Destaques da rodada</div>
-          <ul class="list" id="w-destaques"></ul>
+          <div class="sub-h" style="margin-top:8px">Maior ACS da temporada</div>
+          <ul class="list" id="w-lideres"></ul>
         </div>
       </div>
     </section>
@@ -358,32 +356,6 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
           </div>
         </aside>
       </div>
-    </section>
-
-    <!-- MERCADO -->
-    <section class="view" id="v-mercado">
-      <div class="top">
-        <div><div class="eyebrow">Preço pelo overall da carta</div><h1>Mercado</h1></div>
-        <div class="chip" id="m-budget" style="color:var(--gold);border-color:var(--gold)">Restante C$ 80,00</div>
-      </div>
-      <div class="filters">
-        <label for="m-role">Função<select id="m-role"><option value="">Todas</option><option>Duelista</option><option>Iniciador</option><option>Controlador</option><option>Sentinela</option><option>Flex</option><option value="Coach">Coaches</option></select></label>
-        <label for="m-team">Time<select id="m-team"><option value="">Todos</option></select></label>
-        <label for="m-q">Buscar<input id="m-q" placeholder="nome do jogador"></label>
-      </div>
-      <div class="panel" style="padding:4px 0 0">
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr>
-              <th class="l">Jogador</th>
-              <th data-sort="ovr">Overall</th><th data-sort="price">Preço</th>
-              <th data-sort="pts">Pontos rodada</th><th data-sort="ppc">Pontos por C$</th><th></th>
-            </tr></thead>
-            <tbody id="m-body"></tbody>
-          </table>
-        </div>
-      </div>
-      <p class="muted" style="font-size:13px">Preço inicial = 4 + 0,017 × (overall − 60)². A valorização rodada a rodada entra quando houver mais de uma rodada coletada.</p>
     </section>
 
     <!-- CARTAS -->
@@ -563,7 +535,7 @@ const WEIGHTS = {
 };
 const MIN_ROUNDS = 150;
 const TEAM_TAG = {"Evil Geniuses":"EG","G2 Esports":"G2","FURIA":"FUR","LOUD":"LOUD","MIBR":"MIBR","NRG":"NRG","Cloud9":"C9","100 Thieves":"100T","Sentinels":"SEN","LEVIATÁN":"LEV","KRÜ Esports":"KRÜ","ENVY":"NV"};
-const EVENT_NAMES = {"2682":"Kickoff","2860":"Stage 1","2977":"Stage 2"};
+const EVENT_NAMES = {"2682":"Kickoff","2860":"Stage 1","2977":"Stage 2","2766":"Champions"};
 const rate = v => { const t = String(v ?? ""); const n = num(t); return t.includes("%") || n > 1.5 ? n/100 : n; };
 const tierOf = o => o>=90 ? "icone" : o>=80 ? "ouro" : o>=70 ? "prata" : "bronze";
 const priceOf = o => Math.round((4 + 0.017*Math.pow(Math.max(0,o-60),2))*100)/100;
@@ -572,20 +544,26 @@ function buildCards(){
   CARDS = []; CARD_BY_NAME = {};
   if(!TEMPORADA || !TEMPORADA.eventos) return;
   const acc = {};
+  // só entram jogadores que disputaram a liga Americas; Masters e Champions somam nos números deles
+  const isAmericas = ev => /americas/i.test(ev.nome || "") || ["2682","2860","2977"].includes(String(ev.event_id));
+  const americanos = new Set();
+  TEMPORADA.eventos.filter(isAmericas).forEach(ev => (ev.jogadores||[]).forEach(r => americanos.add(key(r.player))));
   TEMPORADA.eventos.forEach((ev, ei) => {
     (ev.jogadores||[]).forEach(r => {
+      if(!americanos.has(key(r.player))) return;
       const rounds = num(r.rounds_played); if(!rounds || !r.player) return;
       const k = key(r.player);
       const a = acc[k] ||= {name:r.player, org:"", rounds:0, sums:{}, agents:{}, eventos:[]};
       if(r.org && r.org!=="N/A") a.org = r.org;
       a.name = r.player;
-      a.rounds += rounds; a.eventos.push(ev.nome || EVENT_NAMES[ev.event_id] || ev.event_id);
+      a.rounds += rounds; a.eventos.push(EVENT_NAMES[ev.event_id] || ev.nome || ev.event_id);
       const kd = num(r.kill_deaths), kpr = num(r.kills_per_round);
       const vals = {acs:num(r.average_combat_score), adr:num(r.average_damage_per_round), kast:num(r.kill_assists_survived_traded),
         kpr, apr:num(r.assists_per_round), fkpr:rate(r.first_kills_per_round), fdpr:rate(r.first_deaths_per_round),
         hs:num(r.headshot_percentage), clp:num(r.clutch_success_percentage), dpr: kd>0 ? kpr/kd : 0, rating:num(r.rating)};
       Object.entries(vals).forEach(([n,v]) => { a.sums[n] = (a.sums[n]||0) + v*rounds; });
-      (r.agents||[]).forEach(ag => { a.agents[ag] = (a.agents[ag]||0) + rounds; });
+      // o VLR lista os agentes do mais jogado para o menos jogado
+      (r.agents||[]).forEach((ag, i) => { a.agents[ag] = (a.agents[ag]||0) + rounds * ([3,2,1][i] ?? 1); });
     });
   });
   const list = Object.values(acc).map(a => {
@@ -593,16 +571,19 @@ function buildCards(){
     const roleCount = {};
     Object.entries(a.agents).forEach(([ag,r]) => { const ro = roleOfAgent(ag); if(ro) roleCount[ro]=(roleCount[ro]||0)+r; });
     const rc = Object.entries(roleCount).sort((x,y)=>y[1]-x[1]);
-    const role = !rc.length ? "Flex" : (rc.length>1 && rc[1][1] >= rc[0][1]*0.8) ? "Flex" : rc[0][0];
-    const raw = {MIR:s.hs, DAN:s.adr, IMP:s.acs, ENT:s.fkpr*0.6+(s.fkpr-s.fdpr)*0.4, SUP:s.apr, CON:s.kast, SOB:-s.dpr, CLU:s.clp};
+    const role = !rc.length ? "Flex" : (rc.length>1 && rc[1][1] >= rc[0][1]*0.85) ? "Flex" : rc[0][0];
+    const raw = {MIR:s.hs, DAN:s.adr, IMP:s.acs, ENT:s.fkpr*0.6+(s.fkpr-s.fdpr)*0.4, SUP:s.apr, CON:s.kast, SOB:-s.dpr, CLU:s.clp, RAT:s.rating};
     return {name:a.name, org:a.org || "—", rounds:a.rounds, stats:s, raw, role, agents:Object.entries(a.agents).sort((x,y)=>y[1]-x[1]).map(x=>x[0]), eventos:a.eventos, prov:a.rounds<MIN_ROUNDS};
   });
   const base = list.filter(c=>!c.prov);
   const pct = (val, arr) => { if(!arr.length) return .5; let below=0, eq=0; arr.forEach(x=>{ if(x<val) below++; else if(x===val) eq++; }); return (below + eq/2)/arr.length; };
-  const cols = {}; ATTRS.forEach(([a]) => cols[a] = base.map(c=>c.raw[a]));
+  const cols = {}; [...ATTRS.map(x=>x[0]),"RAT"].forEach(a => cols[a] = base.map(c=>c.raw[a]));
   list.forEach(c => {
     c.attrs = {}; ATTRS.forEach(([a]) => c.attrs[a] = Math.round(40 + 59*pct(c.raw[a], cols[a])));
-    c.wscore = Object.entries(WEIGHTS[c.role]).reduce((t,[a,w])=>t+w*c.attrs[a],0);
+    const rat = 40 + 59*pct(c.raw.RAT, cols.RAT);
+    const funcao = Object.entries(WEIGHTS[c.role]).reduce((t,[a,w])=>t+w*c.attrs[a],0);
+    // metade pelo rating geral do VLR, metade pelos atributos que importam na função
+    c.wscore = 0.5*rat + 0.5*funcao;
   });
   const ws = base.map(c=>c.wscore);
   // percentil → overall: 40% bronze, 35% prata, 20% ouro, 5% ícone
@@ -717,10 +698,6 @@ const teamCount = (team, exceptSlot) => PLAYER_SLOTS.filter(s => s!==exceptSlot 
 const slotPoints = s => { const sel = lineup[s] && findById(lineup[s]); return sel ? sel.final*(lineup.cap===s && s!=="Coach" ? R.cap : 1) : 0; };
 const teamTotal = () => SLOTS.reduce((t,s)=>t+slotPoints(s),0);
 const spent = (except) => SLOTS.filter(s=>s!==except && lineup[s]).reduce((t,s)=>t+(findById(lineup[s])?.price||0),0);
-function slotFor(p){
-  if(lineup[p.role]===undefined || !lineup[p.role]) return ROLES.includes(p.role) ? p.role : "Flex";
-  return "Flex";
-}
 function whyBlocked(p, s){
   const usedElsewhere = SLOTS.filter(x=>x!==s).some(x=>lineup[x]===p.id);
   if(usedElsewhere) return "já está no time";
@@ -766,7 +743,7 @@ function renderLineup(){
   $("team-total").textContent = total; $("w-total").textContent = total;
   $("b-gasto").textContent = cs(gasto); $("b-rest").textContent = cs(rest);
   $("b-bar").style.width = Math.min(100, gasto/PATRIMONIO*100) + "%";
-  $("w-budget").textContent = cs(rest); $("m-budget").textContent = "Restante " + cs(rest);
+  $("w-budget").textContent = cs(rest);
   const filled = SLOTS.filter(s=>lineup[s]).length;
   $("team-note").textContent = filled<6 ? `${filled} de 6 posições preenchidas` : (lineup.cap ? `Time completo · capitão: ${findById(lineup[lineup.cap]).name}` : "Time completo. Escolha um capitão.");
   $("w-lineup").innerHTML = ["Duelista","Iniciador","Controlador","Sentinela","Flex","Coach"].map(s => {
@@ -776,7 +753,6 @@ function renderLineup(){
       <span class="p">${sel?fmt(slotPoints(s)):'–'}</span></div>`;
   }).join("");
   if(canSave){ try{ localStorage.setItem("fvct-lineup", JSON.stringify(lineup)); }catch(e){} }
-  renderMarket();
 }
 function openPicker(s){
   pickerSlot = s;
@@ -804,28 +780,6 @@ function renderPicker(){
   }).join("") || `<p class="muted" style="padding:10px">Nenhum jogador encontrado.</p>`;
 }
 
-// ================================================================ mercado
-let mSort = {k:"price", dir:-1};
-function renderMarket(){
-  const role = $("m-role").value, team = $("m-team").value, q = key($("m-q").value);
-  let list = role==="Coach" ? STATE.coaches : STATE.players.filter(p => !role || p.role===role);
-  list = list.filter(p => (!team || p.team===team) && (!q || key(p.name).includes(q)));
-  const val = p => mSort.k==="ovr" ? p.ovr : mSort.k==="price" ? p.price : mSort.k==="pts" ? p.final : p.final/p.price;
-  list = [...list].sort((a,b)=>(val(a)-val(b))*mSort.dir);
-  document.querySelectorAll("#v-mercado th[data-sort]").forEach(th => th.classList.toggle("sorted", th.dataset.sort===mSort.k));
-  $("m-body").innerHTML = list.map(p => {
-    const inSlot = SLOTS.find(s => lineup[s]===p.id);
-    const target = p.role==="Coach" ? "Coach" : slotFor(p);
-    const why = inSlot ? "" : whyBlocked(p, target);
-    return `<tr>
-      <td class="l"><span class="name">${esc(p.name)}</span>${p.role!=="Coach"?`<span class="role ${p.role}">${p.role}</span>`:'<span class="role">Coach</span>'}<br><span class="team">${esc(p.team)}</span></td>
-      <td>${p.ovr}</td><td class="price">${cs(p.price)}</td><td>${fmt(p.final)}</td><td>${fmt(p.final/p.price)}</td>
-      <td>${inSlot ? `<span class="in-team">No time</span> <button class="btn ghost small" type="button" data-sell="${inSlot}">Vender</button>`
-        : `<button class="btn small" type="button" data-buy="${esc(p.id)}" data-slot="${target}" ${why?`disabled title="${esc(why)}"`:''}>Escalar</button>${why?`<br><span class="muted" style="font-size:12px">${esc(why)}</span>`:''}`}</td>
-    </tr>`;
-  }).join("") || `<tr><td colspan="6" class="l muted">Nenhum jogador encontrado.</td></tr>`;
-}
-
 // ================================================================ cartas
 function renderCards(){
   const grid = $("c-grid");
@@ -839,24 +793,15 @@ function openCard(k){
   const c = CARD_BY_NAME[k]; if(!c) return;
   $("cm-eyebrow").textContent = `${c.role} · ${c.org}`;
   $("cm-title").textContent = c.name;
-  const st = c.stats;
   const color = {bronze:"#c08457",prata:"#c9d1d9",ouro:"#f1c95b",icone:"#ff4655"}[c.tier];
   $("cm-body").innerHTML = `<div>${fcardHTML(c)}</div>
     <div>
-      <div class="kv" style="margin-bottom:14px">
-        <div><div class="lbl" style="font-size:11.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase">Overall</div><div class="big-num">${c.ovr}</div></div>
-        <div><div class="lbl" style="font-size:11.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase">Preço</div><div class="big-num" style="color:var(--gold)">${cs(c.price)}</div></div>
-        <div><div class="lbl" style="font-size:11.5px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase">Rounds</div><div class="big-num">${Math.round(c.rounds)}</div></div>
+      <div class="kv" style="margin-bottom:16px">
+        <div><div class="sub-h">Overall</div><div class="big-num">${c.ovr}</div></div>
+        <div><div class="sub-h">Preço</div><div class="big-num" style="color:var(--gold)">${cs(c.price)}</div></div>
       </div>
-      <div class="attr-bars">${ATTRS.map(([a,n]) => `<div class="attr-bar"><span>${n}${WEIGHTS[c.role][a]?' <span class="muted" style="font-size:11px">· peso '+Math.round(WEIGHTS[c.role][a]*100)+'%</span>':''}</span><div class="b"><i style="width:${(c.attrs[a]-40)/59*100}%;background:${color}"></i></div><b>${c.attrs[a]}</b></div>`).join("")}</div>
-      <div class="stat-grid">
-        <div><span>ACS</span><b>${st.acs.toFixed(1)}</b></div><div><span>ADR</span><b>${st.adr.toFixed(1)}</b></div>
-        <div><span>KAST</span><b>${Math.round(st.kast)}%</b></div><div><span>Kills/rd</span><b>${st.kpr.toFixed(2)}</b></div>
-        <div><span>Assist./rd</span><b>${st.apr.toFixed(2)}</b></div><div><span>Mortes/rd</span><b>${st.dpr.toFixed(2)}</b></div>
-        <div><span>FK/rd</span><b>${st.fkpr.toFixed(2)}</b></div><div><span>FD/rd</span><b>${st.fdpr.toFixed(2)}</b></div>
-        <div><span>HS%</span><b>${Math.round(st.hs)}%</b></div><div><span>Clutch</span><b>${Math.round(st.clp)}%</b></div>
-      </div>
-      <p class="muted" style="font-size:13px;margin-top:12px">Agentes: ${esc(c.agents.slice(0,5).join(", "))}<br>Eventos: ${esc(c.eventos.join(" · "))}${c.prov?'<br>Carta provisória: menos de '+MIN_ROUNDS+' rounds na temporada.':''}</p>
+      <div class="attr-bars">${ATTRS.map(([a,n]) => `<div class="attr-bar"><span>${n}</span><div class="b"><i style="width:${(c.attrs[a]-40)/59*100}%;background:${color}"></i></div><b>${c.attrs[a]}</b></div>`).join("")}</div>
+      <a class="btn ghost small" href="#stats" data-close-card style="margin-top:16px">Ver stats da temporada</a>
     </div>`;
   $("card-modal").hidden = false;
 }
@@ -913,22 +858,18 @@ function renderScore(){
 
 // ================================================================ início
 function renderHome(){
-  const caros = [...STATE.players].sort((a,b)=>b.price-a.price).slice(0,4);
-  const custo = [...STATE.players].sort((a,b)=>b.final/b.price-a.final/a.price).slice(0,4);
-  $("w-caros").innerHTML = caros.map(p=>`<li><span>${esc(p.name)} <span class="team">${esc(p.team)}</span></span><b style="color:var(--gold)">${cs(p.price)}</b></li>`).join("") || `<li class="muted">Sem dados</li>`;
-  $("w-custo").innerHTML = custo.map(p=>`<li><span>${esc(p.name)} <span class="team">${fmt(p.final)} pts</span></span><b>${fmt(p.final/p.price)}</b></li>`).join("") || `<li class="muted">Sem dados</li>`;
   const top = CARDS.slice(0,3);
   $("w-cartas").innerHTML = top.length ? top.map(c=>`<div style="width:150px">${fcardHTML(c)}</div>`).join("") +
     `<div class="muted" style="font-size:13.5px">${CARDS.length} cartas<br>${CARDS.filter(c=>c.tier==="icone").length} ícones · ${CARDS.filter(c=>c.tier==="ouro").length} ouro</div>`
     : `<p class="muted">As cartas aparecem depois da coleta da temporada.</p>`;
   $("w-proximas").innerHTML = proximasHTML(3);
-  $("w-destaques").innerHTML = STATE.players.slice(0,4).map((p,i)=>`<li><span>${i+1}. ${esc(p.name)} <span class="role ${p.role}">${p.role}</span></span><b>${fmt(p.final)}</b></li>`).join("") || `<li class="muted">Sem rodada</li>`;
+  $("w-lideres").innerHTML = [...CARDS].sort((a,b)=>b.stats.acs-a.stats.acs).slice(0,3).map(c=>`<li><span>${esc(c.name)} <span class="team">${esc(c.org)}</span></span><b>${c.stats.acs.toFixed(1)}</b></li>`).join("") || `<li class="muted">Sem dados</li>`;
+  $("w-rodada").textContent = RODADA?.rotulo ? `${RODADA.rotulo} · ${SERIES.length} séries` : "";
+  $("w-destaques").innerHTML = STATE.players.slice(0,5).map((p,i)=>`<li><span>${i+1}. ${esc(p.name)} <span class="role ${p.role}">${p.role}</span> <span class="team">${esc(p.team)}</span></span><b>${fmt(p.final)}</b></li>`).join("") || `<li class="muted">Sem rodada</li>`;
 }
 
 // ================================================================ render geral
 function fillTeamFilters(){
-  const teams = [...new Set(STATE.players.map(p=>p.team))].sort();
-  $("m-team").innerHTML = `<option value="">Todos</option>` + teams.map(t=>`<option>${esc(t)}</option>`).join("");
   const orgs = [...new Set(CARDS.map(c=>c.org))].sort();
   $("c-team").innerHTML = `<option value="">Todos</option>` + orgs.map(t=>`<option>${esc(t)}</option>`).join("");
 }
@@ -943,16 +884,11 @@ document.addEventListener("click", e => {
   if(cap){ e.stopPropagation(); const s = cap.dataset.cap; lineup.cap = lineup.cap===s ? null : s; renderLineup(); return; }
   const open = e.target.closest("[data-open]");
   if(open){ openPicker(open.dataset.open); return; }
+  if(e.target.closest("[data-close-card]")){ closeModal("card-modal"); return; }
   const card = e.target.closest("[data-card]");
   if(card){ openCard(card.dataset.card); return; }
-  const buy = e.target.closest("[data-buy]");
-  if(buy && !buy.disabled){ lineup[buy.dataset.slot] = buy.dataset.buy; renderLineup(); return; }
-  const sell = e.target.closest("[data-sell]");
-  if(sell){ const s = sell.dataset.sell; if(lineup.cap===s) lineup.cap=null; lineup[s]=null; renderLineup(); return; }
   const row = e.target.closest("#tbody tr.row");
   if(row){ openRow = openRow===row.dataset.id ? null : row.dataset.id; renderScore(); return; }
-  const th = e.target.closest("#v-mercado th[data-sort]");
-  if(th){ mSort = {k:th.dataset.sort, dir: mSort.k===th.dataset.sort ? -mSort.dir : -1}; renderMarket(); return; }
   const sth = e.target.closest("#s-head th[data-s]");
   if(sth){ sSort = {k:sth.dataset.s, dir: sSort.k===sth.dataset.s ? -sSort.dir : -1}; renderStats(); return; }
 });
@@ -971,7 +907,6 @@ $("picker-list").addEventListener("click", e => {
 });
 $("picker-remove").addEventListener("click", () => { if(lineup.cap===pickerSlot) lineup.cap=null; lineup[pickerSlot]=null; renderLineup(); closePicker(); });
 $("clear-lineup").addEventListener("click", () => { lineup = {cap:null}; renderLineup(); });
-["m-role","m-team","m-q"].forEach(id => $(id).addEventListener("input", renderMarket));
 ["c-role","c-team","c-q","c-sort"].forEach(id => $(id).addEventListener("input", renderCards));
 const RULE_IDS = Object.keys(DEFAULT_RULES);
 function fillRules(){ RULE_IDS.forEach(k => { $("r-"+k).value = R[k]; }); }
@@ -983,7 +918,7 @@ $("rules").addEventListener("input", e => {
 $("reset").addEventListener("click", () => { R = {...DEFAULT_RULES}; fillRules(); renderAll(); });
 
 // ================================================================ rotas
-const VIEWS = ["inicio","escalacao","mercado","cartas","stats","pontuacao"];
+const VIEWS = ["inicio","escalacao","cartas","stats","pontuacao"];
 function route(){
   const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "inicio";
   VIEWS.forEach(x => $("v-"+x).classList.toggle("on", x===v));
@@ -999,6 +934,10 @@ async function boot(){
   fillRules(); route();
   const [rod, tmp, prox] = await Promise.all([getJSON("data/rodada.json"), getJSON("data/temporada.json"), getJSON("data/proximas.json")]);
   RODADA = rod; TEMPORADA = tmp; PROXIMAS = prox;
+  if(rod && rod.semana && rod.rotulo){
+    const suf = " · " + rod.semana;
+    if(rod.rotulo.endsWith(suf) && rod.rotulo.slice(0, -suf.length).includes(rod.semana)) rod.rotulo = rod.rotulo.slice(0, -suf.length);
+  }
   SERIES = rod ? normalize(rod.series || rod) : [];
   buildCards();
   STATE = compute(); fillTeamFilters();
