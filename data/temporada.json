@@ -1,5 +1,5 @@
 {
- "atualizado_em": "2026-10-30T02:18:33+00:00",
+ "atualizado_em": "2026-10-30T02:20:35+00:00",
  "eventos": [
   {
    "event_id": "2766",
@@ -4080,8 +4080,448 @@
    ]
   },
   {
+   "event_id": "2760",
+   "nome": "Valorant Masters Santiago 2026",
+   "jogadores": [
+    {
+     "player": "trent",
+     "org": "G2",
+     "agents": [
+      "fade",
+      "sova",
+      "skye"
+     ],
+     "rounds_played": "330",
+     "rating": "1.15",
+     "average_combat_score": "194",
+     "kill_deaths": "1.11",
+     "kill_assists_survived_traded": "73%",
+     "average_damage_per_round": "131.1",
+     "kills_per_round": "0.69",
+     "assists_per_round": "0.34",
+     "first_kills_per_round": "5%",
+     "first_deaths_per_round": "4%",
+     "headshot_percentage": "29%",
+     "clutch_success_percentage": "19%",
+     "clutch_attempts": "10/52"
+    },
+    {
+     "player": "Xross",
+     "org": "NS",
+     "agents": [
+      "fade",
+      "sova"
+     ],
+     "rounds_played": "215",
+     "rating": "1.14",
+     "average_combat_score": "206",
+     "kill_deaths": "1.19",
+     "kill_assists_survived_traded": "78%",
+     "average_damage_per_round": "139.9",
+     "kills_per_round": "0.73",
+     "assists_per_round": "0.29",
+     "first_kills_per_round": "7%",
+     "first_deaths_per_round": "2%",
+     "headshot_percentage": "29%",
+     "clutch_success_percentage": "6%",
+     "clutch_attempts": "2/33"
+    },
+    {
+     "player": "keiko",
+     "org": "N/A",
+     "agents": [
+      "omen",
+      "killjoy",
+      "jett"
+     ],
+     "rounds_played": "397",
+     "rating": "1.11",
+     "average_combat_score": "216",
+     "kill_deaths": "1.16",
+     "kill_assists_survived_traded": "74%",
+     "average_damage_per_round": "139.6",
+     "kills_per_round": "0.79",
+     "assists_per_round": "0.21",
+     "first_kills_per_round": "11%",
+     "first_deaths_per_round": "8%",
+     "headshot_percentage": "33%",
+     "clutch_success_percentage": "12%",
+     "clutch_attempts": "5/43"
+    },
+    {
+     "player": "Dambi",
+     "org": "NS",
+     "agents": [
+      "neon",
+      "waylay"
+     ],
+     "rounds_played": "215",
+     "rating": "1.11",
+     "average_combat_score": "238",
+     "kill_deaths": "1.19",
+     "kill_assists_survived_traded": "73%",
+     "average_damage_per_round": "142.4",
+     "kills_per_round": "0.85",
+     "assists_per_round": "0.21",
+     "first_kills_per_round": "20%",
+     "first_deaths_per_round": "15%",
+     "headshot_percentage": "18%",
+     "clutch_success_percentage": "13%",
+     "clutch_attempts": "1/8"
+    },
+    {
+     "player": "skuba",
+     "org": "NRG",
+     "agents": [
+      "viper",
+      "astra",
+      "killjoy"
+     ],
+     "rounds_played": "397",
+     "rating": "1.10",
+     "average_combat_score": "208",
+     "kill_deaths": "1.14",
+     "kill_assists_survived_traded": "74%",
+     "average_damage_per_round": "134.9",
+     "kills_per_round": "0.76",
+     "assists_per_round": "0.25",
+     "first_kills_per_round": "11%",
+     "first_deaths_per_round": "9%",
+     "headshot_percentage": "25%",
+     "clutch_success_percentage": "13%",
+     "clutch_attempts": "8/60"
+    },
+    {
+     "player": "Ivy",
+     "org": "NS",
+     "agents": [
+      "viper",
+      "cypher",
+      "astra"
+     ],
+     "rounds_played": "215",
+     "rating": "1.10",
+     "average_combat_score": "207",
+     "kill_deaths": "1.26",
+     "kill_assists_survived_traded": "73%",
+     "average_damage_per_round": "137.0",
+     "kills_per_round": "0.77",
+     "assists_per_round": "0.22",
+     "first_kills_per_round": "9%",
+     "first_deaths_per_round": "6%",
+     "headshot_percentage": "39%",
+     "clutch_success_percentage": "30%",
+     "clutch_attempts": "8/27"
+    },
+    {
+     "player": "d4v41",
+     "org": "PRX",
+     "agents": [
+      "viper",
+      "vyse",
+      "chamber"
+     ],
+     "rounds_played": "481",
+     "rating": "1.08",
+     "average_combat_score": "204",
+     "kill_deaths": "1.20",
+     "kill_assists_survived_traded": "70%",
+     "average_damage_per_round": "138.3",
+     "kills_per_round": "0.77",
+     "assists_per_round": "0.18",
+     "first_kills_per_round": "8%",
+     "first_deaths_per_round": "6%",
+     "headshot_percentage": "31%",
+     "clutch_success_percentage": "10%",
+     "clutch_attempts": "6/58"
+    },
+    {
+     "player": "Francis",
+     "org": "NS",
+     "agents": [
+      "yoru"
+     ],
+     "rounds_played": "215",
+     "rating": "1.08",
+     "average_combat_score": "223",
+     "kill_deaths": "1.09",
+     "kill_assists_survived_traded": "77%",
+     "average_damage_per_round": "146.9",
+     "kills_per_round": "0.78",
+     "assists_per_round": "0.25",
+     "first_kills_per_round": "15%",
+     "first_deaths_per_round": "12%",
+     "headshot_percentage": "25%",
+     "clutch_success_percentage": "8%",
+     "clutch_attempts": "1/13"
+    },
+    {
+     "player": "invy",
+     "org": "PRX",
+     "agents": [
+      "fade",
+      "sova",
+      "brimstone"
+     ],
+     "rounds_played": "481",
+     "rating": "1.07",
+     "average_combat_score": "199",
+     "kill_deaths": "1.11",
+     "kill_assists_survived_traded": "74%",
+     "average_damage_per_round": "136.2",
+     "kills_per_round": "0.70",
+     "assists_per_round": "0.27",
+     "first_kills_per_round": "6%",
+     "first_deaths_per_round": "8%",
+     "headshot_percentage": "30%",
+     "clutch_success_percentage": "15%",
+     "clutch_attempts": "7/48"
+    },
+    {
+     "player": "valyn",
+     "org": "N/A",
+     "agents": [
+      "astra",
+      "harbor"
+     ],
+     "rounds_played": "330",
+     "rating": "1.04",
+     "average_combat_score": "189",
+     "kill_deaths": "1.00",
+     "kill_assists_survived_traded": "74%",
+     "average_damage_per_round": "122.9",
+     "kills_per_round": "0.66",
+     "assists_per_round": "0.35",
+     "first_kills_per_round": "7%",
+     "first_deaths_per_round": "6%",
+     "headshot_percentage": "23%",
+     "clutch_success_percentage": "16%",
+     "clutch_attempts": "6/37"
+    },
+    {
+     "player": "jawgemo",
+     "org": "G2",
+     "agents": [
+      "neon",
+      "phoenix",
+      "iso"
+     ],
+     "rounds_played": "330",
+     "rating": "1.04",
+     "average_combat_score": "232",
+     "kill_deaths": "1.09",
+     "kill_assists_survived_traded": "70%",
+     "average_damage_per_round": "150.7",
+     "kills_per_round": "0.84",
+     "assists_per_round": "0.16",
+     "first_kills_per_round": "15%",
+     "first_deaths_per_round": "17%",
+     "headshot_percentage": "25%",
+     "clutch_success_percentage": "25%",
+     "clutch_attempts": "4/16"
+    },
+    {
+     "player": "something",
+     "org": "PRX",
+     "agents": [
+      "yoru",
+      "waylay",
+      "jett"
+     ],
+     "rounds_played": "481",
+     "rating": "1.03",
+     "average_combat_score": "195",
+     "kill_deaths": "1.09",
+     "kill_assists_survived_traded": "71%",
+     "average_damage_per_round": "127.1",
+     "kills_per_round": "0.71",
+     "assists_per_round": "0.20",
+     "first_kills_per_round": "13%",
+     "first_deaths_per_round": "12%",
+     "headshot_percentage": "26%",
+     "clutch_success_percentage": "13%",
+     "clutch_attempts": "7/55"
+    },
+    {
+     "player": "Jinggg",
+     "org": "PRX",
+     "agents": [
+      "omen",
+      "raze",
+      "phoenix"
+     ],
+     "rounds_played": "481",
+     "rating": "1.02",
+     "average_combat_score": "213",
+     "kill_deaths": "1.08",
+     "kill_assists_survived_traded": "74%",
+     "average_damage_per_round": "140.4",
+     "kills_per_round": "0.74",
+     "assists_per_round": "0.27",
+     "first_kills_per_round": "12%",
+     "first_deaths_per_round": "12%",
+     "headshot_percentage": "25%",
+     "clutch_success_percentage": "9%",
+     "clutch_attempts": "4/43"
+    },
+    {
+     "player": "mada",
+     "org": "NRG",
+     "agents": [
+      "waylay",
+      "neon",
+      "yoru"
+     ],
+     "rounds_played": "397",
+     "rating": "1.00",
+     "average_combat_score": "213",
+     "kill_deaths": "1.01",
+     "kill_assists_survived_traded": "70%",
+     "average_damage_per_round": "134.3",
+     "kills_per_round": "0.74",
+     "assists_per_round": "0.21",
+     "first_kills_per_round": "21%",
+     "first_deaths_per_round": "16%",
+     "headshot_percentage": "27%",
+     "clutch_success_percentage": "21%",
+     "clutch_attempts": "6/28"
+    },
+    {
+     "player": "leaf",
+     "org": "G2",
+     "agents": [
+      "viper",
+      "yoru",
+      "astra"
+     ],
+     "rounds_played": "330",
+     "rating": "0.99",
+     "average_combat_score": "208",
+     "kill_deaths": "1.01",
+     "kill_assists_survived_traded": "69%",
+     "average_damage_per_round": "134.8",
+     "kills_per_round": "0.72",
+     "assists_per_round": "0.29",
+     "first_kills_per_round": "11%",
+     "first_deaths_per_round": "11%",
+     "headshot_percentage": "23%",
+     "clutch_success_percentage": "16%",
+     "clutch_attempts": "5/31"
+    },
+    {
+     "player": "f0rsakeN",
+     "org": "PRX",
+     "agents": [
+      "omen",
+      "viper",
+      "astra"
+     ],
+     "rounds_played": "481",
+     "rating": "0.96",
+     "average_combat_score": "205",
+     "kill_deaths": "0.99",
+     "kill_assists_survived_traded": "72%",
+     "average_damage_per_round": "135.5",
+     "kills_per_round": "0.71",
+     "assists_per_round": "0.31",
+     "first_kills_per_round": "10%",
+     "first_deaths_per_round": "12%",
+     "headshot_percentage": "28%",
+     "clutch_success_percentage": "11%",
+     "clutch_attempts": "4/37"
+    },
+    {
+     "player": "Rb",
+     "org": "NS",
+     "agents": [
+      "omen",
+      "brimstone"
+     ],
+     "rounds_played": "215",
+     "rating": "0.95",
+     "average_combat_score": "165",
+     "kill_deaths": "0.95",
+     "kill_assists_survived_traded": "74%",
+     "average_damage_per_round": "105.6",
+     "kills_per_round": "0.59",
+     "assists_per_round": "0.47",
+     "first_kills_per_round": "7%",
+     "first_deaths_per_round": "7%",
+     "headshot_percentage": "22%",
+     "clutch_success_percentage": "10%",
+     "clutch_attempts": "2/20"
+    },
+    {
+     "player": "brawk",
+     "org": "NRG",
+     "agents": [
+      "sova",
+      "vyse",
+      "brimstone"
+     ],
+     "rounds_played": "397",
+     "rating": "0.95",
+     "average_combat_score": "177",
+     "kill_deaths": "0.86",
+     "kill_assists_survived_traded": "70%",
+     "average_damage_per_round": "126.1",
+     "kills_per_round": "0.58",
+     "assists_per_round": "0.30",
+     "first_kills_per_round": "4%",
+     "first_deaths_per_round": "6%",
+     "headshot_percentage": "23%",
+     "clutch_success_percentage": "15%",
+     "clutch_attempts": "6/40"
+    },
+    {
+     "player": "Ethan",
+     "org": "NRG",
+     "agents": [
+      "tejo",
+      "omen",
+      "skye"
+     ],
+     "rounds_played": "397",
+     "rating": "0.88",
+     "average_combat_score": "164",
+     "kill_deaths": "0.86",
+     "kill_assists_survived_traded": "71%",
+     "average_damage_per_round": "109.5",
+     "kills_per_round": "0.58",
+     "assists_per_round": "0.29",
+     "first_kills_per_round": "5%",
+     "first_deaths_per_round": "8%",
+     "headshot_percentage": "23%",
+     "clutch_success_percentage": "13%",
+     "clutch_attempts": "5/39"
+    },
+    {
+     "player": "BABYBAY",
+     "org": "G2",
+     "agents": [
+      "waylay",
+      "chamber",
+      "yoru"
+     ],
+     "rounds_played": "330",
+     "rating": "0.87",
+     "average_combat_score": "172",
+     "kill_deaths": "0.89",
+     "kill_assists_survived_traded": "65%",
+     "average_damage_per_round": "111.0",
+     "kills_per_round": "0.61",
+     "assists_per_round": "0.18",
+     "first_kills_per_round": "11%",
+     "first_deaths_per_round": "13%",
+     "headshot_percentage": "22%",
+     "clutch_success_percentage": "10%",
+     "clutch_attempts": "4/39"
+    }
+   ]
+  },
+  {
    "event_id": "2682",
-   "nome": "",
+   "nome": "VCT 2026: Americas Kickoff",
    "jogadores": [
     {
      "player": "dgzin",
