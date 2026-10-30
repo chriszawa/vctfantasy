@@ -10,6 +10,7 @@ em http://127.0.0.1:3001. Também funciona na sua máquina com a API ligada.
 
 import argparse
 import json
+import re
 import pathlib
 import sys
 import time
@@ -44,13 +45,56 @@ def buscar(caminho, tentativas=4):
             raise
 
 
-def salvar_html(mid):
+def baixar_html(mid):
     req = urllib.request.Request(f"https://www.vlr.gg/{mid}", headers={"User-Agent": "Mozilla/5.0 (fantasy-vct)"})
     with urllib.request.urlopen(req, timeout=60) as r:
-        html = r.read()
+        return r.read().decode("utf-8", errors="replace")
+
+
+def salvar_html(mid, html):
     pasta = SAIDA.parent / "html"
     pasta.mkdir(exist_ok=True)
-    (pasta / f"{mid}.html").write_bytes(html)
+    (pasta / f"{mid}.html").write_text(html, encoding="utf-8")
+
+
+def agentes_por_mapa(html):
+    """{mapa: {jogador: agente}} lido da página do VLR.
+
+    A vlrggapi procura o agente dentro da célula do jogador, mas o VLR hoje
+    coloca o agente na célula ao lado (.ovw-cell.mod-agents), então ele vem vazio.
+    """
+    resultado = {}
+    inicios = list(re.finditer(r'<div class="vm-stats-game[^"]*"\s+data-game-id="([^"]+)"', html))
+    for i, ini in enumerate(inicios):
+        if ini.group(1) == "all":
+            continue
+        fim = inicios[i + 1].start() if i + 1 < len(inicios) else len(html)
+        bloco = html[ini.end():fim]
+        nome = re.search(r'<div class="map-name">\s*<span[^>]*>\s*([^<]+?)\s*<', bloco)
+        if not nome:
+            continue
+        jogadores = {}
+        for linha in re.split(r'<div class="ovw-row"', bloco)[1:]:
+            pn = re.search(r'class="ovw-player-name[^"]*">\s*([^<]+?)\s*<', linha)
+            ag = re.search(r'mod-agents.*?<img[^>]*title="([^"]+)"', linha, re.S)
+            if pn and ag:
+                jogadores[pn.group(1)] = ag.group(1)
+        resultado[nome.group(1)] = jogadores
+    return resultado
+
+
+def preencher_agentes(serie, html):
+    mapa_agentes = agentes_por_mapa(html)
+    faltando = 0
+    for m in serie.get("maps", []):
+        ags = mapa_agentes.get(m.get("map_name", ""), {})
+        for lado in ("team1", "team2"):
+            for p in (m.get("players") or {}).get(lado, []):
+                if not p.get("agent"):
+                    p["agent"] = ags.get(p.get("name", ""), "")
+                    faltando += not p["agent"]
+    if faltando:
+        print(f"Aviso: {faltando} jogador(es) sem agente na série {serie.get('match_id')}", file=sys.stderr)
 
 
 def main():
@@ -83,8 +127,13 @@ def main():
         s = buscar(f"/v2/match/details?match_id={mid}")
         if isinstance(s, dict) and "segments" in s:  # formato real da API: {"segments": [serie]}
             s = s["segments"][0]
-        if a.salvar_html:
-            salvar_html(mid)
+        try:
+            html = baixar_html(mid)
+            preencher_agentes(s, html)
+            if a.salvar_html:
+                salvar_html(mid, html)
+        except Exception as e:  # sem agente a pontuação continua valendo; só a função vira Flex
+            print(f"Aviso: não consegui ler os agentes da série {mid}: {e}", file=sys.stderr)
         evento_nome = evento_nome or (s.get("event") or {}).get("name", "")
         series.append(s)
 

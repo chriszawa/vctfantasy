@@ -367,6 +367,7 @@ let lineup = {Duelista:null,Iniciador:null,Controlador:null,Sentinela:null,Flex:
 
 // ------------------------------------------------------------------ cálculo
 const num = v => { const n = parseFloat(String(v ?? "").replace("%","").replace("+","")); return isNaN(n) ? 0 : n; };
+const sc = x => (x && typeof x==="object") ? num(x.total) : num(x);
 const fmt = n => n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2});
 const fx = n => n.toLocaleString("pt-BR",{minimumFractionDigits:2,maximumFractionDigits:2}) + "x";
 
@@ -399,11 +400,11 @@ function compute(){
     const teams = [s.teams[0].name, s.teams[1].name];
     const maps = (s.maps||[]).filter(m => m.players && m.players.team1 && m.players.team1.length);
     const wins = {[teams[0]]:0,[teams[1]]:0};
-    maps.forEach(m => { const a=num(m.score.team1.total), b=num(m.score.team2.total); wins[a>b?teams[0]:teams[1]]++; });
-    seriesInfo.push({teams, wins, maps: maps.map(m=>m.map_name+" "+num(m.score.team1.total)+"-"+num(m.score.team2.total))});
+    maps.forEach(m => { const a=sc(m.score.team1), b=sc(m.score.team2); wins[a>b?teams[0]:teams[1]]++; });
+    seriesInfo.push({teams, wins, maps: maps.map(m=>m.map_name+" "+sc(m.score.team1)+"-"+sc(m.score.team2))});
     const acc = {};
     maps.forEach(m => {
-      const rounds = num(m.score.team1.total)+num(m.score.team2.total);
+      const rounds = sc(m.score.team1)+sc(m.score.team2);
       [["team1",teams[0]],["team2",teams[1]]].forEach(([side,team]) => {
         m.players[side].forEach(p => {
           const j = acc[p.name] ||= {name:p.name, team, maps:[], kills:0, rounds:0, agents:[]};
@@ -555,6 +556,7 @@ $("reset").addEventListener("click", () => { R = {...DEFAULT_RULES}; fillRules()
 function normalize(obj){
   if(Array.isArray(obj)) return obj.flatMap(normalize);
   if(obj && obj.status==="success" && obj.data) return normalize(obj.data);
+  if(obj && Array.isArray(obj.segments)) return normalize(obj.segments);
   if(obj && Array.isArray(obj.maps) && Array.isArray(obj.teams)) return [obj];
   throw new Error("Não encontrei os campos teams e maps. Cole a resposta de /v2/match/details.");
 }
@@ -642,7 +644,7 @@ $("api-matches").addEventListener("click", async e => {
     for(let i=0;i<ids.length;i++){
       apiMsg(`Baixando série ${i+1} de ${ids.length}...`);
       if(i) await sleep(3200); // limite de 20 req/min da API
-      got.push(await apiGet(`/v2/match/details?match_id=${ids[i]}`));
+      got.push(...normalize(await apiGet(`/v2/match/details?match_id=${ids[i]}`)));
     }
     if(isSample){ SERIES=[]; isSample=false; }
     let added=0; got.forEach(s => { if(!SERIES.some(x=>x.match_id===s.match_id)){ SERIES.push(s); added++; } });
@@ -667,7 +669,7 @@ async function loadPublished(){
     const r = await fetch("data/rodada.json", {cache:"no-store"});
     if(!r.ok) return;
     const d = await r.json();
-    const list = Array.isArray(d) ? d : (d.series || []);
+    const list = normalize(Array.isArray(d) ? d : (d.series || []));
     if(!list.length) return;
     SERIES = list; isSample = false;
     DATA_LABEL = (d.rotulo || "Rodada publicada") + " · " + list.length + " série(s)";

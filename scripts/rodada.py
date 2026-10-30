@@ -82,6 +82,25 @@ def ids_da_semana(api, event_id, semana):
 # --------------------------------------------------------------- cálculo ----
 
 
+def rounds_de(x):
+    return num(x.get("total")) if isinstance(x, dict) else num(x)
+
+
+def normalizar(obj):
+    if isinstance(obj, list):
+        return [s for o in obj for s in normalizar(o)]
+    if isinstance(obj, dict):
+        if obj.get("status") == "success" and "data" in obj:
+            return normalizar(obj["data"])
+        if "segments" in obj:
+            return normalizar(obj["segments"])
+        if "series" in obj:
+            return normalizar(obj["series"])
+        if "maps" in obj and "teams" in obj:
+            return [obj]
+    raise ValueError("Formato de série não reconhecido")
+
+
 def pontos_mapa(p):
     pts = num(p["acs"]) / 10
     pts += PESOS["morte"] * num(p["deaths"])
@@ -114,14 +133,14 @@ def calcular_serie(match):
     # placar de mapas da série
     vitorias = {times[0]: 0, times[1]: 0}
     for m in mapas_jogados:
-        s1 = num(m["score"]["team1"]["total"])
-        s2 = num(m["score"]["team2"]["total"])
+        s1 = rounds_de(m["score"]["team1"])
+        s2 = rounds_de(m["score"]["team2"])
         vitorias[times[0] if s1 > s2 else times[1]] += 1
 
     jogadores = {}  # nome -> dados acumulados
     for m in mapas_jogados:
-        s1 = num(m["score"]["team1"]["total"])
-        s2 = num(m["score"]["team2"]["total"])
+        s1 = rounds_de(m["score"]["team1"])
+        s2 = rounds_de(m["score"]["team2"])
         rounds = int(s1 + s2)
         for lado, time_nome in (("team1", times[0]), ("team2", times[1])):
             lista = m["players"][lado]
@@ -205,7 +224,7 @@ def main():
     if a.fixture:
         with open(a.fixture, encoding="utf-8") as f:
             dados = json.load(f)
-        series = dados if isinstance(dados, list) else [dados]
+        series = normalizar(dados)
     else:
         ids = list(a.matches)
         if a.event_id:
@@ -219,7 +238,7 @@ def main():
             if i:
                 time.sleep(3.5)  # respeita o limite de 20 req/min da API
             print(f"Buscando série {mid}...", file=sys.stderr)
-            series.append(buscar(a.api, f"/v2/match/details?match_id={mid}"))
+            series += normalizar(buscar(a.api, f"/v2/match/details?match_id={mid}"))
 
     todos_j, todos_c = [], []
     for s in series:
