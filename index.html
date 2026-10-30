@@ -558,7 +558,7 @@ const DEFAULT_RULES = {acs:10,d:-0.5,a:0.3,fk:1,fd:-1,kastmin:75,kastb:2,adr1:12
   k1:1.0,k1m:1.1,k2:1.2,k2m:1.2,s20:1.25,s21:1.15,s12:1.05,s02:1.00,cap:1.5};
 let R = {...DEFAULT_RULES};
 
-let SERIES = [], RODADA = null, TEMPORADA = null, PROXIMAS = null;
+let SERIES = [], RODADA = null, TEMPORADA = null, PROXIMAS = null, FUNCOES = {};
 let STATE = {players:[], coaches:[], seriesInfo:[]};
 let CARDS = [], CARD_BY_NAME = {};
 let lineup = {cap:null};
@@ -641,7 +641,8 @@ function buildCards(){
     const roleCount = {};
     Object.entries(a.agents).forEach(([ag,r]) => { const ro = roleOfAgent(ag); if(ro) roleCount[ro]=(roleCount[ro]||0)+r; });
     const rc = Object.entries(roleCount).sort((x,y)=>y[1]-x[1]);
-    const role = !rc.length ? "Flex" : (rc.length>1 && rc[1][1] >= rc[0][1]*0.85) ? "Flex" : rc[0][0];
+    const auto = !rc.length ? "Flex" : (rc.length>1 && rc[1][1] >= rc[0][1]*0.85) ? "Flex" : rc[0][0];
+    const role = FUNCOES[key(a.name)] || auto;
     const raw = {MIR:s.hs, DAN:s.adr, IMP:s.acs, ENT:s.fkpr*0.6+(s.fkpr-s.fdpr)*0.4, SUP:s.apr, CON:s.kast, SOB:-s.dpr, CLU:s.clp, RAT:s.rating};
     return {name:a.name, org:a.org || "—", rounds:a.rounds, stats:s, raw, role, agents:Object.entries(a.agents).sort((x,y)=>y[1]-x[1]).map(x=>x[0]), eventos:a.eventos, prov:a.rounds<MIN_ROUNDS};
   });
@@ -1047,7 +1048,9 @@ async function getJSON(path){
 async function boot(){
   route(); renderOrg();
   if(!ORG) openWelcome();
-  const [rod, tmp, prox] = await Promise.all([getJSON("data/rodada.json"), getJSON("data/temporada.json"), getJSON("data/proximas.json")]);
+  const [rod, tmp, prox, fun] = await Promise.all([getJSON("data/rodada.json"), getJSON("data/temporada.json"), getJSON("data/proximas.json"), getJSON("data/funcoes.json")]);
+  const VALIDAS = ["Duelista","Iniciador","Controlador","Sentinela","Flex"];
+  Object.entries(fun||{}).forEach(([n,r]) => { if(VALIDAS.includes(r)) FUNCOES[key(n)] = r; });
   RODADA = rod; TEMPORADA = tmp; PROXIMAS = prox;
   if(rod && rod.semana && rod.rotulo){
     const suf = " · " + rod.semana;
