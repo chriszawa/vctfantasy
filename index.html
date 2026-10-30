@@ -197,7 +197,7 @@ p{max-width:70ch}
         <div><div class="eyebrow">Monte seu time</div><h1>Escalação</h1></div>
         <button class="btn ghost" id="auto">Escalar os melhores</button>
       </div>
-      <p class="muted">Um jogador por função, um flex de qualquer função e um coach. O capitão pontua 1,5x. O limite de 2 jogadores por time fica desligado no teste, porque só há uma série carregada.</p>
+      <p class="muted">Um jogador por função, um flex de qualquer função e um coach. O capitão pontua 1,5x. Quem jogou mais de uma série na semana pontua pela média delas. O limite de 2 jogadores por time ainda não está ativo.</p>
       <div class="pitch" id="pitch"></div>
       <div class="panel total">
         <div><div class="eyebrow">Pontuação do time</div><div class="val" id="team-total">0,00</div></div>
@@ -216,7 +216,7 @@ p{max-width:70ch}
           <div class="tbl-wrap">
             <table>
               <thead><tr>
-                <th class="l">#</th><th class="l">Jogador</th><th class="l">Mapas</th>
+                <th class="l">#</th><th class="l">Jogador</th><th class="l">Séries</th>
                 <th>Média</th><th>Kills/rd</th><th>× Kill</th><th>× Série</th><th>Final</th>
               </tr></thead>
               <tbody id="tbody"></tbody>
@@ -429,8 +429,20 @@ function compute(){
       coaches.push({id:s.match_id+":coach:"+t, name:"Coach "+t, team:t, score:wins[t]+"-"+wins[opp], avg, ms, final: avg>0?avg*ms:avg});
     });
   });
-  players.sort((a,b)=>b.final-a.final); coaches.sort((a,b)=>b.final-a.final);
-  return {players, coaches, seriesInfo};
+  // Na rodada, quem jogou mais de uma série pontua pela média das séries
+  const group = (list, keyOf) => {
+    const g = {};
+    list.forEach(e => { const k = keyOf(e); (g[k] ||= []).push(e); });
+    return Object.entries(g).map(([k, es]) => ({
+      ...es[0], id: k, entries: es,
+      final: es.reduce((s,e)=>s+e.final,0)/es.length,
+      role: roleOf(es.flatMap(e=>e.agents||[])),
+    }));
+  };
+  const P = group(players, e => "p:"+e.team+":"+e.name);
+  const C = group(coaches, e => "c:"+e.team);
+  P.sort((a,b)=>b.final-a.final); C.sort((a,b)=>b.final-a.final);
+  return {players:P, coaches:C, seriesInfo};
 }
 
 // ------------------------------------------------------------------ render
@@ -454,7 +466,7 @@ function renderHome(){
     <div class="panel tile"><div class="lbl">Média dos jogadores</div><div class="val">${fmt(avgAll)}</div><div class="sub">${players.length} jogadores</div></div>
     <div class="panel tile"><div class="lbl">Séries na rodada</div><div class="val">${SERIES.length}</div><div class="sub">${STATE.seriesInfo.map(s=>esc(s.teams[0])+" x "+esc(s.teams[1])).join(", ")}</div></div>` : `<div class="panel">Nenhuma série carregada. Vá em Importar série.</div>`;
   $("top5").innerHTML = players.slice(0,5).map((p,i)=>`<li><span>${i+1}. ${esc(p.name)} <span class="role ${p.role}">${p.role}</span></span><b>${fmt(p.final)}</b></li>`).join("");
-  $("topc").innerHTML = coaches.map((c,i)=>`<li><span>${i+1}. ${esc(c.team)} <span class="team">${c.score}</span></span><b>${fmt(c.final)}</b></li>`).join("");
+  $("topc").innerHTML = coaches.map((c,i)=>`<li><span>${i+1}. ${esc(c.team)} <span class="team">${c.entries.map(e=>e.score).join(" · ")}</span></span><b>${fmt(c.final)}</b></li>`).join("");
 }
 function renderSeries(){
   $("series-bar").innerHTML = STATE.seriesInfo.map(s => {
@@ -465,22 +477,28 @@ function renderSeries(){
 function renderTable(){
   const rows = STATE.players.map((p,i) => {
     const isOpen = openRow===p.id;
-    const mapsTxt = p.maps.map(m=>`${m.map} <span class="${m.total<0?'neg':''}">${fmt(m.total)}</span>`).join(" · ");
+    const multi = p.entries.length>1;
+    const serTxt = p.entries.map(e=>`vs ${esc(e.opp)} ${e.score} <span class="${e.final<0?'neg':''}">${fmt(e.final)}</span>`).join("<br>");
+    const e0 = p.entries[0];
     let html = `<tr class="row${isOpen?' open':''}" data-id="${esc(p.id)}" tabindex="0">
       <td class="l pos">${i+1}</td>
-      <td class="l"><span class="name">${esc(p.name)}</span><span class="role ${p.role}">${p.role}</span><br><span class="team">${esc(p.team)} · ${p.score} vs ${esc(p.opp)}</span></td>
-      <td class="l" style="font-size:13px">${mapsTxt}</td>
-      <td class="${p.avg<0?'neg':''}">${fmt(p.avg)}</td>
-      <td>${p.kpr.toFixed(2).replace(".",",")}</td>
-      <td class="mult ${p.mk>1?'up':''}">${fx(p.mk)}</td>
-      <td class="mult ${p.ms>1?'up':''}">${fx(p.ms)}</td>
+      <td class="l"><span class="name">${esc(p.name)}</span><span class="role ${p.role}">${p.role}</span><br><span class="team">${esc(p.team)}${multi?' · '+p.entries.length+' séries':''}</span></td>
+      <td class="l" style="font-size:13px">${serTxt}</td>
+      <td>${multi?'–':fmt(e0.avg)}</td>
+      <td>${multi?'–':e0.kpr.toFixed(2).replace(".",",")}</td>
+      <td class="mult ${!multi&&e0.mk>1?'up':''}">${multi?'–':fx(e0.mk)}</td>
+      <td class="mult ${!multi&&e0.ms>1?'up':''}">${multi?'–':fx(e0.ms)}</td>
       <td class="final ${p.final<0?'neg':''}">${fmt(p.final)}</td></tr>`;
     if(isOpen){
-      html += `<tr class="detail"><td colspan="8"><div class="breakdown">${p.maps.map(m=>`
-        <div class="bk"><h3><span>${esc(m.map)} · ${esc(m.agent)}</span><span>${fmt(m.total)}</span></h3><dl>
-        ${m.parts.map(([k,v,pts])=>`<dt>${k}</dt><dd class="muted">${v}</dd><dd class="${pts<0?'neg':''}">${pts>=0?'+':''}${fmt(pts)}</dd>`).join("")}
+      html += `<tr class="detail"><td colspan="8">${p.entries.map(e=>`
+        ${multi?`<div class="formula" style="padding-top:14px;padding-bottom:0"><b>vs ${esc(e.opp)} · ${e.score}</b></div>`:''}
+        <div class="breakdown">${e.maps.map(m=>`
+        <div class="bk"><h3><span>${esc(m.map)}${m.agent?' · '+esc(m.agent):''}</span><span>${fmt(m.total)}</span></h3><dl>
+        ${m.parts.map(([k,v,pts])=>`<dt>${k}</dt><dd class="muted">${v}</dd><dd class="${pts<0?'neg':''}">${(pts||0)>=0?'+':''}${fmt(pts||0)}</dd>`).join("")}
         <dt class="tot">Total do mapa</dt><dd class="tot"></dd><dd class="tot">${fmt(m.total)}</dd></dl></div>`).join("")}
-      </div><div class="formula">Média ${fmt(p.avg)} × kill ${fx(p.mk)} × série ${fx(p.ms)} = <b>${fmt(p.final)}</b>${p.avg<=0?' (pontuação negativa não recebe multiplicador)':''}</div></td></tr>`;
+        </div><div class="formula">Média ${fmt(e.avg)} × kill ${fx(e.mk)} × série ${fx(e.ms)} = <b>${fmt(e.final)}</b>${e.avg<=0?' (pontuação negativa não recebe multiplicador)':''}</div>`).join("")}
+        ${multi?`<div class="formula">Rodada: média das ${p.entries.length} séries = <b>${fmt(p.final)}</b></div>`:''}
+      </td></tr>`;
     }
     return html;
   }).join("");
