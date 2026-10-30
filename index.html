@@ -68,6 +68,65 @@ h2{font-family:var(--f-display);font-weight:600;font-size:17px;text-transform:up
 .role.Sentinela{border-color:var(--c-sen);color:var(--c-sen)}
 .role.Flex{border-color:var(--c-flex);color:var(--c-flex)}
 .view{display:none}.view.on{display:block}
+
+/* ---- liquid glass ---- */
+body{background:
+  radial-gradient(900px 600px at 8% -10%, #ff465533, transparent 60%),
+  radial-gradient(800px 700px at 105% 20%, #6d4bff2e, transparent 60%),
+  radial-gradient(700px 600px at 40% 110%, #19c3a524, transparent 60%),
+  var(--bg);background-attachment:fixed}
+.panel,.side,.picker-box,.series{
+  background:linear-gradient(155deg,#ffffff14,#ffffff05 40%,#ffffff03) , rgba(18,28,38,.55);
+  border:1px solid #ffffff1a;
+  backdrop-filter:blur(18px) saturate(150%);-webkit-backdrop-filter:blur(18px) saturate(150%);
+  box-shadow:inset 0 1px 0 #ffffff22, inset 0 -1px 0 #0000002e, 0 10px 30px #0000003d}
+.side{background:linear-gradient(180deg,#ffffff10,#ffffff04), rgba(8,14,20,.6);border-width:0 1px 0 0}
+.btn.ghost{background:linear-gradient(160deg,#ffffff16,#ffffff05);border-color:#ffffff24;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 0 1px 0 #ffffff26}
+.btn{box-shadow:inset 0 1px 0 #ffffff40}
+nav a.on{background:linear-gradient(90deg,#ff465526,#ffffff08);box-shadow:inset 0 1px 0 #ffffff14}
+nav a:hover{background:#ffffff0d}
+.mini-slot,.match,.stat-grid div{background:#ffffff08;box-shadow:inset 0 1px 0 #ffffff0f}
+.field{background-color:transparent;box-shadow:inset 0 1px 0 #ffffff14;border-color:#ffffff1a}
+.picker{background:#05090d99;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.filters select,.filters input,.picker-search,.org-form input{background:#ffffff0a;border-color:#ffffff1f}
+.chip{background:#ffffff0a;backdrop-filter:blur(8px)}
+
+/* ---- ORG ---- */
+.org-chip{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid #ffffff1a;background:#ffffff0a;cursor:pointer;text-align:left;width:100%;box-shadow:inset 0 1px 0 #ffffff14}
+.org-chip:hover{border-color:#ffffff40}
+.org-chip svg{flex:0 0 auto}
+.org-chip b{display:block;font-family:var(--f-display);letter-spacing:.06em;text-transform:uppercase;font-size:14px;line-height:1.1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:130px}
+.org-chip small{color:var(--muted);font-size:11.5px}
+.org-head{display:flex;align-items:center;gap:12px}
+
+/* ---- boas-vindas ---- */
+.welcome{position:fixed;inset:0;z-index:80;display:grid;place-items:center;padding:20px;overflow-y:auto;
+  background:radial-gradient(800px 500px at 20% 10%, #ff465540, transparent 60%),radial-gradient(700px 600px at 90% 90%, #6d4bff38, transparent 60%),#070c11e6;
+  backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.welcome[hidden]{display:none}
+.welcome-box{width:min(980px,100%);display:grid;grid-template-columns:1fr 1.15fr;gap:0;padding:0;overflow:hidden}
+.welcome-intro{padding:34px 32px;border-right:1px solid #ffffff14;display:flex;flex-direction:column;gap:18px}
+.welcome-intro h1{font-size:40px}
+.welcome-intro ol{margin:0;padding:0;list-style:none;display:grid;gap:12px}
+.welcome-intro li{display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start;font-size:15px}
+.welcome-intro li b{font-family:var(--f-display);color:var(--red);font-size:20px;line-height:1}
+.welcome-org{padding:30px 32px;display:flex;flex-direction:column;gap:16px}
+.org-preview{display:flex;align-items:center;gap:18px;padding:16px;background:#ffffff08;border:1px solid #ffffff14}
+.org-preview .nm{font-family:var(--f-display);font-weight:700;font-size:26px;text-transform:uppercase;letter-spacing:.04em;line-height:1.05;overflow-wrap:anywhere}
+.org-preview .tg{color:var(--muted);font-size:13px;letter-spacing:.14em}
+.org-form{display:grid;gap:14px}
+.org-form .row2{display:grid;grid-template-columns:1fr 110px;gap:12px}
+.org-form label.f{display:flex;flex-direction:column;gap:5px;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.org-form input{border:1px solid #ffffff1f;padding:10px 12px;font-size:15px;color:var(--text);text-transform:none;letter-spacing:0}
+.pick-set{display:flex;flex-wrap:wrap;gap:8px}
+.opt{width:46px;height:46px;display:grid;place-items:center;border:1px solid #ffffff1f;background:#ffffff08;cursor:pointer;padding:0}
+.opt:hover{border-color:#ffffff55}
+.opt[aria-pressed="true"]{border-color:var(--red);box-shadow:0 0 0 1px var(--red),inset 0 0 12px #ff465540}
+.sw{width:30px;height:30px;border-radius:50%;border:2px solid #ffffff30;cursor:pointer;padding:0}
+.sw[aria-pressed="true"]{border-color:#fff;box-shadow:0 0 0 2px var(--red)}
+.grp-label{font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.welcome-actions{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-top:4px}
+@media (max-width:860px){.welcome-box{grid-template-columns:1fr}.welcome-intro{border-right:0;border-bottom:1px solid #ffffff14}}
 .filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:16px;align-items:flex-end}
 .filters label{display:flex;flex-direction:column;gap:4px;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .filters select,.filters input{background:var(--bg);border:1px solid var(--line);padding:8px 10px;min-width:150px;text-transform:none;letter-spacing:0;font-size:14px;color:var(--text)}
@@ -99,7 +158,7 @@ h2{font-family:var(--f-display);font-weight:600;font-size:17px;text-transform:up
 
 /* ---- campo e cartas de escalação ---- */
 .lineup-layout{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:18px;align-items:start}
-.field{--cw:168px;position:relative;display:grid;justify-content:center;align-items:center;
+.field{--cw:176px;position:relative;display:grid;justify-content:center;align-items:center;
   grid-template-columns:repeat(3,var(--cw));grid-template-areas:". duel ." "ini flex ctrl" ". sent .";
   gap:18px 34px;padding:46px 28px;border:1px solid var(--line);overflow:hidden;
   background:
@@ -144,17 +203,37 @@ h2{font-family:var(--f-display);font-weight:600;font-size:17px;text-transform:up
 .budget .bar i{position:absolute;inset:0 auto 0 0;background:var(--red)}
 .budget .row{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
 .bench-coach{display:flex;justify-content:center}
-.bench-coach .pcard{--cw:180px}
+.bench-coach .fcard{width:190px}
+.field .fcard{width:var(--cw)}
+.fcard.lineup .shape{padding:12px 12px 18px}
+.fcard.lineup .fc-ovr{font-size:34px}
+.fcard.lineup .fc-face{width:44px;height:44px;font-size:16px;margin-top:0}
+.fcard.lineup .fc-name{font-size:16px;margin-top:4px;flex:0 0 auto}
+.fcard.lineup .fc-attrs{gap:0 10px;margin-top:4px}
+.fcard.lineup .fc-attrs div{font-size:12px}.fcard.lineup .fc-attrs b{font-size:13px}.fcard.lineup .fc-attrs span{font-size:10px}
+.fc-pts{margin-top:auto;display:flex;justify-content:space-between;gap:6px;background:#0008;padding:5px 8px;margin-bottom:6px}
+.fc-pts span{display:block;font-size:9px;letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.fc-pts b{font-family:var(--f-display);font-size:17px;font-variant-numeric:tabular-nums}
+.fc-pts b.g{color:var(--gold)}
+.fc-lines{display:grid;gap:4px;margin-top:6px;font-size:12px}
+.fc-lines div{display:flex;justify-content:space-between;gap:8px}
+.fc-lines span{opacity:.75}
+.fcard.lineup.cap{filter:drop-shadow(0 0 10px #ff465599)}
+.fcard .pc-cap{position:absolute;left:14px;right:auto;top:76px;z-index:2}
+.fcard.cap .pc-cap{background:var(--red);border-color:var(--red);color:#fff}
+.fcard.empty{cursor:pointer}
+.fcard.empty .shape{background:linear-gradient(165deg,color-mix(in srgb,var(--rc) 22%,transparent),#0c1117cc);align-items:center;justify-content:center;gap:8px;text-align:center}
+.fcard.empty .shape::before{content:"";position:absolute;inset:0;clip-path:inherit;background:repeating-linear-gradient(135deg,#ffffff07 0 8px,transparent 8px 16px);pointer-events:none}
 .rules-mini ul{margin:0;padding-left:18px;color:var(--muted);font-size:13.5px;display:grid;gap:5px}
 .rules-mini b{color:var(--text)}
 
 /* ---- seletor ---- */
 .picker{position:fixed;inset:0;background:#05090dcc;display:grid;place-items:center;padding:16px;z-index:50}
 .picker[hidden]{display:none}
-.picker-box{width:min(600px,100%);max-height:min(760px,100%);display:flex;flex-direction:column;gap:10px;background:var(--panel);border:1px solid var(--line);padding:18px}
+.picker-box{width:min(600px,100%);max-height:min(760px,calc(100vh - 32px));overflow:hidden;display:flex;flex-direction:column;gap:10px;background:var(--panel);border:1px solid var(--line);padding:18px}
 .picker-head{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .picker-search{background:var(--bg);border:1px solid var(--line);padding:10px}
-.picker-list{overflow-y:auto;display:flex;flex-direction:column;min-height:120px}
+.picker-list{overflow-y:auto;display:flex;flex-direction:column;min-height:0;flex:1 1 auto;overscroll-behavior:contain}
 .pick-row{display:grid;grid-template-columns:1fr auto auto;gap:3px 14px;align-items:center;padding:10px 8px;border:0;border-bottom:1px solid #22313e;background:none;text-align:left;cursor:pointer;color:var(--text)}
 .pick-row:hover:not(:disabled){background:var(--panel-2)}
 .pick-row.sel{background:var(--red-dim)}
@@ -268,6 +347,10 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
 }
 @media (max-width:640px){
   .field{--cw:31vw;gap:10px 8px;padding:34px 6px}
+  .fcard.lineup .shape{padding:8px 7px 12px}.fcard.lineup .fc-ovr{font-size:22px}.fcard.lineup .fc-pos{font-size:10px}.fcard.lineup .fc-tag{font-size:9px}
+  .fcard.lineup .fc-face{width:30px;height:30px;font-size:11px}.fcard.lineup .fc-name{font-size:11px}
+  .fcard.lineup .fc-attrs{display:none}.fc-pts{padding:3px 5px}.fc-pts b{font-size:12px}.fc-pts span{font-size:7.5px}
+  .fcard .pc-cap{top:50px;left:8px;width:22px;height:22px}
   .pcard{padding:8px}.pc-pts{font-size:20px}.pc-avatar{width:34px;height:34px;font-size:12px}
   .pc-name{font-size:12.5px}.pc-stats b{font-size:12px}.pc-stats span{font-size:8px}.pc-cap{width:22px;height:22px}
   .card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -279,12 +362,12 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
 <div class="app">
   <aside class="side">
     <a class="logo" href="#inicio"><b></b>Fantasy<span>VCT</span></a>
+    <button class="org-chip" id="org-chip" type="button" aria-label="Editar sua ORG"></button>
     <nav id="nav">
       <a href="#inicio" data-v="inicio">Início</a>
       <a href="#escalacao" data-v="escalacao">Escalação</a>
       <a href="#cartas" data-v="cartas">Cartas</a>
       <a href="#stats" data-v="stats">Stats e partidas</a>
-      <a href="#pontuacao" data-v="pontuacao">Pontuação</a>
     </nav>
     <div class="side-foot" id="side-foot">Dados: VLR.gg</div>
   </aside>
@@ -306,7 +389,7 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
           <div class="mini-lineup" id="w-lineup"></div>
         </div>
         <div class="panel win">
-          <div class="win-head"><h2><i></i>Pontuação da rodada</h2><a class="btn small ghost" href="#pontuacao">Abrir</a></div>
+          <div class="win-head"><h2><i></i>Destaques da rodada</h2></div>
           <div class="muted" id="w-rodada" style="font-size:13.5px"></div>
           <ul class="list" id="w-destaques"></ul>
         </div>
@@ -327,7 +410,7 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
     <!-- ESCALAÇÃO -->
     <section class="view" id="v-escalacao">
       <div class="top">
-        <div><div class="eyebrow">Monte seu time</div><h1>Escalação</h1></div>
+        <div class="org-head"><span id="esc-logo"></span><div><div class="eyebrow" id="esc-org">Monte seu time</div><h1>Escalação</h1></div></div>
         <button class="btn ghost" id="clear-lineup" type="button">Limpar time</button>
       </div>
       <div class="lineup-layout">
@@ -400,52 +483,39 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
       </div>
     </section>
 
-    <!-- PONTUAÇÃO -->
-    <section class="view" id="v-pontuacao">
-      <div class="top">
-        <div><div class="eyebrow">Média da série × multiplicadores</div><h1>Pontuação da rodada</h1></div>
-      </div>
-      <div class="series-bar" id="series-bar"></div>
-      <div class="panel" style="padding:6px 0 0">
-        <div class="tbl-wrap">
-          <table>
-            <thead><tr>
-              <th class="l">#</th><th class="l">Jogador</th><th class="l">Séries</th>
-              <th>Média</th><th>Kills/rd</th><th>× Kill</th><th>× Série</th><th>Final</th>
-            </tr></thead>
-            <tbody id="tbody"></tbody>
-          </table>
-        </div>
-        <p class="muted" style="padding:10px 14px;margin:0;font-size:13px">Clique num jogador para ver a conta de cada mapa. Quem jogou duas séries na semana pontua pela média delas.</p>
-      </div>
-      <details class="rules-box panel">
-        <summary>Regras de pontuação</summary>
-        <form class="rules-grid" id="rules" onsubmit="return false">
-          <label for="r-acs">ACS dividido por <input id="r-acs" type="number" step="1"></label>
-          <label for="r-d">Morte <input id="r-d" type="number" step="0.1"></label>
-          <label for="r-a">Assistência <input id="r-a" type="number" step="0.1"></label>
-          <label for="r-fk">First kill <input id="r-fk" type="number" step="0.1"></label>
-          <label for="r-fd">First death <input id="r-fd" type="number" step="0.1"></label>
-          <label for="r-kastmin">KAST mínimo (%) <input id="r-kastmin" type="number" step="1"></label>
-          <label for="r-kastb">Bônus KAST <input id="r-kastb" type="number" step="0.5"></label>
-          <label for="r-adr1">ADR faixa 1 <input id="r-adr1" type="number" step="5"></label>
-          <label for="r-adr1b">Bônus faixa 1 <input id="r-adr1b" type="number" step="0.5"></label>
-          <label for="r-adr2">ADR faixa 2 <input id="r-adr2" type="number" step="5"></label>
-          <label for="r-adr2b">Bônus faixa 2 <input id="r-adr2b" type="number" step="0.5"></label>
-          <label for="r-k1">Kills/round faixa 1 <input id="r-k1" type="number" step="0.05"></label>
-          <label for="r-k1m">Mult. faixa 1 <input id="r-k1m" type="number" step="0.05"></label>
-          <label for="r-k2">Kills/round faixa 2 <input id="r-k2" type="number" step="0.05"></label>
-          <label for="r-k2m">Mult. faixa 2 <input id="r-k2m" type="number" step="0.05"></label>
-          <label for="r-s20">Série 2-0 <input id="r-s20" type="number" step="0.05"></label>
-          <label for="r-s21">Série 2-1 <input id="r-s21" type="number" step="0.05"></label>
-          <label for="r-s12">Série 1-2 <input id="r-s12" type="number" step="0.05"></label>
-          <label for="r-s02">Série 0-2 <input id="r-s02" type="number" step="0.05"></label>
-          <label for="r-cap">Capitão <input id="r-cap" type="number" step="0.1"></label>
-        </form>
-        <button class="btn ghost small" type="button" id="reset" style="margin-top:10px">Restaurar padrão</button>
-      </details>
-    </section>
   </main>
+
+  <div class="welcome" id="welcome" hidden>
+    <div class="panel welcome-box" role="dialog" aria-modal="true" aria-labelledby="wl-title">
+      <div class="welcome-intro">
+        <div class="logo" style="padding:0"><b></b>Fantasy<span>VCT</span></div>
+        <div><div class="eyebrow">Bem-vindo</div><h1 id="wl-title">Monte a sua ORG</h1></div>
+        <ol>
+          <li><b>1</b><span>Escale 5 jogadores do VCT Americas e 1 coach com <strong>C$ 80</strong>.</span></li>
+          <li><b>2</b><span>A cada rodada eles pontuam pelo que fazem de verdade no servidor.</span></li>
+          <li><b>3</b><span>Escolha um capitão: ele vale <strong>1,5x</strong>.</span></li>
+        </ol>
+        <p class="muted" style="margin:auto 0 0;font-size:13.5px">As cartas mostram o nível de cada jogador na temporada. Quanto melhor a carta, mais caro.</p>
+      </div>
+      <form class="welcome-org" id="org-form" onsubmit="return false">
+        <div class="org-preview"><span id="org-prev-logo"></span><div><div class="nm" id="org-prev-name">Sua ORG</div><div class="tg" id="org-prev-tag">TAG</div></div></div>
+        <div class="org-form">
+          <div class="row2">
+            <label class="f" for="org-name">Nome da ORG<input id="org-name" maxlength="22" placeholder="ex.: Itapevi Snipers" autocomplete="off"></label>
+            <label class="f" for="org-tag">Tag<input id="org-tag" maxlength="4" placeholder="ITS" autocomplete="off" style="text-transform:uppercase"></label>
+          </div>
+          <div><div class="grp-label">Formato do escudo</div><div class="pick-set" id="org-shapes"></div></div>
+          <div><div class="grp-label">Símbolo</div><div class="pick-set" id="org-symbols"></div></div>
+          <div><div class="grp-label">Cor principal</div><div class="pick-set" id="org-c1"></div></div>
+          <div><div class="grp-label">Cor do símbolo</div><div class="pick-set" id="org-c2"></div></div>
+        </div>
+        <div class="welcome-actions">
+          <span class="muted" id="org-msg" style="font-size:13px"></span>
+          <button class="btn" type="submit" id="org-save">Criar minha ORG</button>
+        </div>
+      </form>
+    </div>
+  </div>
 
   <div class="picker" id="picker" hidden>
     <div class="picker-box" role="dialog" aria-modal="true" aria-labelledby="picker-title">
@@ -712,33 +782,40 @@ function cardStats(p){
   const k = maps.reduce((t,m)=>t+m.k,0), d = maps.reduce((t,m)=>t+m.d,0), a = maps.reduce((t,m)=>t+m.a,0);
   return {acs:Math.round(maps.reduce((t,m)=>t+m.acs,0)/maps.length), kda:`${k}/${d}/${a}`};
 }
-function pcardHTML(s){
+const TEAM_TAG_OF = t => TEAM_TAG[t] || String(t||"").slice(0,4).toUpperCase();
+function lineupCardHTML(s){
   const sel = lineup[s] ? findById(lineup[s]) : null;
   const area = SLOT_AREA[s] || "";
   const open = `data-open="${s}" tabindex="0" role="button" aria-label="Escolher ${s}"`;
-  if(!sel) return `<div class="pcard empty ${s} ${area}" ${open}><div class="pc-plus">+</div><div class="pc-empty-role">${s}</div><div class="pc-hint">${SLOT_HINT[s]}</div></div>`;
+  if(!sel) return `<div class="fcard empty ${area}" style="--rc:${SLOT_COLOR[s]}" ${open}><div class="shape">
+      <div class="pc-plus">+</div><div class="pc-empty-role">${s}</div><div class="pc-hint">${SLOT_HINT[s]}</div></div></div>`;
   const isCap = lineup.cap===s && s!=="Coach";
-  const st = s==="Coach" ? null : cardStats(sel);
-  const label = s==="Flex" ? "Flex · "+sel.role : s;
-  return `<div class="pcard ${s} ${area}${isCap?' cap':''}" ${open}>
-    <div class="pc-role">${label}</div>
-    <div class="pc-pts">${fmt(slotPoints(s))}<small>${isCap?'CAPITÃO 1,5x':'PONTOS'}</small></div>
-    <div class="pc-avatar">${esc(initials(sel.name))}</div>
-    <div class="pc-name">${esc(sel.name)}</div>
-    <div class="pc-team">${esc(sel.team)}${sel.entries.length>1?' · 2 séries':''}</div>
-    <div class="pc-stats">
-      <div><b>${sel.ovr}</b><span>OVR</span></div>
-      <div><b style="color:var(--gold)">${fmt(sel.price)}</b><span>C$</span></div>
-      <div><b>${st?st.acs:sel.entries.map(e=>e.score).join(" ")}</b><span>${st?'ACS':'Série'}</span></div>
-    </div>
-    ${s!=="Coach" ? `<button class="pc-cap" type="button" data-cap="${s}" aria-label="Tornar ${esc(sel.name)} capitão">C</button>` : ""}
-  </div>`;
+  const pts = fmt(slotPoints(s));
+  const tier = tierOf(sel.ovr);
+  if(s==="Coach"){
+    return `<div class="fcard ${tier} lineup coach ${area}" ${open}><div class="shape">
+      <div class="fc-top"><div><div class="fc-ovr">${sel.ovr}</div><div class="fc-pos">COACH</div></div><div class="fc-tag">${esc(TEAM_TAG_OF(sel.team))}</div></div>
+      <div class="fc-face">${esc(initials(sel.name))}</div>
+      <div class="fc-name">${esc(sel.name)}</div>
+      <div class="fc-lines"><div><span>Time</span><b>${esc(sel.team)}</b></div><div><span>Séries</span><b>${sel.entries.map(e=>e.score).join(" · ")}</b></div></div>
+      <div class="fc-pts"><div><span>Pontos</span><b>${pts}</b></div><div><span>Preço</span><b class="g">${fmt(sel.price)}</b></div></div>
+    </div></div>`;
+  }
+  const c = sel.card;
+  const attrs = c ? ["IMP","DAN","ENT","CON"].map(a=>`<div><b>${c.attrs[a]}</b><span>${a}</span></div>`).join("") : `<div style="grid-column:span 2" class="muted">sem carta da temporada</div>`;
+  return `<div class="fcard ${tier} lineup${isCap?' cap':''} ${area}" ${open}><div class="shape">
+      <div class="fc-top"><div><div class="fc-ovr">${sel.ovr}</div><div class="fc-pos">${s==="Flex"?"FLX":ROLE_ABBR[sel.role]||"FLX"}</div></div><div class="fc-tag">${esc(TEAM_TAG_OF(sel.team))}</div></div>
+      <div class="fc-face">${esc(initials(sel.name))}</div>
+      <div class="fc-name">${esc(sel.name)}</div>
+      <div class="fc-attrs">${attrs}</div>
+      <div class="fc-pts"><div><span>${isCap?'Capitão 1,5x':'Pontos'}</span><b>${pts}</b></div><div><span>Preço</span><b class="g">${fmt(sel.price)}</b></div></div>
+    </div><button class="pc-cap" type="button" data-cap="${s}" aria-label="Tornar ${esc(sel.name)} capitão">C</button></div>`;
 }
 function renderLineup(){
   SLOTS.forEach(s => { if(lineup[s] && !findById(lineup[s])) lineup[s]=null; });
   if(lineup.cap && !lineup[lineup.cap]) lineup.cap = null;
-  $("field").innerHTML = PLAYER_SLOTS.map(pcardHTML).join("");
-  $("bench-coach").innerHTML = pcardHTML("Coach");
+  $("field").innerHTML = PLAYER_SLOTS.map(lineupCardHTML).join("");
+  $("bench-coach").innerHTML = lineupCardHTML("Coach");
   const total = fmt(teamTotal()), gasto = spent(), rest = PATRIMONIO - gasto;
   $("team-total").textContent = total; $("w-total").textContent = total;
   $("b-gasto").textContent = cs(gasto); $("b-rest").textContent = cs(rest);
@@ -827,35 +904,6 @@ function renderStats(){
     <td>${Math.round(c.stats.hs)}%</td><td>${Math.round(c.stats.clp)}%</td></tr>`).join("");
 }
 
-// ================================================================ pontuação (tabela)
-let openRow = null;
-function renderScore(){
-  $("series-bar").innerHTML = STATE.seriesInfo.map(s => {
-    const [a,b] = s.teams; const wa = s.wins[a], wb = s.wins[b];
-    return `<div class="series"><span class="${wa>wb?'w':'lz'}">${esc(a)}</span><span class="sc">${wa} : ${wb}</span><span class="${wb>wa?'w':'lz'}">${esc(b)}</span><span class="maps">${s.maps.map(esc).join(" · ")}</span></div>`;
-  }).join("");
-  $("tbody").innerHTML = STATE.players.map((p,i) => {
-    const isOpen = openRow===p.id, multi = p.entries.length>1, e0 = p.entries[0];
-    let html = `<tr class="row${isOpen?' open':''}" data-id="${esc(p.id)}" tabindex="0">
-      <td class="l pos">${i+1}</td>
-      <td class="l"><span class="name">${esc(p.name)}</span><span class="role ${p.role}">${p.role}</span><br><span class="team">${esc(p.team)}${multi?' · '+p.entries.length+' séries':''}</span></td>
-      <td class="l" style="font-size:13px">${p.entries.map(e=>`vs ${esc(e.opp)} ${e.score} <span class="${e.final<0?'neg':''}">${fmt(e.final)}</span>`).join("<br>")}</td>
-      <td>${multi?'–':fmt(e0.avg)}</td><td>${multi?'–':e0.kpr.toFixed(2).replace(".",",")}</td>
-      <td class="mult ${!multi&&e0.mk>1?'up':''}">${multi?'–':fx(e0.mk)}</td><td class="mult ${!multi&&e0.ms>1?'up':''}">${multi?'–':fx(e0.ms)}</td>
-      <td class="final ${p.final<0?'neg':''}">${fmt(p.final)}</td></tr>`;
-    if(isOpen){
-      html += `<tr class="detail"><td colspan="8">${p.entries.map(e=>`
-        ${multi?`<div class="formula" style="padding-top:14px;padding-bottom:0"><b>vs ${esc(e.opp)} · ${e.score}</b></div>`:''}
-        <div class="breakdown">${e.maps.map(m=>`<div class="bk"><h3><span>${esc(m.map)}${m.agent?' · '+esc(m.agent):''}</span><span>${fmt(m.total)}</span></h3><dl>
-          ${m.parts.map(([k,v,pts])=>`<dt>${k}</dt><dd class="muted">${v}</dd><dd class="${pts<0?'neg':''}">${(pts||0)>=0?'+':''}${fmt(pts||0)}</dd>`).join("")}
-          <dt class="tot">Total do mapa</dt><dd class="tot"></dd><dd class="tot">${fmt(m.total)}</dd></dl></div>`).join("")}</div>
-        <div class="formula">Média ${fmt(e.avg)} × kill ${fx(e.mk)} × série ${fx(e.ms)} = <b>${fmt(e.final)}</b>${e.avg<=0?' (pontuação negativa não recebe multiplicador)':''}</div>`).join("")}
-        ${multi?`<div class="formula">Rodada: média das ${p.entries.length} séries = <b>${fmt(p.final)}</b></div>`:''}</td></tr>`;
-    }
-    return html;
-  }).join("") || `<tr><td colspan="8" class="l muted">Nenhuma série na rodada.</td></tr>`;
-}
-
 // ================================================================ início
 function renderHome(){
   const top = CARDS.slice(0,3);
@@ -875,7 +923,7 @@ function fillTeamFilters(){
 }
 function renderAll(){
   STATE = compute();
-  renderLineup(); renderScore(); renderHome(); renderCards(); renderStats();
+  renderLineup(); renderHome(); renderCards(); renderStats();
 }
 
 // ================================================================ eventos
@@ -887,15 +935,12 @@ document.addEventListener("click", e => {
   if(e.target.closest("[data-close-card]")){ closeModal("card-modal"); return; }
   const card = e.target.closest("[data-card]");
   if(card){ openCard(card.dataset.card); return; }
-  const row = e.target.closest("#tbody tr.row");
-  if(row){ openRow = openRow===row.dataset.id ? null : row.dataset.id; renderScore(); return; }
   const sth = e.target.closest("#s-head th[data-s]");
   if(sth){ sSort = {k:sth.dataset.s, dir: sSort.k===sth.dataset.s ? -sSort.dir : -1}; renderStats(); return; }
 });
 document.addEventListener("keydown", e => {
-  if(e.key==="Escape"){ if(!$("picker").hidden) closePicker(); if(!$("card-modal").hidden) closeModal("card-modal"); return; }
+  if(e.key==="Escape"){ if(!$("picker").hidden) closePicker(); if(!$("card-modal").hidden) closeModal("card-modal"); if(!$("welcome").hidden && ORG) $("welcome").hidden = true; return; }
   if((e.key==="Enter"||e.key===" ") && e.target.matches("[data-open]")){ e.preventDefault(); openPicker(e.target.dataset.open); }
-  if(e.key==="Enter" && e.target.matches("#tbody tr.row")){ openRow = openRow===e.target.dataset.id ? null : e.target.dataset.id; renderScore(); }
 });
 $("picker-search").addEventListener("input", renderPicker);
 $("picker-close").addEventListener("click", closePicker);
@@ -908,17 +953,86 @@ $("picker-list").addEventListener("click", e => {
 $("picker-remove").addEventListener("click", () => { if(lineup.cap===pickerSlot) lineup.cap=null; lineup[pickerSlot]=null; renderLineup(); closePicker(); });
 $("clear-lineup").addEventListener("click", () => { lineup = {cap:null}; renderLineup(); });
 ["c-role","c-team","c-q","c-sort"].forEach(id => $(id).addEventListener("input", renderCards));
-const RULE_IDS = Object.keys(DEFAULT_RULES);
-function fillRules(){ RULE_IDS.forEach(k => { $("r-"+k).value = R[k]; }); }
-$("rules").addEventListener("input", e => {
-  const k = e.target.id.replace("r-",""); if(!(k in R)) return;
-  const v = parseFloat(e.target.value); if(isNaN(v) || (k==="acs" && v<=0)) return;
-  R[k] = v; renderAll();
+// ================================================================ ORG
+const SHAPES = {
+  escudo:   `<path d="M50 4 L92 18 L88 58 C84 78 68 90 50 98 C32 90 16 78 12 58 L8 18 Z"/>`,
+  hexagono: `<polygon points="50,4 92,27 92,73 50,96 8,73 8,27"/>`,
+  circulo:  `<circle cx="50" cy="50" r="46"/>`,
+  losango:  `<polygon points="50,3 97,50 50,97 3,50"/>`,
+};
+const SYMBOLS = {
+  raio:    `<polygon points="56,10 28,54 46,54 40,90 72,42 52,42 62,10"/>`,
+  estrela: `<polygon points="50,10 61,38 90,40 67,58 75,88 50,71 25,88 33,58 10,40 39,38"/>`,
+  coroa:   `<polygon points="16,74 22,30 38,50 50,22 62,50 78,30 84,74"/>`,
+  mira:    `<g fill="none" stroke-width="8"><circle cx="50" cy="50" r="24"/><path d="M50 8v22M50 70v22M8 50h22M70 50h22"/></g><circle cx="50" cy="50" r="6"/>`,
+  lamina:  `<polygon points="14,18 36,18 50,62 64,18 86,18 58,88 42,88"/>`,
+  chama:   `<path d="M50 8 C62 30 80 40 74 64 C70 80 60 90 50 90 C38 90 26 80 26 64 C26 50 36 44 38 28 C46 40 48 46 52 48 C56 36 56 22 50 8 Z"/>`,
+};
+const COLORS = ["#ff4655","#ff8a3d","#f2c94c","#3ddc97","#22b8cf","#4c7dff","#8b5cf6","#ec4899","#ece8e1","#111821"];
+const ORG_DEFAULT = {name:"", tag:"", shape:"escudo", symbol:"raio", c1:"#ff4655", c2:"#ece8e1"};
+let ORG = null;
+try{ ORG = JSON.parse(localStorage.getItem("fvct-org")||"null"); }catch(e){}
+let draft = {...ORG_DEFAULT, ...(ORG||{})};
+
+function logoSVG(o, size){
+  const id = "g" + Math.random().toString(36).slice(2,8);
+  const sym = SYMBOLS[o.symbol] || SYMBOLS.raio;
+  return `<svg width="${size}" height="${size}" viewBox="0 0 100 100" aria-hidden="true">
+    <defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff" stop-opacity=".35"/><stop offset=".5" stop-color="#ffffff" stop-opacity="0"/></linearGradient></defs>
+    <g fill="${o.c1}" stroke="${o.c2}" stroke-width="3">${SHAPES[o.shape]||SHAPES.escudo}</g>
+    <g fill="url(#${id})">${SHAPES[o.shape]||SHAPES.escudo}</g>
+    <g transform="translate(22 20) scale(.56)" fill="${o.c2}" stroke="${o.c2}">${sym}</g>
+  </svg>`;
+}
+const autoTag = n => { const w = n.trim().split(/\s+/).filter(Boolean); return (w.length>1 ? w.map(x=>x[0]).join("") : (w[0]||"").slice(0,3)).toUpperCase().slice(0,4); };
+function renderOrgBuilder(){
+  $("org-prev-logo").innerHTML = logoSVG(draft, 84);
+  $("org-prev-name").textContent = draft.name || "Sua ORG";
+  $("org-prev-tag").textContent = draft.tag || "TAG";
+  const opt = (group, val, inner, label, cur) => `<button type="button" class="opt" data-${group}="${val}" aria-pressed="${cur===val}" aria-label="${label}">${inner}</button>`;
+  $("org-shapes").innerHTML = Object.keys(SHAPES).map(k => opt("shape", k, `<svg width="30" height="30" viewBox="0 0 100 100"><g fill="#ffffff22" stroke="#ece8e1" stroke-width="5">${SHAPES[k]}</g></svg>`, k, draft.shape)).join("");
+  $("org-symbols").innerHTML = Object.keys(SYMBOLS).map(k => opt("symbol", k, `<svg width="28" height="28" viewBox="0 0 100 100"><g fill="#ece8e1" stroke="#ece8e1">${SYMBOLS[k]}</g></svg>`, k, draft.symbol)).join("");
+  const sw = (g, cur) => COLORS.map(c => `<button type="button" class="sw" data-${g}="${c}" style="background:${c}" aria-pressed="${cur===c}" aria-label="Cor ${c}"></button>`).join("");
+  $("org-c1").innerHTML = sw("c1", draft.c1); $("org-c2").innerHTML = sw("c2", draft.c2);
+}
+function openWelcome(){
+  draft = {...ORG_DEFAULT, ...(ORG||{})};
+  $("org-name").value = draft.name; $("org-tag").value = draft.tag;
+  $("org-save").textContent = ORG ? "Salvar ORG" : "Criar minha ORG";
+  $("org-msg").textContent = "";
+  renderOrgBuilder(); $("welcome").hidden = false;
+  setTimeout(()=>$("org-name").focus(), 50);
+}
+function renderOrg(){
+  const o = ORG || {...ORG_DEFAULT, name:"Sua ORG"};
+  $("org-chip").innerHTML = `${logoSVG(o, 40)}<span><b>${esc(o.name||"Sua ORG")}</b><small>${ORG ? esc(o.tag)+" · editar" : "criar ORG"}</small></span>`;
+  $("esc-logo").innerHTML = ORG ? logoSVG(ORG, 54) : "";
+  $("esc-org").textContent = ORG ? ORG.name : "Monte seu time";
+}
+$("org-form").addEventListener("click", e => {
+  const b = e.target.closest("[data-shape],[data-symbol],[data-c1],[data-c2]"); if(!b) return;
+  ["shape","symbol","c1","c2"].forEach(k => { if(b.dataset[k]) draft[k] = b.dataset[k]; });
+  renderOrgBuilder();
 });
-$("reset").addEventListener("click", () => { R = {...DEFAULT_RULES}; fillRules(); renderAll(); });
+let tagTouched = false;
+$("org-name").addEventListener("input", e => {
+  draft.name = e.target.value;
+  if(!tagTouched){ draft.tag = autoTag(draft.name); $("org-tag").value = draft.tag; }
+  renderOrgBuilder();
+});
+$("org-tag").addEventListener("input", e => { tagTouched = true; draft.tag = e.target.value.toUpperCase().replace(/[^A-Z0-9]/g,""); e.target.value = draft.tag; renderOrgBuilder(); });
+$("org-form").addEventListener("submit", () => {
+  if(draft.name.trim().length < 2){ $("org-msg").textContent = "Dê um nome para a sua ORG."; $("org-name").focus(); return; }
+  if(!draft.tag) draft.tag = autoTag(draft.name);
+  ORG = {...draft, name: draft.name.trim()};
+  try{ localStorage.setItem("fvct-org", JSON.stringify(ORG)); }catch(e){}
+  $("welcome").hidden = true; renderOrg();
+  if(!location.hash || location.hash==="#inicio") location.hash = "escalacao";
+});
+$("org-chip").addEventListener("click", openWelcome);
 
 // ================================================================ rotas
-const VIEWS = ["inicio","escalacao","cartas","stats","pontuacao"];
+const VIEWS = ["inicio","escalacao","cartas","stats"];
 function route(){
   const v = VIEWS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "inicio";
   VIEWS.forEach(x => $("v-"+x).classList.toggle("on", x===v));
@@ -931,7 +1045,8 @@ async function getJSON(path){
   try{ const r = await fetch(path, {cache:"no-store"}); return r.ok ? await r.json() : null; }catch(e){ return null; }
 }
 async function boot(){
-  fillRules(); route();
+  route(); renderOrg();
+  if(!ORG) openWelcome();
   const [rod, tmp, prox] = await Promise.all([getJSON("data/rodada.json"), getJSON("data/temporada.json"), getJSON("data/proximas.json")]);
   RODADA = rod; TEMPORADA = tmp; PROXIMAS = prox;
   if(rod && rod.semana && rod.rotulo){
