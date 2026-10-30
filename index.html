@@ -252,6 +252,27 @@ nav a:hover{background:#ffffff0d}
 .budget .bar{height:6px;background:var(--bg);position:relative;overflow:hidden}
 .budget .bar i{position:absolute;inset:0 auto 0 0;background:var(--red)}
 .budget .row{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums}
+.bench-bar{margin-top:18px}
+.bench-bar .win-head{flex-wrap:wrap;align-items:flex-end}
+.bench-hint{font-size:13.5px;color:var(--muted);margin:10px 0 8px;min-height:20px}
+.bench-hint.active{color:var(--gold)}
+.bench-row{display:flex;gap:14px;overflow-x:auto;padding:8px 4px 14px;scroll-snap-type:x proximity;overscroll-behavior-x:contain}
+.bench-row .fcard{flex:0 0 150px;width:150px;scroll-snap-align:start}
+.bench-row .fcard.lineup .shape{padding:10px 10px 14px}
+.bench-row .fcard.lineup .fc-ovr{font-size:28px}
+.bench-row .fcard.lineup .fc-face{width:38px;height:38px;font-size:14px}
+.bench-row .fcard.lineup .fc-name{font-size:14px}
+.bench-row .fcard.lineup .fc-attrs{display:none}
+.bench-row .fcard .fc-role{font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:center;opacity:.8;margin-top:2px}
+.bench-row .fcard.off{opacity:.38;filter:grayscale(.6);cursor:not-allowed}
+.bench-row .fcard.sel{outline:2px solid var(--gold);outline-offset:3px;transform:translateY(-4px)}
+.bench-row .fcard .why{position:absolute;left:10px;right:10px;bottom:22px;font-size:10.5px;text-align:center;background:#000a;padding:2px 4px;z-index:2}
+.bench-row .fcard .badge-in{position:absolute;right:10px;bottom:22px;font-size:10px;background:var(--good);color:#0b1a12;padding:1px 6px;font-weight:700;z-index:2;letter-spacing:.06em}
+.fcard.target{animation:pulse 1.1s ease-in-out infinite;cursor:copy}
+.fcard.drop-over{transform:scale(1.04);filter:drop-shadow(0 0 12px var(--gold))}
+@keyframes pulse{0%,100%{filter:drop-shadow(0 0 0 transparent)}50%{filter:drop-shadow(0 0 12px #f2c94c)}}
+.pc-sell{position:absolute;right:12px;top:46px;z-index:2;height:22px;padding:0 7px;border:1px solid #ffffff40;background:#0f1923dd;color:var(--text);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;cursor:pointer}
+.pc-sell:hover{background:var(--red);border-color:var(--red)}
 .bench-coach{display:flex;justify-content:center}
 .bench-coach .fcard{width:190px}
 .field .fcard{width:var(--cw)}
@@ -404,6 +425,8 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
   .fcard.lineup .fc-face{width:30px;height:30px;font-size:11px}.fcard.lineup .fc-name{font-size:11px}
   .fcard.lineup .fc-attrs{display:none}.fc-pts{padding:3px 5px}.fc-pts b{font-size:12px}.fc-pts span{font-size:7.5px}
   .fcard .pc-cap{top:50px;left:8px;width:22px;height:22px}
+  .pc-sell{top:30px;right:6px;height:18px;padding:0 4px;font-size:8.5px}
+  .bench-row .fcard{flex-basis:120px;width:120px}
   .pcard{padding:8px}.pc-pts{font-size:20px}.pc-avatar{width:34px;height:34px;font-size:12px}
   .pc-name{font-size:12.5px}.pc-stats b{font-size:12px}.pc-stats span{font-size:8px}.pc-cap{width:22px;height:22px}
   .card-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
@@ -483,7 +506,9 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
           <div class="panel rules-mini">
             <h2>Como funciona</h2>
             <ul>
-              <li>Toque numa carta para escolher o jogador daquela função.</li>
+              <li>Escale pelos <b>jogadores disponíveis</b> embaixo: clique na carta ou arraste até a posição.</li>
+              <li>Também dá pra tocar numa posição do campo e escolher da lista.</li>
+              <li><b>Vender</b> devolve o preço do jogador ao seu patrimônio.</li>
               <li>Você tem <b>C$ 80</b> para 5 jogadores e 1 coach.</li>
               <li>O <b>Flex</b> aceita qualquer função.</li>
               <li>O <b>capitão</b> pontua 1,5x: botão C na carta.</li>
@@ -491,6 +516,19 @@ details.rules-box summary{cursor:pointer;font-family:var(--f-display);letter-spa
             </ul>
           </div>
         </aside>
+      </div>
+      <div class="panel bench-bar">
+        <div class="win-head">
+          <h2 style="margin:0">Jogadores disponíveis</h2>
+          <div class="filters" style="margin:0">
+            <label for="bb-role">Função<select id="bb-role"><option value="">Todas</option><option>Duelista</option><option>Iniciador</option><option>Controlador</option><option>Sentinela</option><option>Flex</option><option value="Coach">Coaches</option></select></label>
+            <label for="bb-team">Time<select id="bb-team"><option value="">Todos</option></select></label>
+            <label for="bb-sort">Ordenar<select id="bb-sort"><option value="ovr">Overall</option><option value="price">Mais caro</option><option value="cheap">Mais barato</option><option value="pts">Pontos da rodada</option></select></label>
+            <label for="bb-afford" style="flex-direction:row;align-items:center;gap:8px;text-transform:none;letter-spacing:0;font-size:13.5px"><input type="checkbox" id="bb-afford" style="min-width:0"> Só o que cabe no bolso</label>
+          </div>
+        </div>
+        <div class="bench-hint" id="bench-hint">Clique numa carta para escalar, ou arraste até a posição no campo.</div>
+        <div class="bench-row" id="bench-row"></div>
       </div>
     </section>
 
@@ -950,7 +988,7 @@ function lineupCardHTML(s){
       <div class="fc-name">${esc(sel.name)}</div>
       <div class="fc-lines"><div><span>Time</span><b>${esc(sel.team)}</b></div><div><span>Séries</span><b>${sel.entries.map(e=>e.score).join(" · ")}</b></div></div>
       <div class="fc-pts"><div><span>Pontos</span><b>${pts}</b></div><div><span>Preço</span><b class="g">${fmt(sel.price)}</b></div></div>
-    </div></div>`;
+    </div><button class="pc-sell" type="button" data-sell="${s}" aria-label="Vender ${esc(sel.name)}">Vender</button></div>`;
   }
   const c = sel.card;
   const attrs = c ? ["IMP","DAN","ENT","CON"].map(a=>`<div><b>${c.attrs[a]}</b><span>${a}</span></div>`).join("") : `<div style="grid-column:span 2" class="muted">sem carta da temporada</div>`;
@@ -960,7 +998,73 @@ function lineupCardHTML(s){
       <div class="fc-name">${esc(sel.name)}</div>
       <div class="fc-attrs">${attrs}</div>
       <div class="fc-pts"><div><span>${isCap?'Capitão 1,5x':'Pontos'}</span><b>${pts}</b></div><div><span>Preço</span><b class="g">${fmt(sel.price)}</b></div></div>
-    </div><button class="pc-cap" type="button" data-cap="${s}" aria-label="Tornar ${esc(sel.name)} capitão">C</button></div>`;
+    </div><button class="pc-cap" type="button" data-cap="${s}" aria-label="Tornar ${esc(sel.name)} capitão">C</button><button class="pc-sell" type="button" data-sell="${s}" aria-label="Vender ${esc(sel.name)}">Vender</button></div>`;
+}
+// ---- banco de jogadores (estilo substituição do FIFA)
+let benchSel = null;   // id do jogador escolhido no banco, esperando a posição
+function targetsFor(p){
+  if(p.role==="Coach") return ["Coach"];
+  return [ROLES.includes(p.role) ? p.role : null, "Flex"].filter(Boolean);
+}
+function benchState(p){
+  const inSlot = SLOTS.find(s => lineup[s]===p.id);
+  if(inSlot) return {inSlot};
+  const ok = targetsFor(p).filter(s => !whyBlocked(p, s));
+  if(!ok.length) return {why: whyBlocked(p, targetsFor(p)[0])};
+  return {ok};
+}
+function benchCardHTML(p){
+  const st = benchState(p);
+  const isCoach = p.role==="Coach";
+  const off = !st.inSlot && !st.ok;
+  return `<div class="fcard ${tierOf(p.ovr)} lineup${off?' off':''}${benchSel===p.id?' sel':''}" data-bench="${esc(p.id)}" ${off?'':'draggable="true"'} tabindex="0" role="button" aria-label="${esc(p.name)}, ${fmt(p.price)} cartoletas">
+    <div class="shape">
+      <div class="fc-top"><div><div class="fc-ovr">${p.ovr}</div><div class="fc-pos">${isCoach?"COACH":ROLE_ABBR[p.role]||"FLX"}</div></div>${tagHTML(p.team, TEAM_TAG_OF(p.team))}</div>
+      <div class="fc-face">${esc(initials(p.name))}</div>
+      <div class="fc-name">${esc(p.name)}</div>
+      <div class="fc-role">${isCoach?esc(p.team):esc(p.role)}</div>
+      <div class="fc-pts"><div><span>Pontos</span><b>${fmt(p.final)}</b></div><div><span>Preço</span><b class="g">${fmt(p.price)}</b></div></div>
+    </div>
+    ${st.inSlot?'<span class="badge-in">NO TIME</span>':''}${st.why?`<span class="why">${esc(st.why)}</span>`:''}
+  </div>`;
+}
+function renderBench(){
+  const role = $("bb-role").value, team = $("bb-team").value, sort = $("bb-sort").value, afford = $("bb-afford").checked;
+  let list = role==="Coach" ? STATE.coaches : STATE.players.filter(p => !role || p.role===role);
+  if(!role) list = [...list];
+  list = list.filter(p => (!team || p.team===team) && (!afford || benchState(p).ok || benchState(p).inSlot));
+  const by = {ovr:(a,b)=>b.ovr-a.ovr, price:(a,b)=>b.price-a.price, cheap:(a,b)=>a.price-b.price, pts:(a,b)=>b.final-a.final}[sort];
+  list.sort(by);
+  $("bench-row").innerHTML = list.map(benchCardHTML).join("") || `<p class="muted">Nenhum jogador com esses filtros.</p>`;
+  document.querySelectorAll("#field .fcard, #bench-coach .fcard").forEach(el => el.classList.remove("target"));
+  const sel = benchSel && findById(benchSel);
+  if(sel){
+    const ok = benchState(sel).ok || [];
+    ok.forEach(s => document.querySelector(`[data-open="${s}"]`)?.classList.add("target"));
+    $("bench-hint").className = "bench-hint active";
+    $("bench-hint").textContent = `Escolha a posição para ${sel.name}: ${ok.join(" ou ")}. Esc para cancelar.`;
+  } else {
+    $("bench-hint").className = "bench-hint";
+    $("bench-hint").textContent = "Clique numa carta para escalar, ou arraste até a posição no campo.";
+  }
+}
+function placeInSlot(id, s){
+  const p = findById(id); if(!p) return false;
+  const why = whyBlocked(p, s);
+  if(!targetsFor(p).includes(s)){ $("bench-hint").className="bench-hint active"; $("bench-hint").textContent = `${p.name} não joga como ${s}.`; return false; }
+  if(why){ $("bench-hint").className="bench-hint active"; $("bench-hint").textContent = `Não dá: ${why}.`; return false; }
+  if(lineup.cap===s && lineup[s]!==id) lineup.cap = null;
+  lineup[s] = id; benchSel = null; renderLineup(); return true;
+}
+function benchClick(id){
+  const p = findById(id); if(!p) return;
+  const st = benchState(p);
+  if(st.inSlot){ benchSel = null; renderLineup(); document.querySelector(`[data-open="${st.inSlot}"]`)?.scrollIntoView({behavior:"smooth", block:"center"}); return; }
+  if(!st.ok) return;
+  const empty = st.ok.find(s => !lineup[s]);
+  if(empty){ placeInSlot(id, empty); return; }
+  benchSel = benchSel===id ? null : id;   // posições cheias: escolher qual substituir
+  renderBench();
 }
 function miniCardHTML(s){
   const sel = lineup[s] ? findById(lineup[s]) : null;
@@ -988,6 +1092,7 @@ function renderLineup(){
   $("team-note").textContent = filled<6 ? `${filled} de 6 posições preenchidas` : (lineup.cap ? `Time completo · capitão: ${findById(lineup[lineup.cap]).name}` : "Time completo. Escolha um capitão.");
   $("w-field").innerHTML = SLOTS.map(miniCardHTML).join("");
   if(canSave){ try{ localStorage.setItem("fvct-lineup", JSON.stringify(lineup)); }catch(e){} }
+  renderBench();
 }
 function openPicker(s){
   pickerSlot = s;
@@ -1076,6 +1181,8 @@ function renderHome(){
 
 // ================================================================ render geral
 function fillTeamFilters(){
+  const teams = [...new Set(STATE.players.map(p=>p.team))].sort();
+  $("bb-team").innerHTML = `<option value="">Todos</option>` + teams.map(t=>`<option>${esc(t)}</option>`).join("");
   const orgs = [...new Set(CARDS.map(c=>c.org))].sort();
   $("c-team").innerHTML = `<option value="">Todos</option>` + orgs.map(t=>`<option>${esc(t)}</option>`).join("");
 }
@@ -1088,7 +1195,12 @@ function renderAll(){
 document.addEventListener("click", e => {
   const cap = e.target.closest("[data-cap]");
   if(cap){ e.stopPropagation(); const s = cap.dataset.cap; lineup.cap = lineup.cap===s ? null : s; renderLineup(); return; }
+  const sell = e.target.closest("[data-sell]");
+  if(sell){ e.stopPropagation(); const s = sell.dataset.sell; if(lineup.cap===s) lineup.cap = null; lineup[s] = null; renderLineup(); return; }
+  const bc = e.target.closest("[data-bench]");
+  if(bc){ benchClick(bc.dataset.bench); return; }
   const open = e.target.closest("[data-open]");
+  if(open && benchSel){ placeInSlot(benchSel, open.dataset.open); return; }
   if(open){ openPicker(open.dataset.open); return; }
   if(e.target.closest("[data-close-card]")){ closeModal("card-modal"); return; }
   const card = e.target.closest("[data-card]");
@@ -1097,6 +1209,8 @@ document.addEventListener("click", e => {
   if(sth){ sSort = {k:sth.dataset.s, dir: sSort.k===sth.dataset.s ? -sSort.dir : -1}; renderStats(); return; }
 });
 document.addEventListener("keydown", e => {
+  if(e.key==="Escape" && benchSel){ benchSel = null; renderBench(); return; }
+  if((e.key==="Enter"||e.key===" ") && e.target.matches("[data-bench]")){ e.preventDefault(); benchClick(e.target.dataset.bench); return; }
   if(e.key==="Escape"){ if(!$("picker").hidden) closePicker(); if(!$("card-modal").hidden) closeModal("card-modal"); if(!$("welcome").hidden && ORG) $("welcome").hidden = true; return; }
   if((e.key==="Enter"||e.key===" ") && e.target.matches("[data-open]")){ e.preventDefault(); openPicker(e.target.dataset.open); }
 });
@@ -1109,7 +1223,25 @@ $("picker-list").addEventListener("click", e => {
   lineup[pickerSlot] = b.dataset.pick; renderLineup(); closePicker();
 });
 $("picker-remove").addEventListener("click", () => { if(lineup.cap===pickerSlot) lineup.cap=null; lineup[pickerSlot]=null; renderLineup(); closePicker(); });
-$("clear-lineup").addEventListener("click", () => { lineup = {cap:null}; renderLineup(); });
+$("clear-lineup").addEventListener("click", () => { lineup = {cap:null}; benchSel = null; renderLineup(); });
+["bb-role","bb-team","bb-sort","bb-afford"].forEach(id => $(id).addEventListener("input", renderBench));
+// arrastar do banco para a posição
+document.addEventListener("dragstart", e => {
+  const bc = e.target.closest?.("[data-bench]"); if(!bc) return;
+  e.dataTransfer.setData("text/plain", bc.dataset.bench); e.dataTransfer.effectAllowed = "copy";
+  benchSel = bc.dataset.bench; renderBench();
+});
+document.addEventListener("dragover", e => {
+  const slot = e.target.closest?.("#field [data-open], #bench-coach [data-open]"); if(!slot || !benchSel) return;
+  e.preventDefault(); slot.classList.add("drop-over");
+});
+document.addEventListener("dragleave", e => { const slot = e.target.closest?.("[data-open]"); if(slot && !slot.contains(e.relatedTarget)) slot.classList.remove("drop-over"); });
+document.addEventListener("drop", e => {
+  const slot = e.target.closest?.("#field [data-open], #bench-coach [data-open]"); if(!slot) return;
+  e.preventDefault(); slot.classList.remove("drop-over");
+  const id = e.dataTransfer.getData("text/plain") || benchSel; if(id) placeInSlot(id, slot.dataset.open);
+});
+document.addEventListener("dragend", () => { if(benchSel){ benchSel = null; renderBench(); } });
 ["c-role","c-team","c-q","c-sort"].forEach(id => $(id).addEventListener("input", renderCards));
 // ================================================================ ORG
 const SHAPES = {
