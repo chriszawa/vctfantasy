@@ -44,11 +44,21 @@ def buscar(caminho, tentativas=4):
             raise
 
 
+def salvar_html(mid):
+    req = urllib.request.Request(f"https://www.vlr.gg/{mid}", headers={"User-Agent": "Mozilla/5.0 (fantasy-vct)"})
+    with urllib.request.urlopen(req, timeout=60) as r:
+        html = r.read()
+    pasta = SAIDA.parent / "html"
+    pasta.mkdir(exist_ok=True)
+    (pasta / f"{mid}.html").write_bytes(html)
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--event-id", default="")
     ap.add_argument("--semana", default="", help='trecho do nome da semana, ex.: "Week 4"')
     ap.add_argument("--matches", nargs="*", default=[])
+    ap.add_argument("--salvar-html", action="store_true", help="guarda a página crua do VLR em data/html (diagnóstico)")
     a = ap.parse_args()
 
     ids = [m for m in a.matches if m]
@@ -71,6 +81,10 @@ def main():
             time.sleep(3.5)  # limite de 20 req/min da API
         print(f"Baixando série {mid}...", file=sys.stderr)
         s = buscar(f"/v2/match/details?match_id={mid}")
+        if isinstance(s, dict) and "segments" in s:  # formato real da API: {"segments": [serie]}
+            s = s["segments"][0]
+        if a.salvar_html:
+            salvar_html(mid)
         evento_nome = evento_nome or (s.get("event") or {}).get("name", "")
         series.append(s)
 

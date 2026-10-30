@@ -15,6 +15,10 @@ on:
         description: "IDs de séries separados por espaço (opcional, no lugar do evento)"
         required: false
         default: ""
+      salvar_html:
+        description: "Guardar as páginas cruas do VLR (diagnóstico)"
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -57,7 +61,8 @@ jobs:
           SEMANA: ${{ inputs.semana }}
           MATCHES: ${{ inputs.matches }}
         run: |
-          python3 scripts/coletar.py --event-id "$EVENT_ID" --semana "$SEMANA" --matches $MATCHES
+          EXTRA=""; [ "${{ inputs.salvar_html }}" = "true" ] && EXTRA="--salvar-html"
+          python3 scripts/coletar.py --event-id "$EVENT_ID" --semana "$SEMANA" $EXTRA --matches $MATCHES
 
       - name: Log da API (se der erro)
         if: failure()
@@ -69,7 +74,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/rodada.json
+          git add data/
           git diff --cached --quiet && echo "Nada mudou" && exit 0
           git commit -m "$MSG"
           git push
